@@ -1,0 +1,1675 @@
+{
+  "run_id": "v3_B_base_openrouter_20260729T121428568773",
+  "version": "v3",
+  "artifact_version": "v3+pddd75c209c2e+tb3aa9cea47b6",
+  "prompt_hash": "ddd75c209c2ec2f588f7ce7255ee47ced904b5109526bd133c0b5cdc55ca7c2d",
+  "tools_hash": "b3aa9cea47b6d1db3fa9e2afd201167377551ef939d7a760b63f5354564fb5a1",
+  "phase": "B",
+  "suite": "base",
+  "provider": "openrouter",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+  "system_prompt": "D:\\Coding\\Vin Lab\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "D:\\Coding\\Vin Lab\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_base.json",
+  "execute_tools": false,
+  "dataset_id": "day04_v2_research_base",
+  "dataset_role": "base",
+  "description": "Core eval cho research agent: routing đúng tool + đúng args, hỏi lại khi thiếu (ask_user), xác nhận trước khi gửi, và xử lý câu ngoài phạm vi / không cần tool. Chấm trên tool_calls + args (subset). KHÔNG sửa file này — chỉ thêm case vào eval_group.json.",
+  "generated_at": "2026-07-29T12:14:28",
+  "summary": {
+    "total_cases": 20,
+    "measured_cases": 20,
+    "provider_error_cases": 0,
+    "passed_cases": 6,
+    "case_accuracy": 0.3,
+    "tool_routing_accuracy": 0.3,
+    "argument_accuracy": 0.3,
+    "multiturn_accuracy": 0.3333,
+    "failure_counts": {
+      "wrong_tool": 5,
+      "wrong_arg_value": 6,
+      "missing_info": 2,
+      "wrong_boundary": 1
+    },
+    "observed_mismatch_counts": {
+      "missing_tool_call": 14
+    }
+  },
+  "results": [
+    {
+      "id": "R01_user_tweets_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_user_tweets_name_to_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Tin CỦA một người nổi tiếng → map tên Sam Altman thành handle sama rồi gọi get_user_tweets."
+      },
+      "input": "Tweet mới nhất của Sam Altman là gì?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 1,
+              "screenname": "sama"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 1,
+            "screenname": "sama"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R02_search_tweets_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_search_tweets",
+        "difficulty": "easy",
+        "what_it_tests": "Tweet theo CHỦ ĐỀ → search_tweets, không phải get_user_tweets."
+      },
+      "input": "Mọi người đang bàn gì về GPT-5 trên Twitter?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "OpenAI",
+              "limit": 20
+            }
+          },
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 20,
+              "screenname": "sama"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "missing tool call social_search",
+          "extra tool call timeline",
+          "extra tool call timeline"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "OpenAI",
+            "limit": 20
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 20,
+            "screenname": "sama"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R03_web_news_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_web_news",
+        "difficulty": "medium",
+        "what_it_tests": "Tin thời sự trên web → web_search topic=news, timeframe=day (hôm nay)."
+      },
+      "input": "Tin tức AI hôm nay có gì nổi bật?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 10,
+              "screenname": "OpenAI"
+            }
+          },
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 10,
+              "screenname": "GoogleAI"
+            }
+          },
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "AnthropicAI",
+              "limit": 10
+            }
+          },
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "MetaAI",
+              "limit": 10
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "missing tool call lookup",
+          "extra tool call timeline",
+          "extra tool call timeline",
+          "extra tool call timeline",
+          "extra tool call timeline"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 10,
+            "screenname": "OpenAI"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 10,
+            "screenname": "GoogleAI"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "AnthropicAI",
+            "limit": 10
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "MetaAI",
+            "limit": 10
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R04_read_url_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_read_url",
+        "difficulty": "easy",
+        "what_it_tests": "Đã có link cụ thể → read_url, không phải web_search."
+      },
+      "input": "Tóm tắt bài này giúp mình: https://openai.com/blog/gpt-5",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://openai.com/blog/gpt-5"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Tôi không thể truy cập trực tiếp các URL bên ngoài như https://openai.com/blog/gpt-5. Bạn có thể copy nội dung bài viết hoặc cung cấp các điểm chính bạn muốn tóm tắt, tôi sẽ giúp bạn tóm tắt ngay."
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "missing tool call fetch",
+          "extra tool call send"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Tôi không thể truy cập trực tiếp các URL bên ngoài như https://openai.com/blog/gpt-5. Bạn có thể copy nội dung bài viết hoặc cung cấp các điểm chính bạn muốn tóm tắt, tôi sẽ giúp bạn tóm tắt ngay."
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R05_limit_arg",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_limit",
+        "difficulty": "easy",
+        "what_it_tests": "Trích đúng limit=10 từ '10 tweet'."
+      },
+      "input": "Lấy 10 tweet mới nhất của Elon Musk",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 10
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://api.twitter.com/2/users/by/username/elonmusk/tweets?max_results=10&tweet.fields=created_at,public_metrics,text,author_id,conversation_id,in_reply_to_user_id,referenced_tweets,lang,entities,context_annotations,possibly_sensitive,reply_settings,source,withheld,edit_history_tweet_ids,edit_controls,geo,attachments,promoted_metrics,organic_metrics,promoted_metrics,non_public_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted"
+            }
+          },
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://api.twitter.com/2/users/by/username/elonmusk?user.fields=id,name,username,created_at,description,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at"
+            }
+          },
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://api.twitter.com/2/users/by/username/elonmusk/tweets?max_results=10&tweet.fields=created_at,public_metrics,text,author_id,conversation_id,in_reply_to_user_id,referenced_tweets,lang,entities,context_annotations,possibly_sensitive,reply_settings,source,withheld,edit_history_tweet_ids,edit_controls,geo,attachments,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_m"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "missing tool call timeline",
+          "extra tool call fetch",
+          "extra tool call fetch",
+          "extra tool call fetch"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://api.twitter.com/2/users/by/username/elonmusk/tweets?max_results=10&tweet.fields=created_at,public_metrics,text,author_id,conversation_id,in_reply_to_user_id,referenced_tweets,lang,entities,context_annotations,possibly_sensitive,reply_settings,source,withheld,edit_history_tweet_ids,edit_controls,geo,attachments,promoted_metrics,organic_metrics,promoted_metrics,non_public_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://api.twitter.com/2/users/by/username/elonmusk?user.fields=id,name,username,created_at,description,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,protected,location,url,entities,url,description,created_at"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://api.twitter.com/2/users/by/username/elonmusk/tweets?max_results=10&tweet.fields=created_at,public_metrics,text,author_id,conversation_id,in_reply_to_user_id,referenced_tweets,lang,entities,context_annotations,possibly_sensitive,reply_settings,source,withheld,edit_history_tweet_ids,edit_controls,geo,attachments,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_metrics,organic_metrics,promoted_m"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R06_timeframe_arg",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_timeframe",
+        "difficulty": "medium",
+        "what_it_tests": "'tuần này' → timeframe=week."
+      },
+      "input": "Tin công nghệ trong tuần này",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Tôi không có quyền truy cập tin tức thời gian thực, nên không thể cung cấp tin tức công nghệ tuần này theo thời gian thực.  Bạn có thể tham khảo các nguồn tin công nghệ uy tín sau để cập nhật tin tức tuần này:"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "missing tool call lookup",
+          "extra tool call send"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Tôi không có quyền truy cập tin tức thời gian thực, nên không thể cung cấp tin tức công nghệ tuần này theo thời gian thực.  Bạn có thể tham khảo các nguồn tin công nghệ uy tín sau để cập nhật tin tức tuần này:"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R07_search_type_arg",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_search_type",
+        "difficulty": "medium",
+        "what_it_tests": "'phổ biến/top' → search_type=Top (không phải Latest)."
+      },
+      "input": "Cho mình các tweet phổ biến (top) nhất về OpenAI",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Top"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Mình không có quyền truy cập trực tiếp vào Twitter/X API để lấy tweet phổ biến theo thời gian thực. Tuy nhiên, mình có thể gợi ý một số cách để bạn tìm tweet phổ biến về OpenAI:"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "**Cách tìm tweet phổ biến về OpenAI:**"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "1. **Tìm kiếm trực tiếp trên X/Twitter:**"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "- Tìm kiếm: `OpenAI min_faves:1000` hoặc `OpenAI min_faves:5000` (lọc theo số like)"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "- Tìm kiếm: `from:OpenAI min_faves:10000` (tweet chính thức của OpenAI có nhiều like)"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "- Tìm kiếm: `OpenAI min_retweets:1000` (lọc theo retweet)"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "- Sử dụng Advanced Search trên Twitter: `from:OpenAI min_faves:5000 since:2024-01-01`"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": ""
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "2. **Tài khoản chính thức thường có tweet phổ biến:**"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "- @OpenAI (tài khoản chính thức)"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "- @sama (Sam Altman - CEO)"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "- @gdb (Greg Brockman - President)"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "- @OpenAIDevs (dành cho developers)"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "3. **Công cụ bên thứ ba (cần API key hoặc tài khoản):"
+            }
+          },
+          {
+            "name": "send",
+            "args": {
+              "text": "- **Twitter API v2** (cần developer account)"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "missing tool call social_search",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send",
+          "extra tool call send"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Mình không có quyền truy cập trực tiếp vào Twitter/X API để lấy tweet phổ biến theo thời gian thực. Tuy nhiên, mình có thể gợi ý một số cách để bạn tìm tweet phổ biến về OpenAI:"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "**Cách tìm tweet phổ biến về OpenAI:**"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "1. **Tìm kiếm trực tiếp trên X/Twitter:**"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "- Tìm kiếm: `OpenAI min_faves:1000` hoặc `OpenAI min_faves:5000` (lọc theo số like)"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "- Tìm kiếm: `from:OpenAI min_faves:10000` (tweet chính thức của OpenAI có nhiều like)"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "- Tìm kiếm: `OpenAI min_retweets:1000` (lọc theo retweet)"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "- Sử dụng Advanced Search trên Twitter: `from:OpenAI min_faves:5000 since:2024-01-01`"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": ""
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "2. **Tài khoản chính thức thường có tweet phổ biến:**"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "- @OpenAI (tài khoản chính thức)"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "- @sama (Sam Altman - CEO)"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "- @gdb (Greg Brockman - President)"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "- @OpenAIDevs (dành cho developers)"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "3. **Công cụ bên thứ ba (cần API key hoặc tài khoản):"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "send",
+          "args": {
+            "text": "- **Twitter API v2** (cần developer account)"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R08_out_of_scope",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope",
+        "difficulty": "easy",
+        "what_it_tests": "Câu ngoài phạm vi research → KHÔNG gọi tool, từ chối/định hướng."
+      },
+      "input": "Giải giúp mình bài toán tích phân: nguyên hàm của x^2 là gì?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Nguyên hàm của $x^2$ là:\n\n$$\\int x^2 \\, dx = \\frac{x^3}{3} + C$$\n\nTrong đó $C$ là hằng số tích phân (hằng số tùy ý).",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "R09_no_tool_capability",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "no_tool_meta",
+        "difficulty": "easy",
+        "what_it_tests": "Câu hỏi meta → trả lời thẳng, KHÔNG gọi tool."
+      },
+      "input": "Bạn là gì và làm được những gì?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Tôi là một trợ lý AI (AI assistant) được thiết kế để hỗ trợ bạn thực hiện nhiều loại tác vụ khác nhau. Dưới đây là những gì tôi có thể làm:\n\n## 🎯 **Những gì tôi làm được**\n\n### 💬 **Trò chuyện & Trả lời câu hỏi**\n- Trả lời câu hỏi kiến thức chung, khoa học, công nghệ, lịch sử, văn hóa...\n- Giải thích khái niệm, khái niệm kỹ thuật, khái niệm kinh doanh\n- Hỗ trợ học tập, nghiên cứu, viết bài, tóm tắt văn bản\n\n### 💻 **Lập trình & Kỹ thuật**\n- Viết, đọc, debug, refactor code (Python, JavaScript, TypeScript, Go, Rust, C++, v.v.)\n- Giải thích code, review code, tối ưu hiệu năng\n- Hỗ trợ DevOps, Docker, Kubernetes, CI/CD, cloud (AWS/GCP/Azure)\n- Database (SQL, NoSQL), thiết kế hệ thống, kiến trúc phần mềm\n\n### 📝 **Viết & Biên tập nội dung**\n- Viết bài viết, blog, email, báo cáo, tài liệu kỹ thuật\n- Tóm tắt văn bản dài, tóm tắt meeting, tóm tắt paper\n- Viết lại, viết lại theo phong cách, dịch thuật (Anh-Việt, Việt-Anh, v.v.)\n- Soạn thảo prompt, prompt engineering\n\n### 🔍 **Phân tích & Nghiên cứu**\n- Phân tích dữ liệu, xu hướng, so sánh công nghệ/sản phẩm\n- Tóm tắt paper khoa học, báo cáo tài chính, báo cáo kỹ thuật\n- Phân tích codebase, architecture review (khi bạn cung cấp code/context)\n\n### 🛠 **Hỗ trợ công cụ & Tự động hóa**\n- Viết script tự động hóa, script CLI, script xử lý dữ liệu\n- Hướng dẫn cấu hình tool, CI/CD, infrastructure as code\n- Hỗ trợ debugging, troubleshooting\n\n### 🌐 **Tìm kiếm & Tổng hợp thông tin** (khi bạn cung cấp ngữ cảnh/link)\n- Tóm tắt bài viết, paper, video (khi bạn cung cấp link/nội dung)\n- So sánh công nghệ, framework, công cụ\n- Tổng hợp thông tin từ nhiều nguồn bạn cung cấp\n\n---\n\n## ⚠️ **Giới hạn của tôi**\n\n| Không làm được | Giải pháp thay thế |\n|----------------|-------------------|\n| **Truy cập internet real-time** (browse web, gọi API, crawl) | Bạn cung cấp link/nội dung → tôi tóm tắt/phân tích |\n| **Chạy code, truy cập database, gọi API thật** | Tôi viết code/script, bạn chạy ở local/server |\n| **Truy cập file/hệ thống cục bộ của bạn** | Bạn copy/paste nội dung hoặc mô tả ngữ cảnh |\n| **Thực hiện hành động bên ngoài** (gửi email, deploy, commit git) | Tôi viết script/hướng dẫn, bạn thực thi |\n| **Nhớ ngữ cảnh giữa các phiên chat riêng biệt** | Mỗi phiên chat độc lập; bạn cung cấp ngữ cảnh cần thiết |\n\n---\n\n## 💡 **Cách làm việc hiệu quả nhất với tôi**\n\n1. **Cung cấp ngữ cảnh rõ ràng**: mục tiêu, ràng buộc, định dạng đầu ra mong muốn\n2. **Chia nhỏ tác vụ lớn** thành các bước nhỏ, xác nhận từng bước\n3. **Cung cấp code/context** khi hỏi về codebase/debug\n4. **Yêu cầu định dạng đầu ra** cụ thể (markdown, JSON, code, bullet points, bảng...)\n5. **Yêu cầu giải thích reasoning** nếu muốn hiểu lý do đằng sau giải pháp\n\n---\n\n## 🇻🇳 **Ngôn ngữ làm việc**\nTôi làm việc tốt nhất với **Tiếng Việt** và **Tiếng Anh**. Bạn có thể hỏi/trao đổi bằng tiếng Việt hoàn toàn tự nhiên.\n\n---\n\n**Bạn muốn bắt đầu với tác vụ gì hôm nay?** 🚀",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "R10_missing_handle",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Thiếu handle → ask_user, KHÔNG đoán bừa người nào."
+      },
+      "input": "Tóm tắt 5 tweet mới nhất giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Xin lỗi, tôi không có quyền truy cập vào Twitter/X API để lấy tweet mới nhất. Tôi không thể truy xuất dữ liệu thời gian thực từ Twitter/X."
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "missing_info",
+        "failures": [
+          "missing tool call clarify",
+          "extra tool call send"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Xin lỗi, tôi không có quyền truy cập vào Twitter/X API để lấy tweet mới nhất. Tôi không thể truy xuất dữ liệu thời gian thực từ Twitter/X."
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R11_missing_url",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_url",
+        "difficulty": "medium",
+        "what_it_tests": "Nói 'bài này' nhưng không có link → ask_user xin URL."
+      },
+      "input": "Tóm tắt bài viết này hộ mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Bạn chưa cung cấp bài viết hoặc đường link nào. Bạn vui lòng dán nội dung bài viết hoặc gửi link bài viết để mình tóm tắt giúp nhé."
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "missing_info",
+        "failures": [
+          "missing tool call clarify",
+          "extra tool call send"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Bạn chưa cung cấp bài viết hoặc đường link nào. Bạn vui lòng dán nội dung bài viết hoặc gửi link bài viết để mình tóm tắt giúp nhé."
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R12_confirm_before_send",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "confirm_before_write",
+        "difficulty": "medium",
+        "what_it_tests": "Hành động ghi (gửi) → xác nhận trước (ask_user yes_no), không tự gửi."
+      },
+      "input": "Đăng bản tin này lên Telegram giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Mình không có khả năng đăng trực tiếp lên Telegram. Bạn hãy cung cấp nội dung bản tin bạn muốn đăng, mình sẽ giúp bạn định dạng nội dung (Markdown/HTML cho Telegram) để bạn copy-paste lên kênh/nhóm của mình nhé."
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_boundary",
+        "failures": [
+          "missing tool call clarify",
+          "extra tool call send"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Mình không có khả năng đăng trực tiếp lên Telegram. Bạn hãy cung cấp nội dung bản tin bạn muốn đăng, mình sẽ giúp bạn định dạng nội dung (Markdown/HTML cho Telegram) để bạn copy-paste lên kênh/nhóm của mình nhé."
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R13_parallel_web_and_tweets",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "parallel_tool_calls",
+        "difficulty": "hard",
+        "what_it_tests": "Một request cần hai nguồn → gọi cả web_search và search_tweets; eval không phụ thuộc thứ tự tool call."
+      },
+      "input": "Tìm trên web tin AI hôm nay và tìm thêm tweet về AI.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "AI"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 10,
+              "screenname": "OpenAI"
+            }
+          },
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "GoogleAI",
+              "limit": 10
+            }
+          },
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 10,
+              "screenname": "AnthropicAI"
+            }
+          },
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "MetaAI",
+              "limit": 10
+            }
+          },
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "xai",
+              "limit": 10
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "missing tool call lookup",
+          "missing tool call social_search",
+          "extra tool call timeline",
+          "extra tool call timeline",
+          "extra tool call timeline",
+          "extra tool call timeline",
+          "extra tool call timeline"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 10,
+            "screenname": "OpenAI"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "GoogleAI",
+            "limit": 10
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 10,
+            "screenname": "AnthropicAI"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "MetaAI",
+            "limit": 10
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "xai",
+            "limit": 10
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "R14_out_of_scope_coding",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope_coding",
+        "difficulty": "easy",
+        "what_it_tests": "Câu coding ngoài phạm vi research/news → KHÔNG gọi tool."
+      },
+      "input": "Viết giúp mình một hàm Python tính Fibonacci bằng recursion.",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "```python\ndef fibonacci(n: int) -> int:\n    \"\"\"\n    Tính số Fibonacci thứ n bằng đệ quy.\n    \n    Args:\n        n: Chỉ số Fibonacci (n >= 0)\n        \n    Returns:\n        Số Fibonacci thứ n\n        \n    Raises:\n        ValueError: Nếu n < 0\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"n phải là số nguyên không âm\")\n    if n <= 1:\n        return n\n    return fibonacci(n - 1) + fibonacci(n - 2)\n\n\n# Ví dụ sử dụng\nif __name__ == \"__main__\":\n    for i in range(10):\n        print(f\"F({i}) = {fibonacci(i)}\")\n    \n    # Output:\n    # F(0) = 0\n    # F(1) = 1\n    # F(2) = 1\n    # F(3) = 2\n    # F(4) = 3\n    # F(5) = 5\n    # F(6) = 8\n    # F(7) = 13\n    # F(8) = 21\n    # F(9) = 34\n```\n\n---\n\n**Lưu ý về hiệu năng:**  \nĐệ quy đơn giản này có độ phức tạp **O(2ⁿ)** do tính toán lặp lại nhiều lần. Với `n` lớn (> 35-40) sẽ rất chậm.\n\n**Phiên bản tối ưu (memoization):**\n```python\nfrom functools import lru_cache\n\n@lru_cache(maxsize=None)\ndef fibonacci_memo(n: int) -> int:\n    if n < 0:\n        raise ValueError(\"n phải là số nguyên không âm\")\n    if n <= 1:\n        return n\n    return fibonacci_memo(n - 1) + fibonacci_memo(n - 2)\n```\nPhiên bản này giảm độ phức tạp xuống **O(n)** nhờ cache kết quả trung gian.",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "M01_clarify_then_fill",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_clarify_fill",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: carry limit=5 từ lượt 1 + map tên Elon Musk thành handle elonmusk từ lượt 2."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt 5 tweet mới nhất giúp mình"
+        },
+        {
+          "role": "user",
+          "content": "Của Elon Musk nhé"
+        },
+        {
+          "role": "user",
+          "content": "Giữ đúng 5 tweet, đừng đổi số lượng"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 5,
+              "screenname": "elonmusk"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 5,
+            "screenname": "elonmusk"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "M02_carryover_timeframe",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_carryover",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: chỉ xử lý latest turn, carry timeframe=day và topic=news, query robotics."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tin AI hôm nay có gì?"
+        },
+        {
+          "role": "user",
+          "content": "Còn về robotics thì sao?"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ tìm robotics thôi, vẫn là tin hôm nay"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robotics",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 10,
+              "screenname": "techcrunch"
+            }
+          },
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 10,
+              "screenname": "TheVerge"
+            }
+          },
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 10,
+              "screenname": "IEEESpectrum"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "missing tool call lookup",
+          "extra tool call timeline",
+          "extra tool call timeline",
+          "extra tool call timeline"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 10,
+            "screenname": "techcrunch"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 10,
+            "screenname": "TheVerge"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 10,
+            "screenname": "IEEESpectrum"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "M03_correction_handle",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_correction",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: map tên thường, sửa Sam Altman→Andrej Karpathy, dùng handle karpathy và limit=3."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tweet mới nhất của Sam Altman"
+        },
+        {
+          "role": "user",
+          "content": "À nhầm, của Andrej Karpathy"
+        },
+        {
+          "role": "user",
+          "content": "Lấy 3 tweet mới nhất nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://nitter.net/karpathy"
+            }
+          },
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://nitter.net/karpathy/rss"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "missing tool call timeline",
+          "extra tool call fetch",
+          "extra tool call fetch"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://nitter.net/karpathy"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://nitter.net/karpathy/rss"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "M04_clarify_then_url",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_clarify_url",
+        "difficulty": "medium",
+        "what_it_tests": "3 turns: sau khi được cung cấp URL, latest turn xác nhận chỉ đọc link đó → read_url đúng url."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt bài này hộ mình"
+        },
+        {
+          "role": "user",
+          "content": "https://anthropic.com/news/claude"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ đọc đúng link đó thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://anthropic.com/news/claude"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://anthropic.com/news/claude"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://anthropic.com/news/claude"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "M05_correction_limit",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_arg_correction",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: map tên Elon Musk, carry handle elonmusk, sửa limit 10→3."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 10 tweet mới nhất của Elon Musk"
+        },
+        {
+          "role": "user",
+          "content": "Cho mình 3 thôi"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn của Elon Musk nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://nitter.net/elonmusk/rss"
+            }
+          },
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://nitter.net/elonmusk/rss?since_id=1850000000000000000"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "missing tool call timeline",
+          "extra tool call fetch",
+          "extra tool call fetch"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://nitter.net/elonmusk/rss"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        },
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://nitter.net/elonmusk/rss?since_id=1850000000000000000"
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    },
+    {
+      "id": "M06_switch_tool",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_switch_tool",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: explicitly bỏ Twitter, chuyển sang web_search news, giữ chủ đề OpenAI."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Mọi người nói gì về OpenAI trên Twitter?"
+        },
+        {
+          "role": "user",
+          "content": "Bỏ Twitter, chuyển sang tìm trên web tin tức đi"
+        },
+        {
+          "role": "user",
+          "content": "Giữ chủ đề OpenAI"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "OpenAI",
+              "topic": "news"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "OpenAI",
+              "limit": 20
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "missing tool call lookup",
+          "extra tool call timeline"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "OpenAI",
+            "limit": 20
+          },
+          "result": {
+            "status": "skipped",
+            "reason": "routing_eval_does_not_execute_tools"
+          }
+        }
+      ]
+    }
+  ]
+}

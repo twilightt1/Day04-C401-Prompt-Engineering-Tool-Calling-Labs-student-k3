@@ -143,10 +143,13 @@ Không ghi đè `.env` đã có. Nếu dùng provider khác, thay `openrouter` t
 
 Run the fixed base eval as `v0`:
 
-Lưu ý: eval thực thi tool thật. Case Telegram trong base chỉ chấm `clarify(response_type="yes_no")`; để Telegram credentials unset trong mọi `run_eval`.
+Mặc định eval chỉ chấm routing/arguments và **không thực thi tool thật**, để tránh
+gửi dữ liệu, ghi file hoặc phụ thuộc credential ngoài ý muốn. Chỉ thêm
+`--execute-tools` khi chủ động chạy integration test trong môi trường đã cấu hình:
 
 ```bash
 python run_eval.py --provider openrouter --version v0 --suite base --eval-cases data/eval_base.json
+python run_eval.py --provider openrouter --version v0 --suite base --eval-cases data/eval_base.json --execute-tools
 ```
 
 Đọc các trường chính trong run JSON:
@@ -164,7 +167,8 @@ python run_eval.py --provider openrouter --version v0 --suite base --eval-cases 
 
 - `provider_error_cases` phải bằng `0`.
 - `measured_cases` phải bằng `total_cases`.
-- `tool_results` có error phải được review thủ công; PASS ở routing không có nghĩa là tool chạy đúng.
+- `tool_results` có error phải được review thủ công; `status=skipped` nghĩa là
+  routing eval an toàn, không phải bằng chứng integration.
 
 Run JSON cũng lưu `artifact_version`, `prompt_hash`, `tools_hash`, actual tool calls, và actual tool results. Đó là evidence chính cho report.
 
