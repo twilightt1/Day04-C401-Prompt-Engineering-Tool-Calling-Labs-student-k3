@@ -38,13 +38,39 @@ tools:
       required: [query]
 
   - name: lookup
-    description: "Tra cứu thông tin trên internet."
+    description: >-
+      Tra cứu thông tin trên web. DÙNG cho tin tức, sự kiện và kiến thức chung.
+      KHÔNG DÙNG cho bài đăng mạng xã hội (dùng social_search hoặc timeline) hay
+      để đọc một URL cụ thể (dùng fetch). Ngữ cảnh về thời gian và loại nội dung
+      phải đặt vào timeframe và topic, không nhét vào query.
     parameters:
       type: object
       properties:
-        query: {type: string, default: "", description: "Truy vấn"}
-        topic: {type: string, enum: [general, news], default: "general", description: "Phân loại"}
-        timeframe: {type: string, enum: [day, week, month, year], default: "week", description: "Khoảng thời gian"}
+        query:
+          type: string
+          default: ""
+          description: >-
+            Chỉ từ khóa chủ đề cốt lõi, càng ngắn càng tốt. KHÔNG thêm từ chỉ
+            thời gian ("hôm nay", "tuần này", "today") và KHÔNG thêm từ chỉ loại
+            tin ("tin tức", "news") - đã có timeframe và topic lo phần đó.
+            Ví dụ: "Tin AI hôm nay có gì?" thì query là "AI", không phải
+            "AI news today".
+        topic:
+          type: string
+          enum: [general, news]
+          default: "general"
+          description: >-
+            Đặt "news" khi người dùng hỏi về tin tức, thời sự, diễn biến mới,
+            hoặc "có gì mới/nổi bật". Đặt "general" cho kiến thức chung không
+            gắn với dòng thời gian. Luôn set field này một cách có chủ đích,
+            đừng bỏ trống khi câu hỏi rõ ràng là về tin tức.
+        timeframe:
+          type: string
+          enum: [day, week, month, year]
+          default: "week"
+          description: >-
+            Quy đổi mốc tương đối trong câu hỏi: "hôm nay"/"hiện tại" -> day;
+            "tuần này" -> week; "tháng này" -> month; "năm nay" -> year.
         max_results: {type: integer, default: 5, description: "Số kết quả"}
       required: [query]
 
