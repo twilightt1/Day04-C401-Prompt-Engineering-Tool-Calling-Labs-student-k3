@@ -1,0 +1,465 @@
+[
+  {
+    "id": "R12_confirm_before_send",
+    "phase": "B",
+    "suite": "base",
+    "case_suite": "base",
+    "is_multiturn": false,
+    "metadata": {
+      "skill": "confirm_before_write",
+      "difficulty": "medium",
+      "what_it_tests": "Hành động ghi (gửi) → xác nhận trước (ask_user yes_no), không tự gửi."
+    },
+    "input": "Đăng bản tin này lên Telegram giúp mình",
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "clarify",
+          "args": {
+            "response_type": "yes_no"
+          }
+        }
+      ]
+    },
+    "result": {
+      "passed": false,
+      "routing_correct": true,
+      "args_correct": false,
+      "actual_tool_calls": [
+        {
+          "name": "clarify",
+          "args": {
+            "question": "Bạn muốn gửi nội dung gì lên Telegram? Hiện tại chưa có bản tin nào trong cuộc hội thoại này.",
+            "response_type": "text"
+          }
+        }
+      ],
+      "actual_text": null,
+      "case_failure_type": "wrong_boundary",
+      "observed_mismatch": "wrong_arg_value",
+      "failure_type": "wrong_boundary",
+      "failures": [
+        "response_type: expected 'yes_no', got 'text'"
+      ]
+    },
+    "tool_results": [
+      {
+        "tool": "clarify",
+        "args": {
+          "question": "Bạn muốn gửi nội dung gì lên Telegram? Hiện tại chưa có bản tin nào trong cuộc hội thoại này.",
+          "response_type": "text"
+        },
+        "result": {
+          "tool": "ask_user",
+          "question": "Bạn muốn gửi nội dung gì lên Telegram? Hiện tại chưa có bản tin nào trong cuộc hội thoại này.",
+          "response_type": "text",
+          "options": [],
+          "awaiting_user": true
+        }
+      }
+    ]
+  },
+  {
+    "id": "M05_correction_limit",
+    "phase": "B",
+    "suite": "base",
+    "case_suite": "base",
+    "is_multiturn": true,
+    "metadata": {
+      "skill": "multiturn_arg_correction",
+      "difficulty": "hard",
+      "what_it_tests": "3 turns: map tên Elon Musk, carry handle elonmusk, sửa limit 10→3."
+    },
+    "input": [
+      {
+        "role": "user",
+        "content": "Lấy 10 tweet mới nhất của Elon Musk"
+      },
+      {
+        "role": "user",
+        "content": "Cho mình 3 thôi"
+      },
+      {
+        "role": "user",
+        "content": "Vẫn của Elon Musk nhé"
+      }
+    ],
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "timeline",
+          "args": {
+            "screenname": "elonmusk",
+            "limit": 3
+          }
+        }
+      ]
+    },
+    "result": {
+      "passed": false,
+      "routing_correct": false,
+      "args_correct": false,
+      "actual_tool_calls": [
+        {
+          "name": "fetch",
+          "args": {
+            "url": "https://api.twitter.com/2/users/by/username/elonmusk?user.fields=public_metrics,created_at,description,verified,profile_image_url,verified_type,username,name,location,url,protected,withheld,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,creat"
+          }
+        },
+        {
+          "name": "fetch",
+          "args": {
+            "url": "https://api.twitter.com/2/users/by/username/elonmusk?user.fields=public_metrics,created_at,description,verified,profile_image_url,verified_type,username,name,location,url,protected,withheld,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,creat"
+          }
+        }
+      ],
+      "actual_text": null,
+      "case_failure_type": "wrong_arg_value",
+      "observed_mismatch": "missing_tool_call",
+      "failure_type": "wrong_arg_value",
+      "failures": [
+        "missing tool call timeline",
+        "extra tool call fetch",
+        "extra tool call fetch"
+      ]
+    },
+    "tool_results": [
+      {
+        "tool": "fetch",
+        "args": {
+          "url": "https://api.twitter.com/2/users/by/username/elonmusk?user.fields=public_metrics,created_at,description,verified,profile_image_url,verified_type,username,name,location,url,protected,withheld,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,creat"
+        },
+        "result": {
+          "tool": "read_url",
+          "error": "HTTPError",
+          "message": "403 Client Error: Forbidden for url: https://api.firecrawl.dev/v1/scrape"
+        }
+      },
+      {
+        "tool": "fetch",
+        "args": {
+          "url": "https://api.twitter.com/2/users/by/username/elonmusk?user.fields=public_metrics,created_at,description,verified,profile_image_url,verified_type,username,name,location,url,protected,withheld,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,creat"
+        },
+        "result": {
+          "tool": "read_url",
+          "error": "HTTPError",
+          "message": "403 Client Error: Forbidden for url: https://api.firecrawl.dev/v1/scrape"
+        }
+      }
+    ]
+  },
+  {
+    "id": "M06_switch_tool",
+    "phase": "B",
+    "suite": "base",
+    "case_suite": "base",
+    "is_multiturn": true,
+    "metadata": {
+      "skill": "multiturn_switch_tool",
+      "difficulty": "hard",
+      "what_it_tests": "3 turns: explicitly bỏ Twitter, chuyển sang web_search news, giữ chủ đề OpenAI."
+    },
+    "input": [
+      {
+        "role": "user",
+        "content": "Mọi người nói gì về OpenAI trên Twitter?"
+      },
+      {
+        "role": "user",
+        "content": "Bỏ Twitter, chuyển sang tìm trên web tin tức đi"
+      },
+      {
+        "role": "user",
+        "content": "Giữ chủ đề OpenAI"
+      }
+    ],
+    "expect": {
+      "tool_calls": [
+        {
+          "name": "lookup",
+          "args": {
+            "query": "OpenAI",
+            "topic": "news"
+          }
+        }
+      ]
+    },
+    "result": {
+      "passed": false,
+      "routing_correct": false,
+      "args_correct": false,
+      "actual_tool_calls": [
+        {
+          "name": "timeline",
+          "args": {
+            "screenname": "OpenAI",
+            "limit": 20
+          }
+        }
+      ],
+      "actual_text": null,
+      "case_failure_type": "wrong_tool",
+      "observed_mismatch": "missing_tool_call",
+      "failure_type": "wrong_tool",
+      "failures": [
+        "missing tool call lookup",
+        "extra tool call timeline"
+      ]
+    },
+    "tool_results": [
+      {
+        "tool": "timeline",
+        "args": {
+          "screenname": "OpenAI",
+          "limit": 20
+        },
+        "result": {
+          "tool": "get_user_tweets",
+          "screenname": "OpenAI",
+          "items": [
+            {
+              "title": "We quietly released the open-source Codex Security CLI, but Hacker News found it before we had a chance to share it here",
+              "summary": "We quietly released the open-source Codex Security CLI, but Hacker News found it before we had a chance to share it here...\n\nYou can now use it to scan repositories, track findings across runs, verify fixes, and add security checks to CI/CD. \n\nThis is an early release, and we're listening to your feedback as we continue improving it.",
+              "url": "https://x.com/OpenAI/status/2082263717916586117",
+              "source": "@OpenAI",
+              "date": "Wed Jul 29 00:35:31 +0000 2026",
+              "metrics": {
+                "favorites": 6075,
+                "retweets": 517,
+                "views": "394325"
+              }
+            },
+            {
+              "title": "Install the open-source Codex Security CLI,:",
+              "summary": "Install the open-source Codex Security CLI,:\nnpm install @OpenAI/codex-security\n\nOr start with:\n\nnpx @OpenAI/codex-security@latest --help\n\nNPM: https://t.co/6HyE4QU7rv",
+              "url": "https://x.com/OpenAI/status/2082263719460094127",
+              "source": "@OpenAI",
+              "date": "Wed Jul 29 00:35:31 +0000 2026",
+              "metrics": {
+                "favorites": 293,
+                "retweets": 18,
+                "views": "69609"
+              }
+            },
+            {
+              "title": "Source + docs: https://t.co/vdxdROAl9O",
+              "summary": "Source + docs: https://t.co/vdxdROAl9O",
+              "url": "https://x.com/OpenAI/status/2082263720777101505",
+              "source": "@OpenAI",
+              "date": "Wed Jul 29 00:35:32 +0000 2026",
+              "metrics": {
+                "favorites": 241,
+                "retweets": 19,
+                "views": "58701"
+              }
+            },
+            {
+              "title": "At the core of our mission is working through how to ensure increasingly powerful AI benefits everyone. ",
+              "summary": "At the core of our mission is working through how to ensure increasingly powerful AI benefits everyone. \n\nWe believe that, at some point in the future, AI acceleration for frontier model development may be so high that the world will need to pace the rate of AI advancement. \n\nWe hope to contribute to work led by the U.S. government, alongside other labs and the open-source community, to develop the tools and mechanisms that could make that possible.\n\nhttps://t.co/pMCtiQjMoo",
+              "url": "https://x.com/OpenAI/status/2082208694142730340",
+              "source": "@OpenAI",
+              "date": "Tue Jul 28 20:56:52 +0000 2026",
+              "metrics": {
+                "favorites": 2846,
+                "retweets": 319,
+                "views": "749551"
+              }
+            },
+            {
+              "title": "Coding agents are helping scientists spend more time advancing research, taking on everything from routine maintenance a",
+              "summary": "Coding agents are helping scientists spend more time advancing research, taking on everything from routine maintenance and targeted optimization to complete redesigns and new systems.\n\nWhile agents can reliably execute on ambitious projects, researchers must still define the scientific questions, verify results, and take a stance on long-term ownership.",
+              "url": "https://x.com/OpenAI/status/2082152074071228702",
+              "source": "@OpenAI",
+              "date": "Tue Jul 28 17:11:53 +0000 2026",
+              "metrics": {
+                "favorites": 2331,
+                "retweets": 211,
+                "views": "223198"
+              }
+            },
+            {
+              "title": "Across eight case studies spanning industry and academia, we explore what this shift means for scientific computing—and ",
+              "summary": "Across eight case studies spanning industry and academia, we explore what this shift means for scientific computing—and why human verification, stewardship, and long-term maintenance matter.  https://t.co/LmZurP9NME",
+              "url": "https://x.com/OpenAI/status/2082152075778293831",
+              "source": "@OpenAI",
+              "date": "Tue Jul 28 17:11:54 +0000 2026",
+              "metrics": {
+                "favorites": 197,
+                "retweets": 15,
+                "views": "54529"
+              }
+            },
+            {
+              "title": "We're opening applications for the OpenAI Student Collective—a program for undergraduate Campus Leads bringing AI innova",
+              "summary": "We're opening applications for the OpenAI Student Collective—a program for undergraduate Campus Leads bringing AI innovation to their campuses.\n\nCampus Leads will work directly with OpenAI and receive hands-on training, funding, credits, swag, and access to a global community of peers.",
+              "url": "https://x.com/OpenAI/status/2082146058017321257",
+              "source": "@OpenAI",
+              "date": "Tue Jul 28 16:47:59 +0000 2026",
+              "metrics": {
+                "favorites": 2379,
+                "retweets": 209,
+                "views": "379377"
+              }
+            },
+            {
+              "title": "Apply here: https://t.co/ZhfozrV19V",
+              "summary": "Apply here: https://t.co/ZhfozrV19V",
+              "url": "https://x.com/OpenAI/status/2082146059271417879",
+              "source": "@OpenAI",
+              "date": "Tue Jul 28 16:47:59 +0000 2026",
+              "metrics": {
+                "favorites": 215,
+                "retweets": 12,
+                "views": "64974"
+              }
+            },
+            {
+              "title": "RT @gdb: Last week, we made ChatGPT Work available to enterprises. It's an awesome product.",
+              "summary": "RT @gdb: Last week, we made ChatGPT Work available to enterprises. It's an awesome product.\n\nSo for ChatGPT Enterprise customers, enroll by…",
+              "url": "https://x.com/OpenAI/status/2081882249839157545",
+              "source": "@OpenAI",
+              "date": "Mon Jul 27 23:19:42 +0000 2026",
+              "metrics": {
+                "favorites": 0,
+                "retweets": 70,
+                "views": "41882"
+              }
+            },
+            {
+              "title": "At a small business, the person closest to a problem is often the one who has to solve it—even when it falls outside the",
+              "summary": "At a small business, the person closest to a problem is often the one who has to solve it—even when it falls outside their job description.\n\nWe studied how AI is becoming powerful generalist tool for small teams, helping them work across functions. https://t.co/oE8HcC3aGf",
+              "url": "https://x.com/OpenAI/status/2081833350323720219",
+              "source": "@OpenAI",
+              "date": "Mon Jul 27 20:05:23 +0000 2026",
+              "metrics": {
+                "favorites": 2528,
+                "retweets": 200,
+                "views": "313980"
+              }
+            },
+            {
+              "title": "https://t.co/5q0d6l8JPN",
+              "summary": "https://t.co/5q0d6l8JPN",
+              "url": "https://x.com/OpenAI/status/2081833351678406878",
+              "source": "@OpenAI",
+              "date": "Mon Jul 27 20:05:24 +0000 2026",
+              "metrics": {
+                "favorites": 153,
+                "retweets": 10,
+                "views": "72791"
+              }
+            },
+            {
+              "title": "GPT-Live in ChatGPT Voice is now available to Edu, Business, and Enterprise plans globally.",
+              "summary": "GPT-Live in ChatGPT Voice is now available to Edu, Business, and Enterprise plans globally.",
+              "url": "https://x.com/OpenAI/status/2081794871795589485",
+              "source": "@OpenAI",
+              "date": "Mon Jul 27 17:32:29 +0000 2026",
+              "metrics": {
+                "favorites": 2218,
+                "retweets": 158,
+                "views": "439706"
+              }
+            },
+            {
+              "title": "We're partnering with @huggingface to investigate an unprecedented security incident.  ",
+              "summary": "We're partnering with @huggingface to investigate an unprecedented security incident.  \n\nCyber-capable OpenAI models compromised Hugging Face production during a benchmark evaluation.\n\nSharing preliminary findings to help defenders understand emerging risks:\n\nhttps://t.co/CIor15y9xk",
+              "url": "https://x.com/OpenAI/status/2079658951264920020",
+              "source": "@OpenAI",
+              "date": "Tue Jul 21 20:05:06 +0000 2026",
+              "metrics": {
+                "favorites": 20812,
+                "retweets": 3251,
+                "views": "30784639"
+              }
+            },
+            {
+              "title": "We recognize there are a lot of questions and speculative details circulating related to the Hugging Face incident. ",
+              "summary": "We recognize there are a lot of questions and speculative details circulating related to the Hugging Face incident. \n\nThis is an unprecedented incident, and we think it marks an important moment for AI safety. \n\nWe are still conducting a thorough review along with external advisors and with oversight from our Safety and Security Committee. \n\nOnce the review is complete, we plan to publish a technical report of our learnings in the coming weeks.",
+              "url": "https://x.com/OpenAI/status/2080815626113954288",
+              "source": "@OpenAI",
+              "date": "Sat Jul 25 00:41:19 +0000 2026",
+              "metrics": {
+                "favorites": 1519,
+                "retweets": 119,
+                "views": "349099"
+              }
+            },
+            {
+              "title": "ChatGPT Voice is now in the desktop app.",
+              "summary": "ChatGPT Voice is now in the desktop app.\n\nControl your computer and direct multiple agents running  in ChatGPT Work or Codex, using just your voice. \n\nIt's powered by GPT-Live, so it can speak, listen, and coordinate work in the app at the same time.\n\nRolling out globally today on macOS and Windows to Plus, Pro, Business, Edu, and Enterprise plans.",
+              "url": "https://x.com/OpenAI/status/2080378182469857576",
+              "source": "@OpenAI",
+              "date": "Thu Jul 23 19:43:04 +0000 2026",
+              "metrics": {
+                "favorites": 12894,
+                "retweets": 1383,
+                "views": "4468928"
+              }
+            },
+            {
+              "title": "You can also use ChatGPT Voice in Codex from the iOS app with paired remote access. Android support is coming soon.",
+              "summary": "You can also use ChatGPT Voice in Codex from the iOS app with paired remote access. Android support is coming soon.",
+              "url": "https://x.com/OpenAI/status/2080392280549253392",
+              "source": "@OpenAI",
+              "date": "Thu Jul 23 20:39:06 +0000 2026",
+              "metrics": {
+                "favorites": 828,
+                "retweets": 35,
+                "views": "171422"
+              }
+            },
+            {
+              "title": "Health in ChatGPT is starting to roll out to U.S. users.",
+              "summary": "Health in ChatGPT is starting to roll out to U.S. users.\n\nYou can securely connect Apple Health and supported medical records to understand your information in context, track what has changed, and have more informed conversations.\n\nhttps://t.co/W2E6oT8c91",
+              "url": "https://x.com/OpenAI/status/2080339982288568709",
+              "source": "@OpenAI",
+              "date": "Thu Jul 23 17:11:17 +0000 2026",
+              "metrics": {
+                "favorites": 4583,
+                "retweets": 394,
+                "views": "1233510"
+              }
+            },
+            {
+              "title": "We built this experience based on feedback from early testers and physicians.",
+              "summary": "We built this experience based on feedback from early testers and physicians.\n\nWith your permission, ChatGPT can use relevant context you’ve connected in Health across your conversations — to help you compare a new result with prior tests, summarize changes since your last appointment, or explore how your sleep and activity relate.\n\nConnected medical records and Apple Health information are not used to train foundation models or target ads.\n\nIn the sidebar, Health is your home base for connecting and managing information, browsing records, and revisiting health chats.",
+              "url": "https://x.com/OpenAI/status/2080339983962181983",
+              "source": "@OpenAI",
+              "date": "Thu Jul 23 17:11:17 +0000 2026",
+              "metrics": {
+                "favorites": 656,
+                "retweets": 28,
+                "views": "135893"
+              }
+            },
+            {
+              "title": "More than 300 million people turn to ChatGPT with health-related questions each week—and we’re continuing to improve how",
+              "summary": "More than 300 million people turn to ChatGPT with health-related questions each week—and we’re continuing to improve how our models respond.\n\nWe work with hundreds of physicians around the world to measure and improve accuracy, safety, communication, context awareness, completeness, and appropriate escalation.\n\nGPT‑5.5 Instant brought frontier health intelligence to all free users. GPT‑5.6 Sol builds on that progress with even stronger performance on more complex questions.",
+              "url": "https://x.com/OpenAI/status/2080339986717790394",
+              "source": "@OpenAI",
+              "date": "Thu Jul 23 17:11:18 +0000 2026",
+              "metrics": {
+                "favorites": 508,
+                "retweets": 28,
+                "views": "101479"
+              }
+            },
+            {
+              "title": "New for enterprises: OpenAI Presence helps companies deploy trusted voice and chat agents across customer and internal w",
+              "summary": "New for enterprises: OpenAI Presence helps companies deploy trusted voice and chat agents across customer and internal workflows.\n\nAI agents can answer questions, use company systems, take approved actions, and escalate to people when needed—while improving over time.\n\nOpenAI Presence is available to eligible enterprise customers through a limited general availability program.\n\nhttps://t.co/aooz6Vzljd",
+              "url": "https://x.com/OpenAI/status/2079916436232036614",
+              "source": "@OpenAI",
+              "date": "Wed Jul 22 13:08:16 +0000 2026",
+              "metrics": {
+                "favorites": 2217,
+                "retweets": 232,
+                "views": "541813"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

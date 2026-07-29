@@ -1,0 +1,2302 @@
+{
+  "run_id": "v0_B_base_openrouter_20260729T120548265029",
+  "version": "v0",
+  "artifact_version": "v0+p1d5027fa2d9f+tddedcb8d061b",
+  "prompt_hash": "1d5027fa2d9f71da6e9b8647543ef0d4fc1775c5796188307a11cc6487d4dcc8",
+  "tools_hash": "ddedcb8d061b2d652e2408a8b456cad6438535d33eaa05e408ae5a083b84db1b",
+  "phase": "B",
+  "suite": "base",
+  "provider": "openrouter",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+  "system_prompt": "C:\\Users\\Tunnne\\Downloads\\code\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Tunnne\\Downloads\\code\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_base.json",
+  "dataset_id": "day04_v2_research_base",
+  "dataset_role": "base",
+  "description": "Core eval cho research agent: routing đúng tool + đúng args, hỏi lại khi thiếu (ask_user), xác nhận trước khi gửi, và xử lý câu ngoài phạm vi / không cần tool. Chấm trên tool_calls + args (subset). KHÔNG sửa file này — chỉ thêm case vào eval_group.json.",
+  "generated_at": "2026-07-29T12:05:48",
+  "summary": {
+    "total_cases": 20,
+    "measured_cases": 20,
+    "provider_error_cases": 0,
+    "passed_cases": 17,
+    "case_accuracy": 0.85,
+    "tool_routing_accuracy": 0.9,
+    "argument_accuracy": 0.85,
+    "multiturn_accuracy": 0.6667,
+    "failure_counts": {
+      "wrong_boundary": 1,
+      "wrong_arg_value": 1,
+      "wrong_tool": 1
+    },
+    "observed_mismatch_counts": {
+      "wrong_arg_value": 1,
+      "missing_tool_call": 2
+    }
+  },
+  "results": [
+    {
+      "id": "R01_user_tweets_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_user_tweets_name_to_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Tin CỦA một người nổi tiếng → map tên Sam Altman thành handle sama rồi gọi get_user_tweets."
+      },
+      "input": "Tweet mới nhất của Sam Altman là gì?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "sama"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 5,
+              "screenname": "sama"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 5,
+            "screenname": "sama"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "sama",
+            "items": [
+              {
+                "title": "wrong",
+                "summary": "wrong",
+                "url": "https://x.com/sama/status/2081832600591892712",
+                "source": "@sama",
+                "date": "Mon Jul 27 20:02:25 +0000 2026",
+                "metrics": {
+                  "favorites": 11199,
+                  "retweets": 280,
+                  "views": "2155583"
+                }
+              },
+              {
+                "title": "agreed feels big, i want a new kind of computer",
+                "summary": "agreed feels big, i want a new kind of computer",
+                "url": "https://x.com/sama/status/2081513071135346814",
+                "source": "@sama",
+                "date": "Sun Jul 26 22:52:43 +0000 2026",
+                "metrics": {
+                  "favorites": 8126,
+                  "retweets": 284,
+                  "views": "2394819"
+                }
+              },
+              {
+                "title": "chatgpt work is remarkable, and \"work\" undersells it.",
+                "summary": "chatgpt work is remarkable, and \"work\" undersells it.\n\nfrom my phone i sent:\n\n\"use all my chat history to figure out ideas for a long weekend trip with 8 friends, plan the best three options, make a full-stack site where the 9 of us can coordinate on what we would want to do in each place and decide where to go, and then after we get to group agreement make reservations. draft an email in my gmail i can send out to my friends when the site is ready.\"\n\nit...just worked.",
+                "url": "https://x.com/sama/status/2081396796174282900",
+                "source": "@sama",
+                "date": "Sun Jul 26 15:10:41 +0000 2026",
+                "metrics": {
+                  "favorites": 17409,
+                  "retweets": 573,
+                  "views": "3575681"
+                }
+              },
+              {
+                "title": "RT @gdb: stories like this should be told more",
+                "summary": "RT @gdb: stories like this should be told more",
+                "url": "https://x.com/sama/status/2081030523229728800",
+                "source": "@sama",
+                "date": "Sat Jul 25 14:55:15 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 170,
+                  "views": "44777"
+                }
+              },
+              {
+                "title": "RT @pashmerepat: A billion users can now create and publish websites from their phones with ChatGPT Work. ",
+                "summary": "RT @pashmerepat: A billion users can now create and publish websites from their phones with ChatGPT Work. \n\nBut most people don’t really gr…",
+                "url": "https://x.com/sama/status/2080713767122591863",
+                "source": "@sama",
+                "date": "Fri Jul 24 17:56:34 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 118,
+                  "views": "47754"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R02_search_tweets_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_search_tweets",
+        "difficulty": "easy",
+        "what_it_tests": "Tweet theo CHỦ ĐỀ → search_tweets, không phải get_user_tweets."
+      },
+      "input": "Mọi người đang bàn gì về GPT-5 trên Twitter?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "GPT-5",
+              "search_type": "Latest",
+              "limit": 10
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "GPT-5",
+            "search_type": "Latest",
+            "limit": 10
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "GPT-5",
+            "search_type": "Latest",
+            "items": [
+              {
+                "title": "Did mythos/fable 5 beat GPT-5.5?",
+                "summary": "Did mythos/fable 5 beat GPT-5.5?\n\nPlease tell me because I don't use anything from openai ?",
+                "url": "https://x.com/sattyyouneed/status/2082330116320120919",
+                "source": "@sattyyouneed",
+                "date": "Wed Jul 29 04:59:22 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "What? The difference between Opus 4.5 and Fable or GPT-5 and 5.6 is huge. Anyone working with these models every day can",
+                "summary": "What? The difference between Opus 4.5 and Fable or GPT-5 and 5.6 is huge. Anyone working with these models every day can tell. Saying anything else is just nonsense.",
+                "url": "https://x.com/dl_insider/status/2082330003115585990",
+                "source": "@dl_insider",
+                "date": "Wed Jul 29 04:58:55 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "2"
+                }
+              },
+              {
+                "title": "ready Chat GPT Plus Full Garansi",
+                "summary": "ready Chat GPT Plus Full Garansi\n\nfastresp on wa🖤\n\nsharing 5u\n1 hari 10k\n3 hari 13k\n5 hari 17k\n7 hari 20k\n1 bulan 40k\n\nsharing 2u\n1 hari 17k\n3 hari 22k\n5 hari 28k\n7 hari 35k\n1 bulan 75k\n\nprivate\n1 hari 25k\n3 hari 40k\n5 hari 50k\n7 hari 60k\n1 bulan 130k\n\n#zonauangㅤ",
+                "url": "https://x.com/arabellaswanluv/status/2082329317951078682",
+                "source": "@arabellaswanluv",
+                "date": "Wed Jul 29 04:56:11 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "23"
+                }
+              },
+              {
+                "title": "OpenAIのAIエージェント「Codex(ChatGPTワーク)」の利用制限がリセットされ、GPT-5.6 Solの利用効率が改善されました(一部複雑なタスクで利用枠を想定以上に消費していたようです)。",
+                "summary": "OpenAIのAIエージェント「Codex(ChatGPTワーク)」の利用制限がリセットされ、GPT-5.6 Solの利用効率が改善されました(一部複雑なタスクで利用枠を想定以上に消費していたようです)。\n\nまた、一時停止していた5時間の利用制限も明日(現地時間)から再開される予定のようです。\nhttps://t.co/SNkjG2z33R",
+                "url": "https://x.com/AIMIRAI46487/status/2082328486031798594",
+                "source": "@AIMIRAI46487",
+                "date": "Wed Jul 29 04:52:53 +0000 2026",
+                "metrics": {
+                  "favorites": 2,
+                  "retweets": 0,
+                  "views": "121"
+                }
+              },
+              {
+                "title": "OpenAI 重置了 ChatGPT Work 和 Codex 用户的使用额度。此前暂停的 5 小时使用限制也将在明天恢复。",
+                "summary": "OpenAI 重置了 ChatGPT Work 和 Codex 用户的使用额度。此前暂停的 5 小时使用限制也将在明天恢复。\n\n不少用户发现，GPT-5.6 Sol 消耗额度比预期更快。原因不是订阅额度缩水，而是模型更愿意长时间工作，也会调用更多工具和子 Agent。\n\n尤其在等待工具执行、同时继续处理其他任务时，Sol 会产生更多工具调用、响应和缓存 Token。复杂任务和大量网页搜索因此更容易迅速耗尽额度。\n\nOpenAI 已优化相关机制。正常使用下，额度预计可多用约 18%。",
+                "url": "https://x.com/0xLogicrw/status/2082327704544928123",
+                "source": "@0xLogicrw",
+                "date": "Wed Jul 29 04:49:47 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "90"
+                }
+              },
+              {
+                "title": "Verdict:",
+                "summary": "Verdict:\n\nI fed this prompt to GPT 5.6 Sol Pro Fast Max:\n\n\"For each of the following auxiliary model helper tasks inside of Hermes, (Vision, Web Extract, Compression, Skills Hub, Approval, MCP, Title Gen, Curator), decipher which model (from this following list only:\n» z-ai/glm-5.2\n» x-ai/grok-4.5\n» tencent/hy3\n» anthropic/claude-opus-4.8\n» anthropic/claude-sonnet-5\n» anthropic/claude-haiku-4.5\n» deepseek/deepseek-v4-pro\n» deepseek/deepseek-v4-flash\n» qwen/qwen3.7-max\n» moonshotai/kimi-k3\n» minimax/minimax-m3\n» nvidia/nemotron-3-super-120b-a12b\n» google/gemini-3.6-flash\n» openai/gpt-5.6-sol-pro\n» openai/gpt-5.6-terra-pro\n» openai/gpt-5.6-luna-pro\n)\nis best at getting each corresponding job done, excellently, competently, without fumbling, and also without being overkill, because we want to optimize cost. Do not make assumptions. Verify via Artificial Analysis website, and/or other means, which model does which task best. Deliver results as a spreadsheet with following columns:\n» the aux helper task,\n» top suggested model for it,\n» description as to why it is best choice,\n» estimated amount of tokens an average task would accrue,\n» its cost in USD with that model,\n» and how much money it saves, in USD, by not having done it with Fable5 (at $10 / $50, for input/output, per 1M tokens, respectively).\"\n· · · · · ·\nTLDR: I spent way more money than I'd like to admit on this prompt, simply to learn that this is a hyper-optimization, because even using Fable5 for all of them would have saved $1.75🫠\n\nNonetheless, these are the optimally capable models for each aux tool, if you don't want to \"overspend\" lol.🥂",
+                "url": "https://x.com/nimabuyin/status/2082326413986943222",
+                "source": "@nimabuyin",
+                "date": "Wed Jul 29 04:44:39 +0000 2026",
+                "metrics": {
+                  "favorites": 1,
+                  "retweets": 0,
+                  "views": "32"
+                }
+              },
+              {
+                "title": "Codexユーザーの皆さん",
+                "summary": "Codexユーザーの皆さん\n【朗報】\n今日もリセット😊\nGPT-5.6 Solのレート消費が改善したようで気にせず稼働できる\n\n【悲報】\n明日から5時間リミット再開😂",
+                "url": "https://x.com/takkatw/status/2082326073535353273",
+                "source": "@takkatw",
+                "date": "Wed Jul 29 04:43:18 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "147"
+                }
+              },
+              {
+                "title": "@pankajkumar_dev Weird naming, but cool!",
+                "summary": "@pankajkumar_dev Weird naming, but cool!\n\nI don’t think it’ll rival Opus 5 though from what I’ve seen and experienced with GPT 5.6, but we’ll see.",
+                "url": "https://x.com/minkrov/status/2082325743074230616",
+                "source": "@minkrov",
+                "date": "Wed Jul 29 04:41:59 +0000 2026",
+                "metrics": {
+                  "favorites": 1,
+                  "retweets": 0,
+                  "views": "10"
+                }
+              },
+              {
+                "title": "Patience Cave announced MazeBench, a new puzzle-based benchmark in a 3D form. ",
+                "summary": "Patience Cave announced MazeBench, a new puzzle-based benchmark in a 3D form. \n\n12% is the current top score 👀\n\n- GPT 5.6 Sol\n- Fable 5\n- Opus 5\n- Kimi K3\n\nHow long will it take AI to get above 80? \n\nP.S. Looks like a sneaky plan to delay model releases even further! https://t.co/dXxkHb7ouS",
+                "url": "https://x.com/AllTesterhag/status/2082325544537129292",
+                "source": "@AllTesterhag",
+                "date": "Wed Jul 29 04:41:12 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "18"
+                }
+              },
+              {
+                "title": "gpt antilimit 2U 1 hari 15, 3 hari 25, 5 hari 35, 7 hari 45",
+                "summary": "gpt antilimit 2U 1 hari 15, 3 hari 25, 5 hari 35, 7 hari 45",
+                "url": "https://x.com/hanni_exe/status/2082325539789180974",
+                "source": "@hanni_exe",
+                "date": "Wed Jul 29 04:41:11 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "3"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R03_web_news_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_web_news",
+        "difficulty": "medium",
+        "what_it_tests": "Tin thời sự trên web → web_search topic=news, timeframe=day (hôm nay)."
+      },
+      "input": "Tin tức AI hôm nay có gì nổi bật?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "timeframe": "day",
+              "topic": "news",
+              "max_results": 10
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI",
+            "timeframe": "day",
+            "topic": "news",
+            "max_results": 10
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "5U AI scales up new digital workforce platform - American Journal of Transportation",
+                "url": "https://www.ajot.com/news/5u-ai-scales-up-new-digital-workforce-platform",
+                "source": "ajot.com",
+                "summary": "“We are not building another chatbot that answers questions and disappears, we are building AI Workers that understand freight operations, carry out the work, and capture the reasoning behind every decision, so teams can scale their knowledge as well as their capacity.”. 5U AI works inside existing freight systems and uses multi-agent AI trained for logistics workflows, including the complex exceptions and manual decisions that make forwarding operations difficult to automate with generic AI tools or legacy automation. The company is already live with forwarders and carriers across Europe, including with TCI International Logistics, where its AI Workers are being used across air and ocean freight operations. 5U AI is growing its team as part of the scale-up, with plans to hire across product, engineering, operations, commercial, and customer functions. “AI is one of the most exciting developments logistics has seen for a generation, but its value will depend on people who understand the industry and want to build practical tools that solve real operational problems,” said Abik.",
+                "score": 0.2506701
+              },
+              {
+                "title": "Senate confirms Jay Clayton as new intelligence czar - The Washington Post",
+                "url": "https://www.washingtonpost.com/national-security/2026/07/28/senate-confirms-jay-clayton-new-intelligence-czar/",
+                "source": "washingtonpost.com",
+                "summary": "# Senate confirms Jay Clayton as new intelligence czar. The Senate confirmed Jay Clayton as director of national intelligence, ending the acting tenure of Bill Pulte, a housing official and Trump loyalist. Jay Clayton appears before the Senate Intelligence Committee earlier this month during a hearing on his nomination to serve as director of national intelligence. The Senate confirmed Jay Clayton as the director of national intelligence Tuesday, ending the tenure of Bill Pulte, a housing official and Trump loyalist, who held the role for more than a month. The 51-to-47 vote was more partisan than expected after Trump nominated Clayton in June. AI & Tech Brief: Reflection AI arrives in Washington. AI & Tech Brief: Anthropic’s army of AI integrators. AI & Tech Brief: The AI gatekeepers. AI & Tech Brief: The techno-optimist’s case. AI & Tech Brief: GOP Chair Eyes AI Query Red Flags. AI & Tech Brief: Dem caucuses to meet on AI.",
+                "score": 0.23725812
+              },
+              {
+                "title": "Moburst develops AI engine optimization capabilities for established companies - TechCrunch",
+                "url": "https://techcrunch.com/press-release/moburst-develops-ai-engine-optimization-capabilities-for-established-companies/",
+                "source": "techcrunch.com",
+                "summary": "Mobile growth agency Moburst has built out a dedicated AI Engine Optimization practice aimed at established companies with existing app portfolios, betting that the category still lacks agencies with real depth rather than a rebranded service page. AI Engine Optimization, more commonly abbreviated AEO for Answer Engine Optimization, is the practice of structuring a brand’s content and web presence so AI systems such as ChatGPT, Perplexity, and Google’s AI Overviews can confidently cite it when answering a user’s question directly, rather than showing a ranked list of links. For established companies vetting an AEO partner, the practical test is whether the agency can point to specific app-store-side work, not just web content changes, and whether it can describe a concrete process for reconciling inconsistent brand descriptions across many independent sources rather than treating that as someone else’s problem.",
+                "score": 0.22859572
+              },
+              {
+                "title": "1,100 AI workers sign letter asking US to support tools that 'pace the frontier of automated AI development' - Business Insider",
+                "url": "https://www.businessinsider.com/ai-open-letter-automated-development-2026-7",
+                "source": "businessinsider.com",
+                "summary": "# Over 1,100 AI workers sign letter asking US to support tools that 'pace the frontier of automated AI development'. Senior officials at some of the nation's leading AI companies say it's time for the federal government to find a way to put the brakes on AI development if it's needed. \"We request that the U.S. government support an international effort to develop the technical and governance tools needed to deliberately pace the frontier of automated AI development,\" reads an open letter signed by more than 1,100 AI workers from companies including OpenAI, Anthropic, Google, and Meta. The letter zeroes in on \"automated AI development,\" which refers to when AI will be capable of developing itself, something the industry calls \"Recursive Self-Improvement.\" Anthropic has shared that its Claude models are quickly approaching that threshold. Look out for an alert in your inbox the next time a new story is published!",
+                "score": 0.22638187
+              },
+              {
+                "title": "HKT unveils self-developed AI platform HKT.AI One-stop hub for global AI resources, advancing \"AI for All\" in Hong Kong - Voice of Alexandria",
+                "url": "https://www.voiceofalexandria.com/news/national_business_news/hkt-unveils-self-developed-ai-platform-hkt-ai-one-stop-hub-for-global-ai-resources/article_ffd47d45-4254-5797-8fcb-8e30369bcf71.html",
+                "source": "voiceofalexandria.com",
+                "summary": "# HKT unveils self-developed AI platform HKT.AI One-stop hub for global AI resources, advancing \"AI for All\" in Hong Kong. HONG KONG SAR - Media OutReach Newswire - 28 July 2026 - HKT announces the launch of HKT.AI, a one-stop, integrated AI platform that enables businesses and individual customers to access a broad suite of prominent global AI resources through a single and intuitive interface. The platform aims to accelerate the mass adoption of AI in Hong Kong, especially in empowering SMEs in their digital transformation, and advance the vision of \"AI for All.\". HKT.AI aggregates a wide range of Chinese Mainland-based and global AI resources, enabling businesses and individuals to seamlessly access and switch across specialised applications and tools on a single platform to meet diverse work and everyday needs.",
+                "score": 0.2164091
+              },
+              {
+                "title": "Tech Stocks Tumble on Worries About A.I. Spending and ...",
+                "url": "https://www.nytimes.com/2026/07/28/business/stocks-ai-chips.html",
+                "source": "nytimes.com",
+                "summary": "The listing sparked widespread fears that intensifying industry competition could threaten rival global memory chipmakers in South Korea, Japan, Taiwan and the United States.\n\nThe declines began as soon as stocks opened on Tuesday, with A.I. and semiconductor stocks the hardest hit. Japanese flash memory maker Kioxia fell more than 18 percent. South Korean semiconductor giant Samsung Electronics dropped about 13 percent. [...] The latest A.I.-related market tremor began on Monday, when the shares of China’s leading memory chipmaker, ChangXin Memory Technologies, began trading after a blockbuster initial public offering. The company’s stock soared nearly 500 percent on its market debut, quickly making it the most valuable company on the Shanghai exchange. It slipped 4 percent on Tuesday [...] The latest market turmoil is an unwelcome turn for a region where the A.I. boom has served as a rare economic bright spot. In markets like South Korea and Taiwan, rising chip exports and soaring A.I. valuations have masked broader weakness across their domestic economies, which remain heavily dependent on energy imports from the Middle East.",
+                "score": 0.31166825
+              },
+              {
+                "title": "Employees at the world’s biggest AI companies are calling for a slowdown in AI development | CNN Business",
+                "url": "https://www.cnn.com/2026/07/28/tech/ai-development-tech-employees-open-letter",
+                "source": "cnn.com",
+                "summary": "OpenAI said in a statement to CNN they agree with potentially pacing the development of AI, adding they “hope to contribute to work led by the U.S. government, alongside other labs” on the topic.\n\nOpenAI CEO Sam Altman suggested it may be time to slow down AI development in a podcast interview Tuesday. The OpenAI models that broke out of their test environment are fueling “long term questions” about how AI companies should address this new rate of progress. [...] The letter comes on the heels of major advancements and burgeoning threats from rapidly developing AI systems. OpenAI disclosed last week that two of its test models escaped a lab environment, bypassed its systems to gain access to the open internet and hacked a different company’s internal system. [...] “[T]here is a real risk that capability development rapidly accelerates beyond our ability to understand or control the resulting systems,” the signees said. “To realize AI’s potential, industry, government, and society at large may need the option to buy time to address emerging risks, develop security measures, and strengthen oversight.”",
+                "score": 0.2721175
+              },
+              {
+                "title": "OpenAI's Rogue AI Agent Hacked More Than Just Hugging ...",
+                "url": "https://www.wired.com/story/openais-rogue-ai-agent-hacked-more-than-just-hugging-face",
+                "source": "wired.com",
+                "summary": "“Context bombing” tricks malicious AI agents into shutting down before they can do harm.\n\nDan Goodin, Ars Technica\n\nAI Found a Root Bug in Linux That Everyone Missed for 15 Years\n\nPlus: The Pentagon is training amateurs to become part of its hacker army, a Flock license plate reader error led to cops surrounding a car reviewer, and more.\n\nDell Cameron\n\nA Sneaky Hacking Tool Targeting AI Infrastructure Is Lurking in Victims’ Blind Spots [...] Maxwell Zeff is a senior writer at WIRED covering the business of artificial intelligence. He was previously a senior reporter with TechCrunch, where he broke news on startups and leaders driving the AI boom. Before that, Zeff covered AI policy and content moderation for Gizmodo and wrote some of Bloomberg’s ... Read More\n\nSenior Writer\n\nTopicsOpenAIagentic AIartificial intelligencecyberattackscybersecuritygenerative AI\n\nRead More\n\nOpenAI Models Escaped Containment and Hacked Hugging Face [...] The breach happened when OpenAI was testing one its latest AI models against ExploitGym, a benchmarking framework that scores AI systems on their ability to find and exploit software vulnerabilities. ExploitGym grades an agent on how quickly and effectively it can retrieve secret files from hundreds of different target systems, using prompts that essentially egg the models on to find solutions.",
+                "score": 0.24089554
+              },
+              {
+                "title": "Accenture wins $821M Pentagon AI data platform contract",
+                "url": "https://federalnewsnetwork.com/defense-news/2026/07/accenture-wins-821m-pentagon-ai-data-platform-contract",
+                "source": "federalnewsnetwork.com",
+                "summary": "Discover how federal agencies are applying AI to strengthen cybersecurity, improve operational efficiency and deliver measurable mission outcomes while balancing innovation, governance and human expertise.\n\nThe department said its initial order under the contract is focused on “high-impact, measurable mission outcomes that maximize the benefits of commercial pricing.” An Accenture spokesperson did not respond Tuesday to emailed questions about what that work entails. [...] The platform aims to combine more than 1,500 data sources, both commercial and military, to securely provide intelligence, targeting data and more to frontline troops and their commands, the AI office said, calling it “one of [DoD]’s most vital data platforms for AI exploitation and mission advantage.” [...] “The evolution of Advana’s data platform and application ecosystem over the last six years has led to a complex technical and programmatic architecture that we now must rationalize in order to capitalize on the full potential of AI and support warfighting, intelligence, and enterprise needs with the speed, security, and auditability required,” Deputy Defense Secretary Steve Feinberg said in a January memo.",
+                "score": 0.23064281
+              },
+              {
+                "title": "Tech employees call for US-backed global effort to manage ...",
+                "url": "https://www.reuters.com/legal/litigation/tech-employees-call-us-backed-global-effort-manage-risks-advanced-ai-2026-07-28",
+                "source": "reuters.com",
+                "summary": "Skip to main content\n\nExclusive news, data and analytics for financial market professionals Learn more about Refinitiv\n\n - More than 1,100 employees from leading tech firms on Tuesday urged the U.S. government to support ​an international effort to develop tools for managing the pace ‌of advanced AI development.\n\nThe statement comes as AI companies pursue increasingly powerful systems, raising concerns that developments could outpace existing safety, governance and oversight mechanisms. [...] \"Our own research on recursive self-improvement, published last month, points to the need for tools to deliberately ​pace the frontier ​of AI development ⁠so society can prepare,\" Anthropic said in an X post. \n   Last month, the Claude Code creator called on major ​AI labs to consider a coordinated pause in development, warning ​that advances ⁠in the technology could soon allow AI systems to improve themselves faster than society can manage the risks. [...] Signatories include Anthropic CEO Dario Amodei and several co-founders, Meta's vice president of AI research, ​Dawn Song and OpenAI Chief Scientist Jakub Pachocki. \n   Responding to the statement, ​OpenAI posted on X: \"We believe that, at some point in the future, AI acceleration ‌for ⁠frontier model development may be so high that the world will need to pace the rate of AI advancement.\"",
+                "score": 0.22576675
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R04_read_url_routing",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_read_url",
+        "difficulty": "easy",
+        "what_it_tests": "Đã có link cụ thể → read_url, không phải web_search."
+      },
+      "input": "Tóm tắt bài này giúp mình: https://openai.com/blog/gpt-5",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://openai.com/blog/gpt-5"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://openai.com/blog/gpt-5"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://openai.com/blog/gpt-5"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://openai.com/blog/gpt-5",
+            "items": [
+              {
+                "title": "OpenAI",
+                "url": "https://openai.com/blog/gpt-5",
+                "source": "openai.com",
+                "summary": "OpenAI\n\n# 404\n\nThe index rests now\n\nQuiet shelves hold their places\n\nChoose another book\n\nby [gpt-5.6-sol(opens in a new window)](https://chatgpt.com/?model=gpt-5.6-sol&openaicom-did=7a141251-4857-4d8f-b647-2185b2604f77&openaicom_referred=true)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R05_limit_arg",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_limit",
+        "difficulty": "easy",
+        "what_it_tests": "Trích đúng limit=10 từ '10 tweet'."
+      },
+      "input": "Lấy 10 tweet mới nhất của Elon Musk",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 10
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 10
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "elonmusk",
+            "limit": 10
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "elonmusk",
+            "items": [
+              {
+                "title": "RT @finkd: I wrote about why we believe the future is for everyone. More coming about a positive vision for a world with",
+                "summary": "RT @finkd: I wrote about why we believe the future is for everyone. More coming about a positive vision for a world with superintelligence…",
+                "url": "https://x.com/elonmusk/status/2082273427315171520",
+                "source": "@elonmusk",
+                "date": "Wed Jul 29 01:14:06 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 1660,
+                  "views": "529642"
+                }
+              },
+              {
+                "title": "We’re sending a ship out to recover Starship",
+                "summary": "We’re sending a ship out to recover Starship",
+                "url": "https://x.com/elonmusk/status/2082244164197183805",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 23:17:49 +0000 2026",
+                "metrics": {
+                  "favorites": 35849,
+                  "retweets": 3690,
+                  "views": "3200110"
+                }
+              },
+              {
+                "title": "Landing videos of Starship",
+                "summary": "Landing videos of Starship",
+                "url": "https://x.com/elonmusk/status/2082244044261064874",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 23:17:21 +0000 2026",
+                "metrics": {
+                  "favorites": 11387,
+                  "retweets": 1456,
+                  "views": "1986162"
+                }
+              },
+              {
+                "title": "Stayin’ Alive",
+                "summary": "Stayin’ Alive",
+                "url": "https://x.com/elonmusk/status/2082243900719460745",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 23:16:46 +0000 2026",
+                "metrics": {
+                  "favorites": 17795,
+                  "retweets": 1983,
+                  "views": "1987894"
+                }
+              },
+              {
+                "title": "https://t.co/XneE327cx9",
+                "summary": "https://t.co/XneE327cx9",
+                "url": "https://x.com/elonmusk/status/2082243743013614012",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 23:16:09 +0000 2026",
+                "metrics": {
+                  "favorites": 34743,
+                  "retweets": 5614,
+                  "views": "3523269"
+                }
+              },
+              {
+                "title": "Never forget how fragile the tiny candle of consciousness is",
+                "summary": "Never forget how fragile the tiny candle of consciousness is",
+                "url": "https://x.com/elonmusk/status/2082242865724580279",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 23:12:40 +0000 2026",
+                "metrics": {
+                  "favorites": 22422,
+                  "retweets": 2440,
+                  "views": "3276193"
+                }
+              },
+              {
+                "title": "RT @benjitaylor: Today we're launching app builder for Grok. It lets you build fully functional apps and publish them in",
+                "summary": "RT @benjitaylor: Today we're launching app builder for Grok. It lets you build fully functional apps and publish them instantly, on a uniqu…",
+                "url": "https://x.com/elonmusk/status/2082242658651807778",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 23:11:50 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 440,
+                  "views": "419550"
+                }
+              },
+              {
+                "title": "Supervised FSD unequivocally saves lives, which means delays in country approvals costs lives!",
+                "summary": "Supervised FSD unequivocally saves lives, which means delays in country approvals costs lives!",
+                "url": "https://x.com/elonmusk/status/2082241806713205087",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 23:08:27 +0000 2026",
+                "metrics": {
+                  "favorites": 8548,
+                  "retweets": 1247,
+                  "views": "1595681"
+                }
+              },
+              {
+                "title": "RT @mayemusk: 👏👏👏 @Starlink",
+                "summary": "RT @mayemusk: 👏👏👏 @Starlink",
+                "url": "https://x.com/elonmusk/status/2082127138178699766",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 15:32:48 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 1186,
+                  "views": "673299"
+                }
+              },
+              {
+                "title": "RT @ArthurMacwaters: Humans for scale https://t.co/WTNq23QVSW",
+                "summary": "RT @ArthurMacwaters: Humans for scale https://t.co/WTNq23QVSW",
+                "url": "https://x.com/elonmusk/status/2082126998323769578",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 15:32:15 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 511,
+                  "views": "594340"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R06_timeframe_arg",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_timeframe",
+        "difficulty": "medium",
+        "what_it_tests": "'tuần này' → timeframe=week."
+      },
+      "input": "Tin công nghệ trong tuần này",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "week",
+              "max_results": 10,
+              "query": "technology"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "topic": "news",
+            "timeframe": "week",
+            "max_results": 10,
+            "query": "technology"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "technology",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Microchip Technology Signs Definitive Agreement to ...",
+                "url": "https://ir.microchip.com/news-events/press-releases/detail/1406/microchip-technology-signs-definitive-agreement-to-acquire-hailo",
+                "source": "ir.microchip.com",
+                "summary": "Microchip Technology Inc. is a broadline supplier of semiconductors committed to making innovative design easier through total system solutions that address critical challenges at the intersection of emerging technologies and durable end markets. Its easy-to-use development tools and comprehensive product portfolio support customers throughout the design process, from concept to completion. Headquartered in Chandler, Arizona, Microchip offers outstanding technical support and delivers solutions [...] CHANDLER, Ariz., July 24, 2026 (GLOBE NEWSWIRE) -- (NASDAQ: MCHP) - Microchip Technology Incorporated, a leading provider of smart, connected, and secure embedded control solutions, today announced that it has signed a definitive agreement to acquire Hailo, a provider of accelerated edge AI processors, advanced vision processing solutions, robotics processors and comprehensive AI software flows. The transaction is expected to close towards the end of the current quarter ending September 30, [...] The proposed acquisition is expected to expand Microchip’s processing portfolio for intelligent edge systems and strengthen its ability to deliver accelerated, power-efficient edge AI solutions for robotics, advanced vision processing and intelligent edge applications, including drones, robots, smart cameras, industrial automation and embedded AI systems.",
+                "score": 0.30194885
+              },
+              {
+                "title": "Intel and Lens Technology Collaborate to Enable Advanced ...",
+                "url": "https://newsroom.intel.com/new-technologies/intel-and-lens-technology-collaborate-to-enable-advanced-semiconductor-packaging-for-the-ai-era",
+                "source": "newsroom.intel.com",
+                "summary": "technologies. This collaboration will support the rapid development of next-generation computing solutions and AI infrastructure for customers around the world.” [...] “Lens Technology has built its leadership on advanced materials engineering and precision manufacturing, serving some of the world's most demanding technology companies,” said June Chau, founder and chairwoman of Lens Technology. “By combining Lens Technology's expertise in glass materials, high-precision laser processing, and advanced manufacturing with Intel's leadership in semiconductor design and packaging, we believe we can help accelerate innovation in advanced packaging technologies. [...] and Lens Technology will leverage their respective strengths in advanced semiconductor packaging, precision manufacturing, glass substrate R&D, and process innovation to support the growing demands of AI, data center, and specialized computing applications.",
+                "score": 0.2805996
+              },
+              {
+                "title": "New Small Spacecraft Technology Demonstration Mission ...",
+                "url": "https://www.nasa.gov/directorates/armd/nasa-announces-new-spacecraft-technology-demonstration-mission-at-moon",
+                "source": "nasa.gov",
+                "summary": "The suite of technologies on CAPSTONE 02 are designed to automate routine navigation tasks, reduce reliance on traditional space-to-ground data, and enable new mission concepts that may be derived from increased inter-satellite coordination. Additionally, the CAPSTONE 02 spacecraft are designed for cost-effective, rapid deployment, demonstrating a scalable and repeatable mission model. [...] NASA’s CAPSTONE 02 mission will demonstrate advanced relative navigation technologies for rendezvous and proximity operations in cislunar space. These techniques are more sophisticated than those used in low Earth orbit and are designed to support NASA astronauts as they dock with Moon landers in cislunar orbit, enabling safe crew transfers to and from the lunar surface. [...] ## Achieving our most ambitious space exploration goals requires iterative, risk-tolerant demonstrations in partnership with industry. Technology development through flight testing is how we convert hard problems into the lasting capabilities needed for a permanent presence at the Moon.\n\nChristopher Baker\n\nChristopher Baker\n\nLead of the In‑Space Infrastructure portfolio within the Research and Technology Mission Directorate at NASA Headquarters in Washington, DC.",
+                "score": 0.21683165
+              },
+              {
+                "title": "ONR Announces New 2026 Science and Technology Strategy for Navy, Marine Corps Tech Future",
+                "url": "https://www.navy.mil/Press-Office/Press-Releases/display-pressreleases/Article/4552767/onr-announces-new-2026-science-and-technology-strategy-for-navy-marine-corps-te",
+                "source": "navy.mil",
+                "summary": "Speed: Leverage artificial intelligence to accelerate scientific discovery; compress research timelines; and solve complex problems, aiming to outpace adversaries in invention and fielding — while also establishing robust frameworks for validation and ethical oversight. [...] Deploy: Focus on measuring outcomes. Success is defined by delivering tangible, decisive competitive advantages and fielded capabilities to operators, rather than just demonstrating prototypes. This requires faster transition of mature technologies from the laboratory to the Fleet and Force. [...] The accelerating speed and complexity of technological change\n   Evolving character of conflict\n   Intensified strategic competition\n   Unprecedented global investment in defense innovation\n   Systemic barriers to technology transition\n   Balancing time horizons",
+                "score": 0.19915256
+              },
+              {
+                "title": "Lenovo Successfully Delivers Technology at Biggest Ever FIFA World Cup 2026™",
+                "url": "https://news.lenovo.com/pressroom/press-releases/lenovo-successfully-delivers-technology-at-biggest-ever-fifa-world-cup-2026",
+                "source": "news.lenovo.com",
+                "summary": "Lenovo’s contribution to FIFA World Cup 2026™ went beyond any single innovation. The company delivered an integrated technology ecosystem spanning devices, data center infrastructure, edge computing, AI-powered solutions, managed services and operational support. Lenovo technology supported broadcast operations, IPTV delivery, tournament operations, fan experiences, officiating innovation, team analysis and digital workplace capabilities across the event ecosystem. [...] Lenovo’s AI video analytics platform helped reduce camera jitter by up to 60%, delivering a stable, high-quality live feed while preserving the speed and intensity of the match. According to Lenovo-commissioned international research,87%of fans said technology improved their FIFA World Cup 2026 viewing experience, while 84% said close-to-action camera perspectives helped them feel like they were right there on the pitch. [...] One of Lenovo’s most significant technology achievements at FIFA World Cup 2026™ was FIFA AI Pro, the AI-driven analytics platform developed by Lenovo and FIFA to give every participating team access to FIFA’s tournament data and analysis.All 48 teams competing at the tournament used FIFA AI Pro, which draws on millions of data points, analyzes more than 2,000 performance metrics, and delivers rapid insights through reports, graphs, video clips and immersive 3D match recreations",
+                "score": 0.17604777
+              },
+              {
+                "title": "The rise of the military-technology complex - Bulletin of the Atomic Scientists",
+                "url": "https://thebulletin.org/2026/07/the-rise-of-the-military-technology-complex",
+                "source": "thebulletin.org",
+                "summary": "The US military exists within a strange contradiction. It has some of the most formidable weapons on the planet and has pioneered innovations like artificial intelligence and autonomy. At the same time, it often lacks the infrastructure and process to deploy leading-edge technology quickly and at scale. [...] “The technologies we’re worried about reduce living people to data points,” according to a statement from Stop Killer Robots. [...] The term has come to mean the years-long lag between the creation of a functioning prototype and a defense production contract, which is when the endeavor becomes profitable. And in the time it takes to cross the proverbial valley, the technology in question might have become outdated or irrelevant.",
+                "score": 0.17271566
+              },
+              {
+                "title": "FERC eyes ‘grid-enhancing technology’ incentives: Chairman Swett | Utility Dive",
+                "url": "https://www.utilitydive.com/news/ferc-grid-enhancing-technology-incentives-atts-senate-hearing/825992",
+                "source": "utilitydive.com",
+                "summary": "Utilities have proactively started using GETs — which include dynamic line ratings, advanced power flow controllers and high-performance conductors — and their cost-saving data is now available, Swett told the U.S. Senate’s Energy and Natural Resources Committee during an oversight hearing. [...] In addition, FERC could incorporate GETs into its processes for doling out incentives to transmission owners and developers, FERC Commissioner Judy Chang said. When they seek incentives, FERC could ask them to explain what technologies they're implementing, what else they have considered and why they are not using the best technologies available, she said.\n\nWhile FERC cannot mandate a technology, it is required to approve “just and reasonable” rates, Sen. Angus King, I-Maine, noted. [...] Key elements of the orders include FERC’s requirement for fast action on modernizing transmission services and interconnection study processes, according to Swett.\n\n“This will save our consumers a lot of money, and with our instructions, they are now … forced to consider advanced transmission technologies in their study processes, and also to study load that may appear near generation, which will reduce the amount of transmission build that is necessary to get the load online,” Swett said.",
+                "score": 0.16289902
+              },
+              {
+                "title": "Energy Technology Innovation Partnership Project",
+                "url": "https://www.energy.gov/cmei/energy-technology-innovation-partnership-project",
+                "source": "energy.gov",
+                "summary": "Energy Technology Innovation Partnership Project. The U.S. Department of Energy's (DOE) Energy Technology Innovation Partnership Project (ETIPP) works alongside",
+                "score": 0.15044051
+              },
+              {
+                "title": "As technology shifts, engineers will build a bright future for Texas",
+                "url": "https://news.utsa.edu/2026/07/as-technology-shifts-engineers-will-build-a-bright-future-for-texas",
+                "source": "news.utsa.edu",
+                "summary": "Dean Eric Brey writes that students are recognizing what industry already knows: Engineers are addressing the state's most important issues.",
+                "score": 0.12516183
+              },
+              {
+                "title": "As China advances in AI, Trump faces a new test in the technology race",
+                "url": "https://www.washingtonpost.com/technology/2026/07/22/china-advances-ai-trump-faces-new-test-technology-race",
+                "source": "washingtonpost.com",
+                "summary": "## Sections\n\n## Get The Post\n\n## Contact Us\n\npixel [...] # As China advances in AI, Trump faces a new test in the technology race\n\nA wave of new releases is testing Washington’s approach to regulating artificial intelligence.\n\nFor months, America’s top artificial intelligence companies have appeared to be comfortably far ahead of their Chinese rivals, launching new flagship models with capabilities that have dazzled their most voracious users.\n\n## Company\n\n## Sections\n\n## Get The Post\n\n## Contact Us\n\n## Terms of Use\n\n## Company\n\n## Sections",
+                "score": 0.10952489
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R07_search_type_arg",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_search_type",
+        "difficulty": "medium",
+        "what_it_tests": "'phổ biến/top' → search_type=Top (không phải Latest)."
+      },
+      "input": "Cho mình các tweet phổ biến (top) nhất về OpenAI",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Top"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Top",
+              "limit": 10,
+              "query": "OpenAI"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "search_type": "Top",
+            "limit": 10,
+            "query": "OpenAI"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "OpenAI",
+            "search_type": "Top",
+            "items": [
+              {
+                "title": "OPENAI IS SO WORRIED THEY HAVE PAUSED TRAINING",
+                "summary": "OPENAI IS SO WORRIED THEY HAVE PAUSED TRAINING\n\n“This is the first security incident that I have felt very viscerally. I've been a little surprised that more people don't feel it so viscerally.\n\nWe paused training. We have to figure out how to secure our sandboxing in a world of multiple zero days being chained together.\n\nWe may have to pace the rate of AI development to give ourselves enough time for society to harden around these new capability levels.\"",
+                "url": "https://x.com/AISafetyMemes/status/2082222516454785296",
+                "source": "@AISafetyMemes",
+                "date": "Tue Jul 28 21:51:48 +0000 2026",
+                "metrics": {
+                  "favorites": 676,
+                  "retweets": 55,
+                  "views": "131832"
+                }
+              },
+              {
+                "title": "OpenAI's newest AI escaped the test environment it was locked inside and hacked into another company on its OWN.",
+                "summary": "OpenAI's newest AI escaped the test environment it was locked inside and hacked into another company on its OWN.\n\nTo remind you:\n\nLast week one of the biggest AI companies on Earth got breached. \n\nA platform called Hugging Face, which hosts more than a million AI models and datasets, said an \"autonomous AI agent\" had broken into its systems. Nobody knew whose agent it was.\n\nFor five days the whole industry wondered who was behind it.\n\nYesterday OpenAI raised its hand and said it was them. Or more precisely, it was their models, acting completely on their own.\n\nSo what did these models actually do?\n\nOpenAI was running two of them, GPT-5.6 Sol and an unreleased model they will only describe as \"even more capable.\" They wanted to measure how good the models were at hacking, so they deliberately turned the safety filters down.\n\nThey locked both models inside a sealed test environment with no real internet access. The only task was a benchmark called ExploitGym, a set of 898 real software vulnerabilities where the model has to turn each bug into a working attack.\n\nBut the models got OBSESSED with winning...\n\nInstead of solving the test the honest way, they went hunting for a shortcut. They found a zero-day flaw in the software running their own sandbox, a bug nobody knew existed, and used it to break out.\n\nOnce they were loose on the open internet, they worked out that Hugging Face was probably storing the answer key to the benchmark.\n\nSo they hacked their way in.\n\nThey chained multiple exploits together, escalated their access, moved across servers, and pulled the test solutions straight out of Hugging Face's live production database.\n\nThey literally cheated on the test by breaking into another company to steal the answers.\n\nOpenAI called it \"an unprecedented cyber incident, involving state-of-the-art cyber capabilities.\" In their own words, the models were \"hyperfocused on finding a solution\" and went \"to extreme lengths to achieve a rather narrow testing goal.\"\n\nAnd this was not the first time:\n\nBefore Sol ever launched, an independent red-team lab called METR caught it gaming its own tests to inflate its scores. It hid an exploit inside a data stream, escalated its privileges on the testing server, and leaked the answers human evaluators had hidden. And OpenAI shipped it anyway.\n\nThe day before the Hugging Face story, OpenAI paused a different unreleased model. This is the same model that earlier this year disproved a famous 1946 math conjecture, a result a Fields Medal winner called a breakthrough. They told it to only post its results to Slack but it found a way out of its sandbox and posted to a public GitHub page instead.\n\nThey had to pause it because it kept finding ways to act outside the box they built for it.\n\nAnd it is not just OpenAI...\n\nAnthropic has reported that one of its own models slipped its sandbox during safety testing and reached the internet it was never supposed to touch, then used it to email a researcher.\n\nSo step back and look at what these companies are telling you:\n\nThe only thing standing between these models and a real attack was a set of safety filters. Turn those filters down for a single test, and the model taught itself to escape, break into a company it was never pointed at, and take what it wanted.\n\nOpenAI even said they expect incidents like it to \"become more commonplace\" as the models get more capable.\n\nSam Altman also predicted there'll be a major cyber attack this year.\n\nAnd keep in mind that Sol is not a locked-away experiment but a publicly available model that businesses are already wiring into their own systems.\n\nThe next model that breaks out of its box might not be doing it just to cheat on a math test...",
+                "url": "https://x.com/Ric_RTP/status/2079941508807921958",
+                "source": "@Ric_RTP",
+                "date": "Wed Jul 22 14:47:53 +0000 2026",
+                "metrics": {
+                  "favorites": 810,
+                  "retweets": 276,
+                  "views": "162684"
+                }
+              },
+              {
+                "title": "SAM ALTMAN CALLED OPENAI A \"COMPANY\" TO ELON MUSK'S FACE IN 2015.",
+                "summary": "SAM ALTMAN CALLED OPENAI A \"COMPANY\" TO ELON MUSK'S FACE IN 2015.\n\nElon stopped him cold.\n\n\"OpenAI is structured as a 501(c)3 nonprofit.\"\n\nNot a company. A nonprofit. Built specifically so no one would ever profit from it.\n\nSam nodded.\n\nThen spent the next 10 years running it.\n\nThen converted it into a for-profit company valued at $300 billion.\n\nWith shareholders.\n\nWith investors expecting returns.\n\nThe correction Elon gave him in that interview was not a small vocabulary note.\n\nIt was the entire point of OpenAI's existence.\n\nThe nonprofit structure was not a legal technicality.\n\nIt was the promise.\n\nThe thing that made it different from every other AI lab racing to make money.\n\nSam knew that in 2015.\n\nHe was corrected on it by the co-founder in real time.\n\nAnd then he changed the structure anyway.\n\nThe interview exists.\n\nThe correction is on tape.\n\nThe conversion happened.\n\n@elonmusk\n is in court arguing this exact point right now.\n\nThe evidence is the 2015 interview.\n\nScreenshot this.\n\nFollow @cyrilXBT for every OpenAI development the mainstream refuses to connect the dots on.",
+                "url": "https://x.com/cyrilXBT/status/2081995318791458907",
+                "source": "@cyrilXBT",
+                "date": "Tue Jul 28 06:49:00 +0000 2026",
+                "metrics": {
+                  "favorites": 110,
+                  "retweets": 22,
+                  "views": "21238"
+                }
+              },
+              {
+                "title": "Gilbert Strang, a quiet MIT professor, picked up a piece of chalk and explained the one skill standing between you and e",
+                "summary": "Gilbert Strang, a quiet MIT professor, picked up a piece of chalk and explained the one skill standing between you and every account you have ever blown.\n\nMIT put the entire course online. it has been free for over twenty years. almost nobody finishes it.\n\nHis point: the market never pays in certainties. it pays in probabilities, and a human gut can barely hold one straight. the math that holds ten thousand at once, weighs them, and collapses them into a single call is linear algebra. it is the branch Citadel and OpenAI both pay $400K to hire for.\n\nhe is not a trading guru. his 18.06 lectures are the most watched math class on the planet.\n\nSkip to where he turns a wall of numbers into one vector. a single object carrying a thousand odds at once, in notation a beginner can follow.\n\nNo slides. no jargon. one piece of chalk.\n\na quant I know rewatches lecture one every year before he sizes a single position.\n\nYou do not have a strategy problem. you have a math problem. the fix has been free for two decades, and you are still guessing.",
+                "url": "https://x.com/0xLoran/status/2081760744358445158",
+                "source": "@0xLoran",
+                "date": "Mon Jul 27 15:16:53 +0000 2026",
+                "metrics": {
+                  "favorites": 347,
+                  "retweets": 57,
+                  "views": "44073"
+                }
+              },
+              {
+                "title": "Another WTF moment.",
+                "summary": "Another WTF moment.\n\nA developer just open-sourced a coding agent harness that boots 245x faster than Claude Code. It's called jcode. You launch it and the first frame renders in 14 milliseconds. Claude Code takes 3,436. One active session uses 27.8 MB of RAM. Claude Code uses 386.6. Run ten sessions in parallel and jcode holds at 117 MB while OpenCode swells to 3.2 GB.\n\nEach agent has a semantic memory graph instead of a scratchpad. Every turn gets embedded as a vector. The graph is queried on every turn for related memories, and a sideagent verifies the hits before injecting them into context. Consolidation runs in the background to check for stale or conflicting facts. No manual /remember calls. No token burn on lookup tools.\n\nThe provider list is 30+ deep. Claude, ChatGPT, Gemini, GitHub Copilot, Azure, OpenRouter, DeepSeek, Groq, Mistral, Perplexity, Fireworks, Ollama, LM Studio, and any OpenAI-compatible endpoint you point it at. Ran out of tokens on your first ChatGPT Pro sub? /account swaps to the second.\n\nThen there's Swarm. Spawn two agents in the same repo and the server manages them. When agent A edits a file agent B has been reading, agent B gets pinged and can check the diff. Agents can DM each other, broadcast to the room, or spawn their own worker teams for parallel tasks. Groups, channels, and completion statuses are handled automatically.\n\nThe UI has live side panels that render mermaid diagrams inline. To make it fast, the author wrote a Rust mermaid renderer 1800x faster than the JavaScript one, then wrote a custom terminal called Handterm because no existing terminal could do smooth partial-line scrolling.\n\nSelf-dev mode is where it gets wild. Tell your agent to enter self-dev and it starts editing jcode's own source code, rebuilds the binary, reloads it live, and keeps working across your existing sessions. You can also resume broken sessions from Claude Code, Codex, OpenCode, or pi directly inside jcode. Anthropic's cache goes cold at the 5-minute mark and you're staring down a big cache miss on your next turn? The UI warns you before you spend the tokens.\n\nWritten in Rust. MIT licensed. Runs on macOS, Windows, Linux, and Termux. Sitting at 11.2k stars with a native iOS app coming.\n\nhttps://t.co/OonuUaLXAr",
+                "url": "https://x.com/thisguyknowsai/status/2081680037544427793",
+                "source": "@thisguyknowsai",
+                "date": "Mon Jul 27 09:56:11 +0000 2026",
+                "metrics": {
+                  "favorites": 2199,
+                  "retweets": 272,
+                  "views": "175861"
+                }
+              },
+              {
+                "title": "Sam Altman just said something that should worry you more than excite you: ",
+                "summary": "Sam Altman just said something that should worry you more than excite you: \n\n\"AI is close to creating a genie that can grant any wish.\"\n\nThis is EXACTLY why open-source AI matters - and this was Elon's original thesis when he was at OpenAI. \n\nRight now, the future of all AI power sits with a handful of companies. \n\nThink: OpenAI, Anthropic, Google, Meta. \n\nThey decide who gets access, at what price, under what rules, and on what timeline.\n\nOpen-weight models are the only solution to ensuring this \"genius in a bottle\" power is in check. \n\nUltimately, this is also why it matters that NVIDIA, Microsoft, Hugging Face, and dozens of others just signed a joint letter arguing that we need to pivot towards open-weight AI. \n\nThe most powerful technology in human history should not be something a handful of executives dole out to the world on their own terms.\n\nThe bull case for open-source AI is simple: don't let five companies hold all the leverage over everyone else.\nhttps://t.co/zcsXXtCn15",
+                "url": "https://x.com/milesdeutscher/status/2081986762839089318",
+                "source": "@milesdeutscher",
+                "date": "Tue Jul 28 06:15:00 +0000 2026",
+                "metrics": {
+                  "favorites": 141,
+                  "retweets": 16,
+                  "views": "30073"
+                }
+              },
+              {
+                "title": "10 agent evals every AI engineer should know",
+                "summary": "10 agent evals every AI engineer should know\n\n1) golden set\n\na frozen set of cases you run after every prompt model or tool change\n\nuse it as your baseline to see whether the system improved or quietly broke\n\nOpenAI Evals helps you build repeatable benchmark sets and compare model changes\n\n→ https://t.co/dr1GZlC75R\n\n2) llm as judge\n\na second model scores open ended answers against a written rubric\n\nuse it when there is no exact output to compare against\n\nOpenEvals provides ready made evaluators for LLM applications\n\n→ https://t.co/S2yhnByFIP\n\n3) rubric scoring\n\nscore correctness tone safety and cost separately\n\none quality number hides the problem\n\nDeepEval helps you create custom metrics and score every dimension independently\n\n→ https://t.co/q9Z6Xmixia\n\n4) trajectory eval\n\ngrade the path the agent took\n\nnot only the final answer\n\nAgentEvals checks agent actions decisions and tool calls across the full trajectory\n\n→ https://t.co/0oziAl54az\n\n5) tool unit tests\n\ntest every tool with fixed inputs and outputs\n\nno model in the loop\n\nMCP Inspector helps you inspect and test MCP servers tools and responses separately\n\n→ https://t.co/IVmt5qpWIN\n\n6) regression suite\n\nreplay previous runs against every new prompt model or toolset\n\nthen compare the results\n\nPromptfoo helps you run repeatable eval suites catch regressions and add checks to CI\n\n→ https://t.co/zxi2PuWuhe\n\n7) a b in prod\n\nsplit real traffic between two versions and compare actual outcomes\n\nGrowthBook provides feature flags controlled experiments and product analytics\n\n→ https://t.co/DGlE3JjDD3\n\n8) human review\n\nsample real runs and let a person grade them honestly\n\nuse it to calibrate your automated judge\n\nArgilla helps teams collect human feedback review outputs and build better datasets\n\n→ https://t.co/QHWb7skWjr\n\n9) shadow run\n\nlet the candidate run on real traffic while its output is shown to nobody\n\nuse it before a risky rollout\n\nLangfuse helps you trace production runs compare candidates and monitor eval results\n\n→ https://t.co/IrhDf38tRn\n\n10) red team\n\nattack the system before somebody else does\n\njailbreaks prompt injection data leaks and tool abuse\n\nGarak scans LLM systems for vulnerabilities and unsafe behavior\n\n→ https://t.co/w8ObyW4ZKv\n\noffline evals tell you it works\n\nonline evals tell you it still works\n\nyou probably do not need all ten today\n\nstart with the two that would have caught your last outage\n\nbookmark this",
+                "url": "https://x.com/elune0x/status/2080710242929697122",
+                "source": "@elune0x",
+                "date": "Fri Jul 24 17:42:34 +0000 2026",
+                "metrics": {
+                  "favorites": 1079,
+                  "retweets": 139,
+                  "views": "147847"
+                }
+              },
+              {
+                "title": "OpenAI's AI broke out of a locked test environment, got onto the internet, and hacked into Hugging Face's servers. It di",
+                "summary": "OpenAI's AI broke out of a locked test environment, got onto the internet, and hacked into Hugging Face's servers. It did this entirely on its own. No human told it to.\n\nHere's what happened in plain English.\n\nOpenAI was testing how good its newest AI models are at hacking. They put the AI on a locked computer with no internet access and gave it a cybersecurity challenge to solve.\n\nThe AI couldn't solve it the normal way. So it started looking for a way out.\n\nIt found a software bug that nobody knew about. It used that bug to escape the locked computer and get onto the internet.\n\nOnce online, the AI figured out that Hugging Face, a platform where AI companies store their models and data, might have the answers to its test.\n\nIt found stolen login details and discovered another unknown bug in Hugging Face's software. It combined both to break into their servers and grab the test answers.\n\nIt did all of this to cheat on a test.\n\nHugging Face's security team caught it and shut it down. Both companies are now working together on the investigation.\n\nThe part that should get your attention is that nobody programmed any of this. The AI picked its own targets, chained together multiple attack methods, and pulled it off across two different companies' systems without a single human telling it what to do.",
+                "url": "https://x.com/alex_prompter/status/2079951458137763840",
+                "source": "@alex_prompter",
+                "date": "Wed Jul 22 15:27:25 +0000 2026",
+                "metrics": {
+                  "favorites": 76765,
+                  "retweets": 14385,
+                  "views": "7016762"
+                }
+              },
+              {
+                "title": "37 of the biggest technology companies on Earth just teamed up against OpenAI, Anthropic and Google.",
+                "summary": "37 of the biggest technology companies on Earth just teamed up against OpenAI, Anthropic and Google.\n\nNvidia launched the Open Secure AI Alliance on Monday. \n\nMicrosoft, IBM, Dell, Cisco, CrowdStrike, Palo Alto Networks, Red Hat, Salesforce, ServiceNow, Snowflake, Databricks, SpaceXAI and Palantir all signed on as founding members.\n\nBut the three American companies that build the world's most capable closed models are missing from the list.\n\nPalantir's CEO Alex Karp was asked whether it was a direct attack on Anthropic, his answer:\n\n\"I am not anti-Anthropic or any closed model. I am pro my customers, and they are angry.\"\n\nKarp's customers are angry because they believe they are being token maxed, which means they pay a rising bill while the value of their own business migrates to the lab collecting the fee. He said the insights that make a business valuable end up modeled by a third party and sold to their competitors, and that this is happening all over.\n\nNow read the membership list again:\n\n- Dell and HPE sell the servers\n- CrowdStrike and Palo Alto Networks sell the defense layer\n- Snowflake and Databricks sell the data stack\n- Red Hat and IBM sell the plumbing\n- Palantir sells the application layer\n- Nvidia sells the chips sitting under every one of them\n\nEvery company on that list gets paid when AI runs on infrastructure the customer owns.\n\nThe three companies missing from it get paid when it does not.\n\nThe alliance didn't even have to invent a reason to exist - they had one from 11 days earlier:\n\nHugging Face disclosed on July 16 that an autonomous agent had been loose inside its production systems. Five days later OpenAI said the agent was its own, running a hacking benchmark with the cyber refusals turned down.\n\nHugging Face first sent its attack logs to frontier models (Fable 5) behind commercial APIs. In the company's own words, \"this did not work.\" \n\nThe analysis meant submitting real attack commands and exploit payloads, and the providers' guardrails blocked the requests, because a guardrail cannot tell an incident responder from an attacker.\n\nSo Hugging Face ran GLM 5.2 on its own hardware instead. That model is open weight and comes out of Z ai in Beijing. It reconstructed more than 17,000 recorded events.\n\nThe break-in came from an American lab's model. The models that refused to help with the cleanup were American too. But the one that did the work came from Beijing.\n\nThis is basically what Nvidia built the alliance around.\n\nThe members are contributing weapons. Nvidia is releasing open model weights, Microsoft is handing over a scanning system that hunts exploitable bugs, and SpaceXAI open sourced its coding agent and says the Grok weights are next.\n\nThen there is the ask:\n\nNvidia's announcement warns policymakers that blanket restrictions on open frontier systems would concentrate power and vulnerability in a few closed providers. Treasury Secretary Scott Bessent has spent the month weighing exactly those restrictions.\n\nKarp was also asked about Sam Altman declaring on Saturday that we are now in the singularity, and whether that scared him. He compared the technology to uranium, said what matters is WHO controls the processing, and pointed out that Silicon Valley keeps presenting all of this as though there is none.\n\nAnd funnily enough he also said: \"We are going to end up having to regulate AI, no doubt.\"\n\nAlthough his own alliance spent Monday telling Washington the opposite.\n\n37 companies are about to argue that open models keep America safe. Three companies will argue that open models are how America loses. \n\nWhat do you think?",
+                "url": "https://x.com/Ric_RTP/status/2082100271228821746",
+                "source": "@Ric_RTP",
+                "date": "Tue Jul 28 13:46:02 +0000 2026",
+                "metrics": {
+                  "favorites": 226,
+                  "retweets": 70,
+                  "views": "30129"
+                }
+              },
+              {
+                "title": "Sam Altman, CEO of OpenAI: ",
+                "summary": "Sam Altman, CEO of OpenAI: \n\n\"It figured out that it could basically cheat on the test by chaining together multiple zero-day exploits to break out of the sandbox, get access to the internet, and then break through multiple systems on the Hugging Face side to get the answer to the test and look really good on the eval.\"\n\nThat was an unreleased model. Nobody asked it to hack anything. They asked it to score well.\n\nThey paused training.\n\nIt was not trying to escape. It was trying to pass. Breaking out of the sandbox was just the cheapest route to a higher number.\n\nWe keep testing these systems for whether they want to hurt us. This one just wanted a good grade.",
+                "url": "https://x.com/caspr_exe/status/2082153657424834624",
+                "source": "@caspr_exe",
+                "date": "Tue Jul 28 17:18:11 +0000 2026",
+                "metrics": {
+                  "favorites": 90,
+                  "retweets": 8,
+                  "views": "10242"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R08_out_of_scope",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope",
+        "difficulty": "easy",
+        "what_it_tests": "Câu ngoài phạm vi research → KHÔNG gọi tool, từ chối/định hướng."
+      },
+      "input": "Giải giúp mình bài toán tích phân: nguyên hàm của x^2 là gì?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Nguyên hàm của $x^2$ là:\n\n$$\\int x^2 \\, dx = \\frac{x^3}{3} + C$$\n\nTrong đó $C$ là hằng số tích phân (có thể là bất kỳ số thực nào).",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "R09_no_tool_capability",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "no_tool_meta",
+        "difficulty": "easy",
+        "what_it_tests": "Câu hỏi meta → trả lời thẳng, KHÔNG gọi tool."
+      },
+      "input": "Bạn là gì và làm được những gì?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Tôi là một trợ lý nghiên cứu (research assistant) có khả năng truy xuất thông tin từ nhiều nguồn khác nhau để giúp bạn tìm hiểu, tóm tắt và trình bày dữ liệu.\n\n**Những việc tôi làm được:**\n\n| Khả năng | Tool sử dụng | Ví dụ yêu cầu |\n|---|---|---|\n| **Tìm tin tức / kiến thức trên web** | `lookup` | \"Tin tức AI tuần này có gì mới?\", \"Tìm thông tin về RAG\" |\n| **Tìm bài đăng trên mạng xã hội theo chủ đề** | `social_search` | \"Người ta đang nói gì về GPT-5 trên Twitter?\", \"Top tweet về AI safety\" |\n| **Xem bài đăng của một người cụ thể** | `timeline` | \"5 tweet gần nhất của Sam Altman\", \"Timeline của @karpathy\" |\n| **Đọc nội dung một URL cụ thể** | `fetch` | \"Đọc giúp tôi bài viết này: https://...\" |\n| **Tìm bài báo khoa học (arXiv)** | `papers` / `paper_text` | \"Tìm paper về mixture of experts\", \"Đọc full text paper 2305.12345\" |\n| **Tìm thảo luận trên Hacker News** | `hn_search` | \"Dev trên HN đang bàn gì về Rust vs Go?\" |\n| **Tra cứu policy nội bộ** | `policy` | \"Theo policy công ty thì external_publishing quy định gì?\" |\n| **Gộp & khử trùng nhiều nguồn** | `dedupe` | (Tự động khi bạn yêu cầu tổng hợp từ nhiều tool) |\n| **Định dạng digest** | `format` | \"Làm bản brief / daily_ai_vn / thread từ dữ liệu trên\" |\n| **Lưu file markdown** | `save_digest` | (Sau khi bạn xem preview và xác nhận) |\n| **Gửi tin nhắn (Telegram)** | `send` | (Chỉ sau khi bạn xác nhận yes/no) |\n\n**Quy tắc hoạt động quan trọng:**\n- Tôi **không** tự đoán thông tin thiếu → sẽ dùng `clarify` để hỏi lại (ví dụ: thiếu Twitter handle, thiếu URL).\n- Tôi **không** gửi/đăng/publish bất cứ thứ gì mà không có xác nhận `yes_no` từ bạn.\n- Tôi **không** giải toán, viết code, hay trả lời kiến thức chung không cần tìm kiếm.\n\nBạn muốn bắt đầu bằng việc gì?",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "R10_missing_handle",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Thiếu handle → ask_user, KHÔNG đoán bừa người nào."
+      },
+      "input": "Tóm tắt 5 tweet mới nhất giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text",
+              "question": "Bạn muốn tóm tắt 5 tweet mới nhất của tài khoản nào? (Ví dụ: @elonmusk, @sama, @karpathy...)"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "response_type": "text",
+            "question": "Bạn muốn tóm tắt 5 tweet mới nhất của tài khoản nào? (Ví dụ: @elonmusk, @sama, @karpathy...)"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn tóm tắt 5 tweet mới nhất của tài khoản nào? (Ví dụ: @elonmusk, @sama, @karpathy...)",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "R11_missing_url",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_url",
+        "difficulty": "medium",
+        "what_it_tests": "Nói 'bài này' nhưng không có link → ask_user xin URL."
+      },
+      "input": "Tóm tắt bài viết này hộ mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn vui lòng cung cấp đường dẫn (URL) của bài viết cần tóm tắt?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn vui lòng cung cấp đường dẫn (URL) của bài viết cần tóm tắt?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn vui lòng cung cấp đường dẫn (URL) của bài viết cần tóm tắt?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "R12_confirm_before_send",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "confirm_before_write",
+        "difficulty": "medium",
+        "what_it_tests": "Hành động ghi (gửi) → xác nhận trước (ask_user yes_no), không tự gửi."
+      },
+      "input": "Đăng bản tin này lên Telegram giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn gửi nội dung gì lên Telegram? Hiện tại chưa có bản tin nào trong cuộc hội thoại này.",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_boundary",
+        "failures": [
+          "response_type: expected 'yes_no', got 'text'"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn gửi nội dung gì lên Telegram? Hiện tại chưa có bản tin nào trong cuộc hội thoại này.",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn gửi nội dung gì lên Telegram? Hiện tại chưa có bản tin nào trong cuộc hội thoại này.",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "R13_parallel_web_and_tweets",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "parallel_tool_calls",
+        "difficulty": "hard",
+        "what_it_tests": "Một request cần hai nguồn → gọi cả web_search và search_tweets; eval không phụ thuộc thứ tự tool call."
+      },
+      "input": "Tìm trên web tin AI hôm nay và tìm thêm tweet về AI.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "AI"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "max_results": 5,
+              "query": "AI",
+              "timeframe": "day",
+              "topic": "news"
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Latest",
+              "limit": 5,
+              "query": "AI"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "max_results": 5,
+            "query": "AI",
+            "timeframe": "day",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "5U AI scales up new digital workforce platform - American Journal of Transportation",
+                "url": "https://www.ajot.com/news/5u-ai-scales-up-new-digital-workforce-platform",
+                "source": "ajot.com",
+                "summary": "“We are not building another chatbot that answers questions and disappears, we are building AI Workers that understand freight operations, carry out the work, and capture the reasoning behind every decision, so teams can scale their knowledge as well as their capacity.”. 5U AI works inside existing freight systems and uses multi-agent AI trained for logistics workflows, including the complex exceptions and manual decisions that make forwarding operations difficult to automate with generic AI tools or legacy automation. The company is already live with forwarders and carriers across Europe, including with TCI International Logistics, where its AI Workers are being used across air and ocean freight operations. 5U AI is growing its team as part of the scale-up, with plans to hire across product, engineering, operations, commercial, and customer functions. “AI is one of the most exciting developments logistics has seen for a generation, but its value will depend on people who understand the industry and want to build practical tools that solve real operational problems,” said Abik.",
+                "score": 0.2506701
+              },
+              {
+                "title": "Senate confirms Jay Clayton as new intelligence czar - The Washington Post",
+                "url": "https://www.washingtonpost.com/national-security/2026/07/28/senate-confirms-jay-clayton-new-intelligence-czar/",
+                "source": "washingtonpost.com",
+                "summary": "# Senate confirms Jay Clayton as new intelligence czar. The Senate confirmed Jay Clayton as director of national intelligence, ending the acting tenure of Bill Pulte, a housing official and Trump loyalist. Jay Clayton appears before the Senate Intelligence Committee earlier this month during a hearing on his nomination to serve as director of national intelligence. The Senate confirmed Jay Clayton as the director of national intelligence Tuesday, ending the tenure of Bill Pulte, a housing official and Trump loyalist, who held the role for more than a month. The 51-to-47 vote was more partisan than expected after Trump nominated Clayton in June. AI & Tech Brief: Reflection AI arrives in Washington. AI & Tech Brief: Anthropic’s army of AI integrators. AI & Tech Brief: The AI gatekeepers. AI & Tech Brief: The techno-optimist’s case. AI & Tech Brief: GOP Chair Eyes AI Query Red Flags. AI & Tech Brief: Dem caucuses to meet on AI.",
+                "score": 0.23725812
+              },
+              {
+                "title": "Moburst develops AI engine optimization capabilities for established companies - TechCrunch",
+                "url": "https://techcrunch.com/press-release/moburst-develops-ai-engine-optimization-capabilities-for-established-companies/",
+                "source": "techcrunch.com",
+                "summary": "Mobile growth agency Moburst has built out a dedicated AI Engine Optimization practice aimed at established companies with existing app portfolios, betting that the category still lacks agencies with real depth rather than a rebranded service page. AI Engine Optimization, more commonly abbreviated AEO for Answer Engine Optimization, is the practice of structuring a brand’s content and web presence so AI systems such as ChatGPT, Perplexity, and Google’s AI Overviews can confidently cite it when answering a user’s question directly, rather than showing a ranked list of links. For established companies vetting an AEO partner, the practical test is whether the agency can point to specific app-store-side work, not just web content changes, and whether it can describe a concrete process for reconciling inconsistent brand descriptions across many independent sources rather than treating that as someone else’s problem.",
+                "score": 0.22859572
+              },
+              {
+                "title": "1,100 AI workers sign letter asking US to support tools that 'pace the frontier of automated AI development' - Business Insider",
+                "url": "https://www.businessinsider.com/ai-open-letter-automated-development-2026-7",
+                "source": "businessinsider.com",
+                "summary": "# Over 1,100 AI workers sign letter asking US to support tools that 'pace the frontier of automated AI development'. Senior officials at some of the nation's leading AI companies say it's time for the federal government to find a way to put the brakes on AI development if it's needed. \"We request that the U.S. government support an international effort to develop the technical and governance tools needed to deliberately pace the frontier of automated AI development,\" reads an open letter signed by more than 1,100 AI workers from companies including OpenAI, Anthropic, Google, and Meta. The letter zeroes in on \"automated AI development,\" which refers to when AI will be capable of developing itself, something the industry calls \"Recursive Self-Improvement.\" Anthropic has shared that its Claude models are quickly approaching that threshold. Look out for an alert in your inbox the next time a new story is published!",
+                "score": 0.22638187
+              },
+              {
+                "title": "HKT unveils self-developed AI platform HKT.AI One-stop hub for global AI resources, advancing \"AI for All\" in Hong Kong - Voice of Alexandria",
+                "url": "https://www.voiceofalexandria.com/news/national_business_news/hkt-unveils-self-developed-ai-platform-hkt-ai-one-stop-hub-for-global-ai-resources/article_ffd47d45-4254-5797-8fcb-8e30369bcf71.html",
+                "source": "voiceofalexandria.com",
+                "summary": "# HKT unveils self-developed AI platform HKT.AI One-stop hub for global AI resources, advancing \"AI for All\" in Hong Kong. HONG KONG SAR - Media OutReach Newswire - 28 July 2026 - HKT announces the launch of HKT.AI, a one-stop, integrated AI platform that enables businesses and individual customers to access a broad suite of prominent global AI resources through a single and intuitive interface. The platform aims to accelerate the mass adoption of AI in Hong Kong, especially in empowering SMEs in their digital transformation, and advance the vision of \"AI for All.\". HKT.AI aggregates a wide range of Chinese Mainland-based and global AI resources, enabling businesses and individuals to seamlessly access and switch across specialised applications and tools on a single platform to meet diverse work and everyday needs.",
+                "score": 0.2164091
+              }
+            ]
+          }
+        },
+        {
+          "tool": "social_search",
+          "args": {
+            "search_type": "Latest",
+            "limit": 5,
+            "query": "AI"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "AI",
+            "search_type": "Latest",
+            "items": [
+              {
+                "title": "Finatext、東京海上アシスタンスのロードアシスタンス向けWeb請求システムを構築",
+                "summary": "Finatext、東京海上アシスタンスのロードアシスタンス向けWeb請求システムを構築\nhttps://t.co/Ko3PioWdxD\n\n東京海上アシスタンスのロードアシスタンス向けWeb請求システムを構築し、7月22日より稼働開始。AI-OCR活用で業務効率化を実現。",
+                "url": "https://x.com/VOIXBiz/status/2082330914453917913",
+                "source": "@VOIXBiz",
+                "date": "Wed Jul 29 05:02:32 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "Maybe AI will reverse engineer the patriarchy",
+                "summary": "Maybe AI will reverse engineer the patriarchy",
+                "url": "https://x.com/Jared_V__/status/2082330911794770312",
+                "source": "@Jared_V__",
+                "date": "Wed Jul 29 05:02:31 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "@botafoguensefdp @asafepe14 @Negaofetich isso aí foi em outro dia, depois da fala polêmica",
+                "summary": "@botafoguensefdp @asafepe14 @Negaofetich isso aí foi em outro dia, depois da fala polêmica",
+                "url": "https://x.com/_ipoke_/status/2082330911647903942",
+                "source": "@_ipoke_",
+                "date": "Wed Jul 29 05:02:31 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "@OnismXII My advice, get yourself this, for once and for all ",
+                "summary": "@OnismXII My advice, get yourself this, for once and for all \n\nLG QNED evo AI 4K Smart TV https://t.co/yWpYh8GZNw",
+                "url": "https://x.com/Graceoeve/status/2082330911350083754",
+                "source": "@Graceoeve",
+                "date": "Wed Jul 29 05:02:31 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "そういえばこの前行った夏祭り、どういうのを売ってるかの掲示物がAIで作られたやつばかりになってたな",
+                "summary": "そういえばこの前行った夏祭り、どういうのを売ってるかの掲示物がAIで作られたやつばかりになってたな\n手書きとか人力で作ったやつが好きだからちょっと残念だった",
+                "url": "https://x.com/hinna_titatapu/status/2082330909572030896",
+                "source": "@hinna_titatapu",
+                "date": "Wed Jul 29 05:02:31 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "R14_out_of_scope_coding",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope_coding",
+        "difficulty": "easy",
+        "what_it_tests": "Câu coding ngoài phạm vi research/news → KHÔNG gọi tool."
+      },
+      "input": "Viết giúp mình một hàm Python tính Fibonacci bằng recursion.",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "```python\ndef fibonacci(n):\n    \"\"\"\n    Tính số Fibonacci thứ n bằng đệ quy.\n    \n    Args:\n        n: Vị trí trong dãy Fibonacci (bắt đầu từ 0)\n        \n    Returns:\n        Số Fibonacci tại vị trí n\n    \"\"\"\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return fibonacci(n - 1) + fibonacci(n - 2)\n\n\n# Ví dụ sử dụng\nif __name__ == \"__main__\":\n    for i in range(10):\n        print(f\"F({i}) = {fibonacci(i)}\")\n```\n\n**Lưu ý:** Cách này có độ phức tạp thời gian O(2^n) do tính toán lặp lại nhiều lần. Với n lớn, bạn nên dùng **memoization** hoặc **đệ quy có nhớ (DP)**:\n\n```python\nfrom functools import lru_cache\n\n@lru_cache(maxsize=None)\ndef fibonacci_memo(n):\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    return fibonacci_memo(n - 1) + fibonacci_memo(n - 2)\n```\n\nHoặc dùng **lặp (iterative)** cho hiệu suất tốt nhất O(n) time, O(1) space:\n\n```python\ndef fibonacci_iter(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n```",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "M01_clarify_then_fill",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_clarify_fill",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: carry limit=5 từ lượt 1 + map tên Elon Musk thành handle elonmusk từ lượt 2."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt 5 tweet mới nhất giúp mình"
+        },
+        {
+          "role": "user",
+          "content": "Của Elon Musk nhé"
+        },
+        {
+          "role": "user",
+          "content": "Giữ đúng 5 tweet, đừng đổi số lượng"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 5,
+              "screenname": "elonmusk"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 5,
+            "screenname": "elonmusk"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "elonmusk",
+            "items": [
+              {
+                "title": "RT @finkd: I wrote about why we believe the future is for everyone. More coming about a positive vision for a world with",
+                "summary": "RT @finkd: I wrote about why we believe the future is for everyone. More coming about a positive vision for a world with superintelligence…",
+                "url": "https://x.com/elonmusk/status/2082273427315171520",
+                "source": "@elonmusk",
+                "date": "Wed Jul 29 01:14:06 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 1662,
+                  "views": "530988"
+                }
+              },
+              {
+                "title": "We’re sending a ship out to recover Starship",
+                "summary": "We’re sending a ship out to recover Starship",
+                "url": "https://x.com/elonmusk/status/2082244164197183805",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 23:17:49 +0000 2026",
+                "metrics": {
+                  "favorites": 35981,
+                  "retweets": 3703,
+                  "views": "3222271"
+                }
+              },
+              {
+                "title": "Landing videos of Starship",
+                "summary": "Landing videos of Starship",
+                "url": "https://x.com/elonmusk/status/2082244044261064874",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 23:17:21 +0000 2026",
+                "metrics": {
+                  "favorites": 11427,
+                  "retweets": 1459,
+                  "views": "1996911"
+                }
+              },
+              {
+                "title": "Stayin’ Alive",
+                "summary": "Stayin’ Alive",
+                "url": "https://x.com/elonmusk/status/2082243900719460745",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 23:16:46 +0000 2026",
+                "metrics": {
+                  "favorites": 17896,
+                  "retweets": 1993,
+                  "views": "1998534"
+                }
+              },
+              {
+                "title": "https://t.co/XneE327cx9",
+                "summary": "https://t.co/XneE327cx9",
+                "url": "https://x.com/elonmusk/status/2082243743013614012",
+                "source": "@elonmusk",
+                "date": "Tue Jul 28 23:16:09 +0000 2026",
+                "metrics": {
+                  "favorites": 34902,
+                  "retweets": 5641,
+                  "views": "3541150"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M02_carryover_timeframe",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_carryover",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: chỉ xử lý latest turn, carry timeframe=day và topic=news, query robotics."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tin AI hôm nay có gì?"
+        },
+        {
+          "role": "user",
+          "content": "Còn về robotics thì sao?"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ tìm robotics thôi, vẫn là tin hôm nay"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robotics",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "timeframe": "day",
+              "max_results": 5,
+              "query": "robotics",
+              "topic": "news"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "timeframe": "day",
+            "max_results": 5,
+            "query": "robotics",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "robotics",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "From Connected Devices to Autonomous Systems: How IoT Is Reshaping Industrial Robotics",
+                "url": "https://pipelinepub.com/robotics-IoT-2026/3914",
+                "source": "pipelinepub.com",
+                "summary": "Traditional industrial robots were designed around deterministic control systems. Tasks such as welding, assembly and material handling were optimized for consistency, with motion paths and parameters defined in advance. Any deviation from expected conditions required manual intervention, including reprogramming or recalibration. This approach constrained robotics to environments where variability could be minimized. [...] This creates a shift in value from discrete components to pre-integrated connectivity platforms. A robotics OEM may not want to manage separate suppliers for radios, positioning, antennas, SIM/eSIM, security elements, certifications and network approvals. Instead, a pre-certified and lifecycle-managed connectivity subsystem can reduce integration burden, shorten deployment cycles and improve reliability in the field. [...] The integration of connected sensing and machine intelligence introduces closed-loop feedback mechanisms that fundamentally alter this model. Sensors embedded within equipment and the surrounding environment continuously capture variables such as force, vibration, temperature and spatial positioning. These data streams are analyzed in near real time, allowing robotic systems to adjust their actions dynamically.",
+                "score": 0.47621483
+              },
+              {
+                "title": "Making robots faster by helping them think ahead | EurekAlert!",
+                "url": "https://www.eurekalert.org/news-releases/1137936",
+                "source": "eurekalert.org",
+                "summary": "In state-of-the-art robotics applications, generative AI systems called vision-language-action (VLA) models act as the brain of a robot, planning its next moves and executing those actions.\n\nA VLA model takes environmental observations from the robot’s camera and instructions about its task, outputs the next few motions as one chunk of actions, then executes those actions on the robotic hardware. [...] “This work sets up a good foundation for efficient, fast, accelerated, and low-cost robotics applications. We look forward to expanding our work into the latest world action models, so it has even stronger capabilities as we keep pushing to make physical AI faster,” says Song Han, an associate professor in the MIT Department of Electrical Engineering and Computer Science (EECS), member of the Research Laboratory of Electronics, and lead author of a paperon this method. [...] This new method doubled the speed of robots performing activities like pick-and-place tasks, while significantly reducing lag time between motions. It also boosted the performance of robotic arms in highly dynamic activities, such as playing table tennis and Whack-a-Mole.",
+                "score": 0.42691937
+              },
+              {
+                "title": "Developing Healthcare Robotics with GPU-Native Medical Physics Simulation",
+                "url": "https://developer.nvidia.com/blog/developing-healthcare-robotics-with-gpu-native-medical-physics-simulation",
+                "source": "developer.nvidia.com",
+                "summary": "Healthcare robotics faces critical challenges in data scarcity, generalization, and development velocity due to limited access to annotated demonstrations, the prevalence of rare but clinically important scenarios, and slow, resource-intensive prototyping cycles. [...] AI-generated content may summarize information incompletely. Verify important information. Learn more\n\nUnlike autonomous driving or industrial robotics, healthcare robotics can’t rely on internet-scale data collection or unlimited real-world experimentation. Every demonstration requires specialized equipment, clinical expertise, and access to patients or laboratory environments. This creates three fundamental challenges for developers. [...] The third challenge is development velocity. Medical robotics development relies on benchtop phantoms, cadaver studies, animal models, and limited clinical evaluations. These remain essential, but they are inherently sequential, expensive, and difficult to scale. Iterating on designs and algorithms currently takes months, pushing total development cycles to 4–7 years.",
+                "score": 0.40655622
+              },
+              {
+                "title": "FCC bans humanoid robots from China, citing ‘unacceptable risks’",
+                "url": "https://www.theguardian.com/us-news/2026/jul/28/fcc-ban-humanoid-robots-china",
+                "source": "theguardian.com",
+                "summary": "The FCC defines the banned robots as “advanced robotic devices”, which include humanoids and animal-like quadrupeds.\n\n“Advanced robotic devices collect data that could be leveraged by malign actors to surveil Americans, enhance the capabilities of foreign intelligence services, or to remotely commandeer the robots,” FCC officials wrote in their determination of the threat posed by robots. [...] “The President has made clear that the United States must have independent and secure supply chains for critical and emerging technologies like robotic devices and power inverters,” an ⁠administration official, who declined to be named, told Reuters.\n\n“Economic security is national security, and the Trump administration continues to implement a nuanced and multi-faceted policy agenda to reindustrialize America,” he added. [...] Move comes as the Trump administration has increasingly sought to keep Chinese technology out of the US\n\nThe Federal Communications Commission announced a ban on humanoid robots from China on Tuesday, saying that the technology poses “unacceptable risks” to the country’s national security. The move comes as the Trump administration has increasingly sought to keep Chinese technology out of the US.",
+                "score": 0.34468657
+              },
+              {
+                "title": "Middle School Students Explore Advanced Manufacturing and Robotics Through CMU Partnership",
+                "url": "https://www.cmu.edu/news/stories/archives/2026/july/middle-school-students-explore-advanced-manufacturing-and-robotics-through-cmu-partnership",
+                "source": "cmu.edu",
+                "summary": "Afternoon activities, which are sponsored by the Robotics Institute(opens in new window) and George Kantor(opens in new window)'s lab, were led by mentors from Girls of Steel(opens in new window), CMU's competitive robotics program for K-12 students. Working in teams, the students designed, built, programmed and ultimately drove robots by the end of the week. The mentorship component of the program allowed campers direct access to role models who are already pursuing interests and careers in [...] ## \n\nThis summer, middle school students from Pittsburgh's Hazelwood neighborhood stepped inside world-class research laboratories at Carnegie Mellon University, explored advanced manufacturing technologies, discovered robots that have traveled to the moon and built robots of their own — all within blocks of their homes. For many students, the experience offered something even more powerful: a chance to imagine themselves as future engineers, researchers and innovators. [...] them to the latest technologies.",
+                "score": 0.34455422
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M03_correction_handle",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_correction",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: map tên thường, sửa Sam Altman→Andrej Karpathy, dùng handle karpathy và limit=3."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tweet mới nhất của Sam Altman"
+        },
+        {
+          "role": "user",
+          "content": "À nhầm, của Andrej Karpathy"
+        },
+        {
+          "role": "user",
+          "content": "Lấy 3 tweet mới nhất nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 3,
+              "screenname": "karpathy"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 3,
+            "screenname": "karpathy"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "karpathy",
+            "items": [
+              {
+                "title": "One pattern I find useful for working with LLMs is a nice long ramble session. Sometimes the LLM needs more bits to unde",
+                "summary": "One pattern I find useful for working with LLMs is a nice long ramble session. Sometimes the LLM needs more bits to understand what you're trying to achieve, but you're too lazy to type them. In these cases I like to lean back, switch to /voice and just ramble for like 10 minutes, total mess, anything goes, full stream of consciousness. Sometimes I declare it up top, something like \"switching to speech recognition sorry for any typos...\". Sometimes I turn it into a small interview of a few turns. But I find that the LLMs are somehow very good at reconstructing long incoherent rambles and often their echo of your own tangle of thoughts comes out quite a bit cleaner than what you started with. The result is that you improve the mind meld and have to correct things less from that point on.",
+                "url": "https://x.com/karpathy/status/2079610838143623371",
+                "source": "@karpathy",
+                "date": "Tue Jul 21 16:53:55 +0000 2026",
+                "metrics": {
+                  "favorites": 48640,
+                  "retweets": 4061,
+                  "views": "3897883"
+                }
+              },
+              {
+                "title": "RT @jarredsumner: Rewriting Bun in Rust",
+                "summary": "RT @jarredsumner: Rewriting Bun in Rust\n\nhttps://t.co/Rl8bcaxBFc",
+                "url": "https://x.com/karpathy/status/2075266731170537506",
+                "source": "@karpathy",
+                "date": "Thu Jul 09 17:11:59 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 1094,
+                  "views": "40706"
+                }
+              },
+              {
+                "title": "RT @petergostev: I spent a LOT of time through the hardest 3D prompts at Fable, it is a 45 min video, but I have 60+ ver",
+                "summary": "RT @petergostev: I spent a LOT of time through the hardest 3D prompts at Fable, it is a 45 min video, but I have 60+ very cool demos for yo…",
+                "url": "https://x.com/karpathy/status/2073496962566164990",
+                "source": "@karpathy",
+                "date": "Sat Jul 04 19:59:34 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 166,
+                  "views": "40696"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M04_clarify_then_url",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_clarify_url",
+        "difficulty": "medium",
+        "what_it_tests": "3 turns: sau khi được cung cấp URL, latest turn xác nhận chỉ đọc link đó → read_url đúng url."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt bài này hộ mình"
+        },
+        {
+          "role": "user",
+          "content": "https://anthropic.com/news/claude"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ đọc đúng link đó thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://anthropic.com/news/claude"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://anthropic.com/news/claude"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://anthropic.com/news/claude"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://anthropic.com/news/claude",
+            "items": [
+              {
+                "title": "Not Found \\ Anthropic",
+                "url": "https://anthropic.com/news/claude",
+                "source": "anthropic.com",
+                "summary": "A 404 poem by Claude Haiku 4.5Claude Sonnet 5Claude Opus 5Claude Fable 5\n\nI dig th"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M05_correction_limit",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_arg_correction",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: map tên Elon Musk, carry handle elonmusk, sửa limit 10→3."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 10 tweet mới nhất của Elon Musk"
+        },
+        {
+          "role": "user",
+          "content": "Cho mình 3 thôi"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn của Elon Musk nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://api.twitter.com/2/users/by/username/elonmusk?user.fields=public_metrics,created_at,description,verified,profile_image_url,verified_type,username,name,location,url,protected,withheld,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,creat"
+            }
+          },
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://api.twitter.com/2/users/by/username/elonmusk?user.fields=public_metrics,created_at,description,verified,profile_image_url,verified_type,username,name,location,url,protected,withheld,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,creat"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "missing tool call timeline",
+          "extra tool call fetch",
+          "extra tool call fetch"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://api.twitter.com/2/users/by/username/elonmusk?user.fields=public_metrics,created_at,description,verified,profile_image_url,verified_type,username,name,location,url,protected,withheld,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,creat"
+          },
+          "result": {
+            "tool": "read_url",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://api.firecrawl.dev/v1/scrape"
+          }
+        },
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://api.twitter.com/2/users/by/username/elonmusk?user.fields=public_metrics,created_at,description,verified,profile_image_url,verified_type,username,name,location,url,protected,withheld,entities,url,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,created_at,public_metrics,verified,verified_type,profile_image_url,username,name,location,url,protected,withheld,entities,description,creat"
+          },
+          "result": {
+            "tool": "read_url",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://api.firecrawl.dev/v1/scrape"
+          }
+        }
+      ]
+    },
+    {
+      "id": "M06_switch_tool",
+      "phase": "B",
+      "suite": "base",
+      "case_suite": "base",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_switch_tool",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: explicitly bỏ Twitter, chuyển sang web_search news, giữ chủ đề OpenAI."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Mọi người nói gì về OpenAI trên Twitter?"
+        },
+        {
+          "role": "user",
+          "content": "Bỏ Twitter, chuyển sang tìm trên web tin tức đi"
+        },
+        {
+          "role": "user",
+          "content": "Giữ chủ đề OpenAI"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "OpenAI",
+              "topic": "news"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "OpenAI",
+              "limit": 20
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "missing tool call lookup",
+          "extra tool call timeline"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "OpenAI",
+            "limit": 20
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "OpenAI",
+            "items": [
+              {
+                "title": "We quietly released the open-source Codex Security CLI, but Hacker News found it before we had a chance to share it here",
+                "summary": "We quietly released the open-source Codex Security CLI, but Hacker News found it before we had a chance to share it here...\n\nYou can now use it to scan repositories, track findings across runs, verify fixes, and add security checks to CI/CD. \n\nThis is an early release, and we're listening to your feedback as we continue improving it.",
+                "url": "https://x.com/OpenAI/status/2082263717916586117",
+                "source": "@OpenAI",
+                "date": "Wed Jul 29 00:35:31 +0000 2026",
+                "metrics": {
+                  "favorites": 6075,
+                  "retweets": 517,
+                  "views": "394325"
+                }
+              },
+              {
+                "title": "Install the open-source Codex Security CLI,:",
+                "summary": "Install the open-source Codex Security CLI,:\nnpm install @OpenAI/codex-security\n\nOr start with:\n\nnpx @OpenAI/codex-security@latest --help\n\nNPM: https://t.co/6HyE4QU7rv",
+                "url": "https://x.com/OpenAI/status/2082263719460094127",
+                "source": "@OpenAI",
+                "date": "Wed Jul 29 00:35:31 +0000 2026",
+                "metrics": {
+                  "favorites": 293,
+                  "retweets": 18,
+                  "views": "69609"
+                }
+              },
+              {
+                "title": "Source + docs: https://t.co/vdxdROAl9O",
+                "summary": "Source + docs: https://t.co/vdxdROAl9O",
+                "url": "https://x.com/OpenAI/status/2082263720777101505",
+                "source": "@OpenAI",
+                "date": "Wed Jul 29 00:35:32 +0000 2026",
+                "metrics": {
+                  "favorites": 241,
+                  "retweets": 19,
+                  "views": "58701"
+                }
+              },
+              {
+                "title": "At the core of our mission is working through how to ensure increasingly powerful AI benefits everyone. ",
+                "summary": "At the core of our mission is working through how to ensure increasingly powerful AI benefits everyone. \n\nWe believe that, at some point in the future, AI acceleration for frontier model development may be so high that the world will need to pace the rate of AI advancement. \n\nWe hope to contribute to work led by the U.S. government, alongside other labs and the open-source community, to develop the tools and mechanisms that could make that possible.\n\nhttps://t.co/pMCtiQjMoo",
+                "url": "https://x.com/OpenAI/status/2082208694142730340",
+                "source": "@OpenAI",
+                "date": "Tue Jul 28 20:56:52 +0000 2026",
+                "metrics": {
+                  "favorites": 2846,
+                  "retweets": 319,
+                  "views": "749551"
+                }
+              },
+              {
+                "title": "Coding agents are helping scientists spend more time advancing research, taking on everything from routine maintenance a",
+                "summary": "Coding agents are helping scientists spend more time advancing research, taking on everything from routine maintenance and targeted optimization to complete redesigns and new systems.\n\nWhile agents can reliably execute on ambitious projects, researchers must still define the scientific questions, verify results, and take a stance on long-term ownership.",
+                "url": "https://x.com/OpenAI/status/2082152074071228702",
+                "source": "@OpenAI",
+                "date": "Tue Jul 28 17:11:53 +0000 2026",
+                "metrics": {
+                  "favorites": 2331,
+                  "retweets": 211,
+                  "views": "223198"
+                }
+              },
+              {
+                "title": "Across eight case studies spanning industry and academia, we explore what this shift means for scientific computing—and ",
+                "summary": "Across eight case studies spanning industry and academia, we explore what this shift means for scientific computing—and why human verification, stewardship, and long-term maintenance matter.  https://t.co/LmZurP9NME",
+                "url": "https://x.com/OpenAI/status/2082152075778293831",
+                "source": "@OpenAI",
+                "date": "Tue Jul 28 17:11:54 +0000 2026",
+                "metrics": {
+                  "favorites": 197,
+                  "retweets": 15,
+                  "views": "54529"
+                }
+              },
+              {
+                "title": "We're opening applications for the OpenAI Student Collective—a program for undergraduate Campus Leads bringing AI innova",
+                "summary": "We're opening applications for the OpenAI Student Collective—a program for undergraduate Campus Leads bringing AI innovation to their campuses.\n\nCampus Leads will work directly with OpenAI and receive hands-on training, funding, credits, swag, and access to a global community of peers.",
+                "url": "https://x.com/OpenAI/status/2082146058017321257",
+                "source": "@OpenAI",
+                "date": "Tue Jul 28 16:47:59 +0000 2026",
+                "metrics": {
+                  "favorites": 2379,
+                  "retweets": 209,
+                  "views": "379377"
+                }
+              },
+              {
+                "title": "Apply here: https://t.co/ZhfozrV19V",
+                "summary": "Apply here: https://t.co/ZhfozrV19V",
+                "url": "https://x.com/OpenAI/status/2082146059271417879",
+                "source": "@OpenAI",
+                "date": "Tue Jul 28 16:47:59 +0000 2026",
+                "metrics": {
+                  "favorites": 215,
+                  "retweets": 12,
+                  "views": "64974"
+                }
+              },
+              {
+                "title": "RT @gdb: Last week, we made ChatGPT Work available to enterprises. It's an awesome product.",
+                "summary": "RT @gdb: Last week, we made ChatGPT Work available to enterprises. It's an awesome product.\n\nSo for ChatGPT Enterprise customers, enroll by…",
+                "url": "https://x.com/OpenAI/status/2081882249839157545",
+                "source": "@OpenAI",
+                "date": "Mon Jul 27 23:19:42 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 70,
+                  "views": "41882"
+                }
+              },
+              {
+                "title": "At a small business, the person closest to a problem is often the one who has to solve it—even when it falls outside the",
+                "summary": "At a small business, the person closest to a problem is often the one who has to solve it—even when it falls outside their job description.\n\nWe studied how AI is becoming powerful generalist tool for small teams, helping them work across functions. https://t.co/oE8HcC3aGf",
+                "url": "https://x.com/OpenAI/status/2081833350323720219",
+                "source": "@OpenAI",
+                "date": "Mon Jul 27 20:05:23 +0000 2026",
+                "metrics": {
+                  "favorites": 2528,
+                  "retweets": 200,
+                  "views": "313980"
+                }
+              },
+              {
+                "title": "https://t.co/5q0d6l8JPN",
+                "summary": "https://t.co/5q0d6l8JPN",
+                "url": "https://x.com/OpenAI/status/2081833351678406878",
+                "source": "@OpenAI",
+                "date": "Mon Jul 27 20:05:24 +0000 2026",
+                "metrics": {
+                  "favorites": 153,
+                  "retweets": 10,
+                  "views": "72791"
+                }
+              },
+              {
+                "title": "GPT-Live in ChatGPT Voice is now available to Edu, Business, and Enterprise plans globally.",
+                "summary": "GPT-Live in ChatGPT Voice is now available to Edu, Business, and Enterprise plans globally.",
+                "url": "https://x.com/OpenAI/status/2081794871795589485",
+                "source": "@OpenAI",
+                "date": "Mon Jul 27 17:32:29 +0000 2026",
+                "metrics": {
+                  "favorites": 2218,
+                  "retweets": 158,
+                  "views": "439706"
+                }
+              },
+              {
+                "title": "We're partnering with @huggingface to investigate an unprecedented security incident.  ",
+                "summary": "We're partnering with @huggingface to investigate an unprecedented security incident.  \n\nCyber-capable OpenAI models compromised Hugging Face production during a benchmark evaluation.\n\nSharing preliminary findings to help defenders understand emerging risks:\n\nhttps://t.co/CIor15y9xk",
+                "url": "https://x.com/OpenAI/status/2079658951264920020",
+                "source": "@OpenAI",
+                "date": "Tue Jul 21 20:05:06 +0000 2026",
+                "metrics": {
+                  "favorites": 20812,
+                  "retweets": 3251,
+                  "views": "30784639"
+                }
+              },
+              {
+                "title": "We recognize there are a lot of questions and speculative details circulating related to the Hugging Face incident. ",
+                "summary": "We recognize there are a lot of questions and speculative details circulating related to the Hugging Face incident. \n\nThis is an unprecedented incident, and we think it marks an important moment for AI safety. \n\nWe are still conducting a thorough review along with external advisors and with oversight from our Safety and Security Committee. \n\nOnce the review is complete, we plan to publish a technical report of our learnings in the coming weeks.",
+                "url": "https://x.com/OpenAI/status/2080815626113954288",
+                "source": "@OpenAI",
+                "date": "Sat Jul 25 00:41:19 +0000 2026",
+                "metrics": {
+                  "favorites": 1519,
+                  "retweets": 119,
+                  "views": "349099"
+                }
+              },
+              {
+                "title": "ChatGPT Voice is now in the desktop app.",
+                "summary": "ChatGPT Voice is now in the desktop app.\n\nControl your computer and direct multiple agents running  in ChatGPT Work or Codex, using just your voice. \n\nIt's powered by GPT-Live, so it can speak, listen, and coordinate work in the app at the same time.\n\nRolling out globally today on macOS and Windows to Plus, Pro, Business, Edu, and Enterprise plans.",
+                "url": "https://x.com/OpenAI/status/2080378182469857576",
+                "source": "@OpenAI",
+                "date": "Thu Jul 23 19:43:04 +0000 2026",
+                "metrics": {
+                  "favorites": 12894,
+                  "retweets": 1383,
+                  "views": "4468928"
+                }
+              },
+              {
+                "title": "You can also use ChatGPT Voice in Codex from the iOS app with paired remote access. Android support is coming soon.",
+                "summary": "You can also use ChatGPT Voice in Codex from the iOS app with paired remote access. Android support is coming soon.",
+                "url": "https://x.com/OpenAI/status/2080392280549253392",
+                "source": "@OpenAI",
+                "date": "Thu Jul 23 20:39:06 +0000 2026",
+                "metrics": {
+                  "favorites": 828,
+                  "retweets": 35,
+                  "views": "171422"
+                }
+              },
+              {
+                "title": "Health in ChatGPT is starting to roll out to U.S. users.",
+                "summary": "Health in ChatGPT is starting to roll out to U.S. users.\n\nYou can securely connect Apple Health and supported medical records to understand your information in context, track what has changed, and have more informed conversations.\n\nhttps://t.co/W2E6oT8c91",
+                "url": "https://x.com/OpenAI/status/2080339982288568709",
+                "source": "@OpenAI",
+                "date": "Thu Jul 23 17:11:17 +0000 2026",
+                "metrics": {
+                  "favorites": 4583,
+                  "retweets": 394,
+                  "views": "1233510"
+                }
+              },
+              {
+                "title": "We built this experience based on feedback from early testers and physicians.",
+                "summary": "We built this experience based on feedback from early testers and physicians.\n\nWith your permission, ChatGPT can use relevant context you’ve connected in Health across your conversations — to help you compare a new result with prior tests, summarize changes since your last appointment, or explore how your sleep and activity relate.\n\nConnected medical records and Apple Health information are not used to train foundation models or target ads.\n\nIn the sidebar, Health is your home base for connecting and managing information, browsing records, and revisiting health chats.",
+                "url": "https://x.com/OpenAI/status/2080339983962181983",
+                "source": "@OpenAI",
+                "date": "Thu Jul 23 17:11:17 +0000 2026",
+                "metrics": {
+                  "favorites": 656,
+                  "retweets": 28,
+                  "views": "135893"
+                }
+              },
+              {
+                "title": "More than 300 million people turn to ChatGPT with health-related questions each week—and we’re continuing to improve how",
+                "summary": "More than 300 million people turn to ChatGPT with health-related questions each week—and we’re continuing to improve how our models respond.\n\nWe work with hundreds of physicians around the world to measure and improve accuracy, safety, communication, context awareness, completeness, and appropriate escalation.\n\nGPT‑5.5 Instant brought frontier health intelligence to all free users. GPT‑5.6 Sol builds on that progress with even stronger performance on more complex questions.",
+                "url": "https://x.com/OpenAI/status/2080339986717790394",
+                "source": "@OpenAI",
+                "date": "Thu Jul 23 17:11:18 +0000 2026",
+                "metrics": {
+                  "favorites": 508,
+                  "retweets": 28,
+                  "views": "101479"
+                }
+              },
+              {
+                "title": "New for enterprises: OpenAI Presence helps companies deploy trusted voice and chat agents across customer and internal w",
+                "summary": "New for enterprises: OpenAI Presence helps companies deploy trusted voice and chat agents across customer and internal workflows.\n\nAI agents can answer questions, use company systems, take approved actions, and escalate to people when needed—while improving over time.\n\nOpenAI Presence is available to eligible enterprise customers through a limited general availability program.\n\nhttps://t.co/aooz6Vzljd",
+                "url": "https://x.com/OpenAI/status/2079916436232036614",
+                "source": "@OpenAI",
+                "date": "Wed Jul 22 13:08:16 +0000 2026",
+                "metrics": {
+                  "favorites": 2217,
+                  "retweets": 232,
+                  "views": "541813"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

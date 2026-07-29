@@ -1,0 +1,28 @@
+{
+  "transcript_id": "v0_openrouter_20260729T105340667813",
+  "version": "v0",
+  "artifact_version": "v0+paa5aa8cd5afa+t6cdb53d5d7b8",
+  "prompt_hash": "aa5aa8cd5afa08bafd3084099117a4058b7dda537cf4ae3783127f58d8d98831",
+  "tools_hash": "6cdb53d5d7b8de80d60b298b1357f462cedbedfae261d5ba60b08ccc401687c5",
+  "provider": "openrouter",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+  "system_prompt": "C:\\Users\\Tunnne\\Downloads\\code\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Tunnne\\Downloads\\code\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T10:53:40",
+  "updated_at": "2026-07-29T10:53:45",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T10:53:40",
+      "user": "Tweet mới nhất của Sam Altman là gì?",
+      "status": "provider_error",
+      "assistant_text": null,
+      "rounds": [],
+      "tool_events": [],
+      "error": "UnicodeEncodeError: 'charmap' codec can't encode character '\\U0001f527' in position 0: character maps to <undefined>",
+      "ended_at": "2026-07-29T10:53:45"
+    }
+  ]
+}

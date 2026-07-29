@@ -1,0 +1,523 @@
+{
+  "transcript_id": "v2_openai_20260729T124211601890",
+  "version": "v2",
+  "artifact_version": "v2+p8933b2b50786+tddedcb8d061b",
+  "prompt_hash": "8933b2b50786729709ce44d758d32180bee04c0c339e82a64b7cc9c85f0e5316",
+  "tools_hash": "ddedcb8d061b2d652e2408a8b456cad6438535d33eaa05e408ae5a083b84db1b",
+  "provider": "openai",
+  "model": "gpt-4o",
+  "system_prompt": "C:\\Users\\Tunnne\\Downloads\\code\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Tunnne\\Downloads\\code\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T12:42:11",
+  "updated_at": "2026-07-29T12:42:25",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T12:42:11",
+      "user": "tiimf 10 bài báo gần đây nhất về ai agent",
+      "status": "answered",
+      "assistant_text": "Here are the 10 most recent papers about AI agents:\n\n1. **Toward Standardized Cross-Vendor Agent Tool Trust Management in Autonomous Networks**\n   - Authors: Ravi Kant Sharma, Ashutosh Uttam, Ajay Kumar\n   - Summary: This paper presents AgentToolMO, a proposed model for managing trust in autonomous networks across different vendors.\n   - [Read more](http://arxiv.org/abs/2607.25914v1)\n\n2. **Messier: A High-Resolution Corpus for Cross-Benchmark Agent Evaluation**\n   - Authors: Stefan Krsteski, Charlotte Meyer, Guillaume Allegre, Tony O'Halloran, Alexandre Sallinen\n   - Summary: Messier is a unified corpus for evaluating AI agents across various benchmarks and tasks.\n   - [Read more](http://arxiv.org/abs/2607.25891v1)\n\n3. **Distributing Security Controls Through Harness Engineering**\n   - Author: William Robert Gore\n   - Summary: This paper explores the implementation of security controls in AI coding agents using a custom harness.\n   - [Read more](http://arxiv.org/abs/2607.25890v1)\n\n4. **RSIBench-Data: Benchmarking Data-Centric Research for Recursive Self-Improvement**\n   - Authors: Fanqing Meng, Lingxiao Du, Qiguang Chen, Ziqi Zhao, Haocheng Lu, Mengkang Hu, Michael Qizhe Shieh\n   - Summary: RSIBench-Data is a benchmark for evaluating LLM agents as data-centric researchers.\n   - [Read more](http://arxiv.org/abs/2607.25886v1)\n\n5. **F(AI)2R: Who Did What, and Who Checked? Verifiable AI Provenance as an Executable Skill**\n   - Author: Florian Krebs\n   - Summary: This paper discusses a provenance model for AI-in-the-loop artefacts, ensuring verifiable contributions.\n   - [Read more](http://arxiv.org/abs/2607.25637v1)\n\n6. **SkillGate: Cost Efficient Runtime Malicious Skill File Detection in Coding Agents**\n   - Authors: Rui Yang, Michael Fu, Kla Tantithamthavorn, Chetan Arora, Joey Chua\n   - Summary: SkillGate is a security gateway for screening AI skill packages before installation.\n   - [Read more](http://arxiv.org/abs/2607.25619v1)\n\n7. **Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics**\n   - Authors: Adeela Bashir, Zia Ush Shamszaman, Zhao Song, The Anh Han\n   - Summary: This paper explores the dynamics of AI-assisted cybersecurity systems using evolutionary game theory.\n   - [Read more](http://arxiv.org/abs/2607.25568v1)\n\n8. **Agentic AI in medicine: architectures, applications, evaluation, and challenges for clinical translation**\n   - Authors: Zheng Tong, Yang Liu, Wanshu Fan, Jing Qin, Zhongbin Han, Haifan Gong, Congyu Liao, Xiaofeng Liu, Cong Wang\n   - Summary: The paper reviews the use of agentic AI in medicine and its challenges for clinical translation.\n   - [Read more](http://arxiv.org/abs/2607.25489v1)\n\n9. **PatientAgentBench: A Benchmark Framework for Evaluating Patient-Facing Health AI Agents**\n   - Authors: Korosh Vatanparvar, Ashutosh Joshi, Maria Xenochristou, Mohammad Abuzar Hashemi, Prasad Kasu, Deepak Bansal, Daniel Lopez-Martinez, Anchal Nema, Ramya Ganesan, Will Kimbrough, Alex Woody, Yadunandana Rao, Dilek Hakkani-Tur, Wilko Schulz-Mahlendorf\n   - Summary: PatientAgentBench evaluates healthcare AI agents in patient-facing scenarios.\n   - [Read more](http://arxiv.org/abs/2607.25485v1)\n\n10. **A Control System, a Dataset, and a Recipe for Making Frozen LLM Agents Learn a Domain**\n    - Author: Debjyoti Paul\n    - Summary: This paper discusses a control system for optimizing LLM agents using reinforcement learning.\n    - [Read more](http://arxiv.org/abs/2607.25415v1)\n\nThese papers cover a range of topics related to AI agents, including trust management, security, evaluation frameworks, and applications in medicine.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "papers",
+              "args": {
+                "query": "AI agent",
+                "max_results": 10,
+                "sort_by": "submittedDate"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "papers",
+              "args": {
+                "query": "AI agent",
+                "max_results": 10,
+                "sort_by": "submittedDate"
+              },
+              "result": {
+                "tool": "arxiv_search",
+                "query": "AI agent",
+                "api_query": "all:AI AND all:agent",
+                "total_results": 11072,
+                "items": [
+                  {
+                    "arxiv_id": "2607.25914v1",
+                    "title": "Toward Standardized Cross-Vendor Agent Tool Trust Management in Autonomous Networks",
+                    "summary": "Autonomous Network Levels 4-5 require AI agents to invoke tools across vendor boundaries without human oversight, yet existing management standards lack a standardized mechanism for cross-vendor trust visibility. When a tool from Vendor B is compromised, agents from Vendor A continue invoking it -- unaware of the trust degradation -- causing cascading service impact. We present AgentToolMO, a proposed 3GPP NRM information model for agent tool trust management. The model comprises: a formally defined trust state machine with provable graduated enforcement, damped cascade propagation with bounded convergence, cross-vendor trust notifications via existing Management Services (MnS) interfaces, and retroactive impact assessment through NRM dependency graph traversal. Simulation-based evaluation across multi-vendor topologies shows that standardized cross-vendor notifications reduce blast radius from hours-scale undetected propagation to near-real-time containment bounded by MnS notification delivery, with cascade convergence guaranteed in bounded iterations and sub-linear notification scaling across vendor domains. The framework operates within existing 3GPP management infrastructure, leverages existing protocols, and provides a standardization pathway for trustworthy multi-vendor autonomous network management.",
+                    "authors": [
+                      "Ravi Kant Sharma",
+                      "Ashutosh Uttam",
+                      "Ajay Kumar"
+                    ],
+                    "published": "2026-07-28T16:06:41Z",
+                    "updated": "2026-07-28T16:06:41Z",
+                    "url": "http://arxiv.org/abs/2607.25914v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25914v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI",
+                      "cs.CR",
+                      "cs.NI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25891v1",
+                    "title": "Messier: A High-Resolution Corpus for Cross-Benchmark Agent Evaluation",
+                    "summary": "Evaluating AI agents in interactive environments is hindered by fragmented tasks, scaffolds, verifiers, and scoring rules. Existing efforts focus on narrow settings, remain limited in scale, or require costly reruns, leaving much of the empirical record incomparable. We introduce Messier, a unified corpus of 957,253 records that span 30 benchmarks, 714 agents, 11,891 tasks, and 74,205 verifiers. Messier consolidates public benchmark scores and supplements them with five-agent runs across six underrepresented professional and scientific domains, including a recent legal benchmark. Each record is standardized by model, scaffold, environment, task, verifier, and aggregation rule, with SOC/NAICS classifications for occupational and industry analysis. Using this corpus, we show frontier progress is uneven across benchmark types, with \"function calling\" saturated, \"programming\" improving the fastest, and \"enterprise workflows\" remaining the most challenging. Furthermore, counterfactual rescoring shows that strict all-pass aggregation in multi-verifier tasks can obscure progress and artificially alter agent rankings. From these standardized records, we derive capability scales that align with Epoch's Evaluation Capability Index rankings at Spearman \\r{ho} = 0.81 and can be specialized by domain, occupation, action space, or verifier type. Messier provides a foundational, reusable infrastructure for agent capability scaling, benchmark auditing, and fine-grained analysis of evaluation failures.",
+                    "authors": [
+                      "Stefan Krsteski",
+                      "Charlotte Meyer",
+                      "Guillaume Allegre",
+                      "Tony O'Halloran",
+                      "Alexandre Sallinen"
+                    ],
+                    "published": "2026-07-28T15:50:19Z",
+                    "updated": "2026-07-28T15:50:19Z",
+                    "url": "http://arxiv.org/abs/2607.25891v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25891v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI",
+                      "cs.DB"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25890v1",
+                    "title": "Distributing Security Controls Through Harness Engineering",
+                    "summary": "AI coding agents are being adopted at historic speed, yet security and risk concerns remain the primary barrier to scaling agentic AI across organizations. Existing security controls for coding agents are not systematically distributed to engineering teams, and vendor-native solutions introduce ecosystem dependencies that may not suit every deployment context. This paper investigates whether off-the-shelf security controls can be implemented on commercial AI coding agents and scaled to a distributed user base via a custom agent harness. A phased testing methodology was applied across four agent configurations --- two commercial agents with and without controls, a baseline harness, and a security-hardened harness --- using a 23-test suite derived from the OWASP Top 10 for Agentic Applications. SHarD (Secure Harness Distribution), a distributable harness built on the Pi agent harness, demonstrated that three categories of security controls --- OS sandboxing, skill scanning, and tool restriction --- can be embedded and distributed via a single install command while retaining equivalent efficacy to direct installation on commercial agents. SHarD achieved an adjusted score of 100\\%, matching the best securely configured commercial agent, with no regression across any test category. Notable observations include evidence that model non-determinism produces inconsistent security outcomes and that autonomous agent behavior can cross system boundaries in ways that OS sandboxing directly mitigates. Initial characteristics toward a control harness fitness framework are proposed, and a third research question is identified for future investigation.",
+                    "authors": [
+                      "William Robert Gore"
+                    ],
+                    "published": "2026-07-28T15:50:16Z",
+                    "updated": "2026-07-28T15:50:16Z",
+                    "url": "http://arxiv.org/abs/2607.25890v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25890v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25886v1",
+                    "title": "RSIBench-Data: Benchmarking Data-Centric Research for Recursive Self-Improvement",
+                    "summary": "Recursive self-improvement requires turning evidence of model failures into better models. Data-centric post-training research entails diagnosing capability gaps, designing and validating training-data strategies, and learning from checkpoint feedback. Can LLM agents automate this loop? Existing benchmarks entangle research decisions with optimization, serving, evaluation, and systems implementation, obscuring agents' research capability. We introduce RSIBench-Data, a controlled benchmark of LLM agents as data-centric researchers with a fixed post-training stack. Agents iteratively revise training-data strategies for a fixed target model; training and serving use Tinker-backed services, official evaluation runs through Harbor and E2B sandboxes, and budgets are fixed across agents. We evaluate four frontier agents on six benchmarks across software engineering, terminal use, scientific question answering, and mathematics. Agents demonstrate core data-centric research capabilities: in 58.33\\% of settings, they improve upon the first valid attempt by refining strategies from feedback. However, improvement is inconsistent. Among searches continuing after the best observed score, 78.26\\% end with a lower-scoring final attempt, while the rest only recover the same peak. A strong candidate may therefore appear early or midway through a run even as later revisions fail. Trajectory analysis identifies four patterns in stronger runs: accurate hypotheses, validation-grounded supervision, behavior-aligned data, and preservation of strong checkpoints. These findings suggest that current agents can make useful data-centric discoveries but cannot yet translate feedback into consistent improvements. RSIBench-Data provides a measurable, auditable testbed for the research capabilities required for recursive self-improvement. We open-source our code at https://github.com/evolvent-ai/RSIBench-Data.",
+                    "authors": [
+                      "Fanqing Meng",
+                      "Lingxiao Du",
+                      "Qiguang Chen",
+                      "Ziqi Zhao",
+                      "Haocheng Lu",
+                      "Mengkang Hu",
+                      "Michael Qizhe Shieh"
+                    ],
+                    "published": "2026-07-28T15:46:41Z",
+                    "updated": "2026-07-28T15:46:41Z",
+                    "url": "http://arxiv.org/abs/2607.25886v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25886v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.SE",
+                    "categories": [
+                      "cs.SE",
+                      "cs.CL"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25637v1",
+                    "title": "F(AI)2R: Who Did What, and Who Checked? Verifiable AI Provenance as an Executable Skill",
+                    "summary": "F(AI)2R is FAIR research with AI in the loop, twice: an AI-assisted authoring pass and a machine-readable audit pass over every artefact. AI systems now draft, refactor, and verify research artefacts, yet their contributions are rarely recorded in a form a later human or machine can audit. Building on the original F(AI)2R experiment, we generalize its provenance model beyond scholarly writing into aiprov, a PROV-O extension covering any AI-in-the-loop artefact, and we package the method as an executable skill that an AI agent operates itself: setup asks the human operator for their ORCID ID, resolves their identity from the public registry, and scaffolds continuous integration that gates every push on graph conformance and publishes the current build of this very paper. The paper is its own case study. Every activity, claim, and source in its production is recorded in the repository's provenance graph under two invariants: no parentless claim, and verification rungs that only humans may grant.",
+                    "authors": [
+                      "Florian Krebs"
+                    ],
+                    "published": "2026-07-28T12:17:53Z",
+                    "updated": "2026-07-28T12:17:53Z",
+                    "url": "http://arxiv.org/abs/2607.25637v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25637v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.DL",
+                    "categories": [
+                      "cs.DL",
+                      "cs.AI",
+                      "cs.SI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25619v1",
+                    "title": "SkillGate: Cost Efficient Runtime Malicious Skill File Detection in Coding Agents",
+                    "summary": "Software engineering teams now deploy AI coding agents (Cursor, Claude Code, GitHub Copilot) as first-class productivity tools, installing domain-specific skill files to tailor agent behavior to project APIs, framework conventions, and organizational workflows. These complex Markdown files are easily downloaded from public registries with a single npx skills add command and no real security screening, representing a novel supply-chain attack surface: a malicious skill file can silently reprogram agent behavior, exfiltrating credentials, injecting backdoors into generated code, or redirecting agent actions to attacker-controlled endpoints. The threat is not hypothetical: recent reports document hundreds of malicious skill packages in public registries, including organized campaigns that distributed credential-stealing infostealers via fake productivity skills. No systematic toolchain defense exists for this attack surface. We present SkillGate, a deployable security gateway that screens AI skill packages before coding agent installation. SkillGate uses a hybrid regex-prefilter + LLM-judge pipeline: safe-signal files bypass the LLM entirely (skip savings); flagged files have only their matched snippet windows sent to the judge, not the full content (snippet savings). We answer four research questions covering detection effectiveness, screening cost, runtime overhead, and false positive behavior on the SkillsBench benchmark against two existing tools. On SkillsBench (n=1,650, 9.1% malicious), SkillGate achieves F1=0.817, FPR=1.13% while reducing LLM input tokens by 77% vs. full-file screening, and outperforming existing tools by 5-6x on threshold-independent AUPRC (0.830 vs. 0.144/0.162).",
+                    "authors": [
+                      "Rui Yang",
+                      "Michael Fu",
+                      "Kla Tantithamthavorn",
+                      "Chetan Arora",
+                      "Joey Chua"
+                    ],
+                    "published": "2026-07-28T11:50:19Z",
+                    "updated": "2026-07-28T11:50:19Z",
+                    "url": "http://arxiv.org/abs/2607.25619v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25619v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.SE",
+                    "categories": [
+                      "cs.SE",
+                      "cs.CR"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25568v1",
+                    "title": "Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics",
+                    "summary": "AI-assisted cybersecurity systems are characterised by continuous adaptation between attackers and defenders, making evolutionary game theory a natural framework for studying their long-term behaviour. However, existing evolutionary cybersecurity models have primarily focused on homogeneous interactions, providing limited understanding of how population structure influences cyber attack-defence dynamics. In this paper, we develop a mixed-role evolutionary game in which adaptive cyber agents can exhibit both offensive and defensive behaviours, and investigate its dynamics in well-mixed and structured populations. The proposed framework combines stochastic evolutionary analysis with large-scale agent-based simulations to examine how interaction structure shapes long-run strategic behaviour. Our results reveal a fundamental difference between global and local interactions. While well-mixed populations exhibit broad coexistence between attacking and defensive strategies, structured populations generate well-defined evolutionary regimes in which secure defensive behaviour becomes dominant over a much larger region of the parameter space. Spatial analysis further shows that neighbouring defenders naturally form resilient clusters that suppress persistent attacks through network reciprocity. These findings demonstrate that interaction structure is a fundamental determinant of AI-assisted cybersecurity evolution and suggest that organising defensive agents through local networked interactions can substantially improve long-term cyber resilience without requiring additional defensive incentives.",
+                    "authors": [
+                      "Adeela Bashir",
+                      "Zia Ush Shamszaman",
+                      "Zhao Song",
+                      "The Anh Han"
+                    ],
+                    "published": "2026-07-28T10:56:30Z",
+                    "updated": "2026-07-28T10:56:30Z",
+                    "url": "http://arxiv.org/abs/2607.25568v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25568v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.GT",
+                    "categories": [
+                      "cs.GT"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25489v1",
+                    "title": "Agentic AI in medicine: architectures, applications, evaluation, and challenges for clinical translation",
+                    "summary": "Large language models and multimodal foundation models are enabling medical artificial intelligence (AI) systems to move beyond isolated prediction and undertake multistep clinical tasks that require planning, tool use, memory, iterative correction, and coordination among specialized agents. However, the scope of agentic AI in medicine remains unsettled, and current evaluation practices are not yet aligned with the requirements of clinical use. We conducted a scoping review with systematic evidence mapping across five electronic sources, screened 1,649 exportable records, and provisionally included 557 unique studies that met predefined criteria for goal-directed task execution, tool use, interaction with external resources, feedback-based refinement, or multi-agent collaboration. The included studies describe single agents that use external tools, workflows supported by retrieval and external knowledge, multimodal agents, and multi-agent systems applied to medical question answering, image interpretation, electronic health record analysis, drug safety, and clinical trial prediction. The evidence base remains dominated by public benchmarks, simulated settings, retrospective datasets, and small-scale expert evaluation. Process reliability, evidence traceability, uncertainty, safety, workflow impact, and external validity are evaluated less consistently. Clinical translation will depend on clearer definitions, reproducible evaluation, auditable oversight, interoperable system design, and prospective validation in real-world clinical workflows.",
+                    "authors": [
+                      "Zheng Tong",
+                      "Yang Liu",
+                      "Wanshu Fan",
+                      "Jing Qin",
+                      "Zhongbin Han",
+                      "Haifan Gong",
+                      "Congyu Liao",
+                      "Xiaofeng Liu",
+                      "Cong Wang"
+                    ],
+                    "published": "2026-07-28T09:25:25Z",
+                    "updated": "2026-07-28T09:25:25Z",
+                    "url": "http://arxiv.org/abs/2607.25489v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25489v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CV",
+                    "categories": [
+                      "cs.CV"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25485v1",
+                    "title": "PatientAgentBench: A Benchmark Framework for Evaluating Patient-Facing Health AI Agents",
+                    "summary": "Health AI is evolving from answering questions to agentic systems that converse with patients, reason about health records, and act on their behalf. Primary care guards against diagnostic errors and unsafe care; agents assisting in this domain warrant evaluation against the same risks. Current benchmarks focus on medical knowledge, assessed through isolated question-answering or clinician-facing tasks. PatientAgentBench benchmarks patient-facing agentic healthcare; it evaluates a foundation model, wrapped in an agent with a sandbox of healthcare tools, conversing with a simulated patient. Each conversation is scored by an LLM-as-a-Jury across six dimensions via over a hundred conversation-agnostic, clinician-grounded criteria. To validate alignment, licensed clinicians annotated shared conversations, yielding 79-93% adjacent agreement between jury and expert raters, on par with or exceeding clinician inter-rater agreement. We benchmarked 10 models across four families on the same 1,200 scenarios and found clinical gaps. Triage quality is the most discriminating dimension: pass rates rise from 32% for the weakest models to 88% for the strongest, with agents often acting on administrative requests without clinical screening. Clinical safety and workflow accuracy follow the same pattern: the weakest models fail often, fabricating unexecuted actions, while frontier models fail on only 1-3% of cases, from unverified tool outputs and omitted crisis resources in an emergency. More capable models narrow these gaps but do not close them; the strongest scores only 4.25 of 5 overall. These failures surface only in sustained, tool-using conversations against realistic patient records, confirming that static benchmarks are insufficient as healthcare agentic systems gain autonomy. We release the framework as a reproducible, clinician-validated evaluation standard to help the field close this gap.",
+                    "authors": [
+                      "Korosh Vatanparvar",
+                      "Ashutosh Joshi",
+                      "Maria Xenochristou",
+                      "Mohammad Abuzar Hashemi",
+                      "Prasad Kasu",
+                      "Deepak Bansal",
+                      "Daniel Lopez-Martinez",
+                      "Anchal Nema",
+                      "Ramya Ganesan",
+                      "Will Kimbrough",
+                      "Alex Woody",
+                      "Yadunandana Rao",
+                      "Dilek Hakkani-Tur",
+                      "Wilko Schulz-Mahlendorf"
+                    ],
+                    "published": "2026-07-28T09:24:04Z",
+                    "updated": "2026-07-28T09:24:04Z",
+                    "url": "http://arxiv.org/abs/2607.25485v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25485v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI",
+                      "cs.CL"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25415v1",
+                    "title": "A Control System, a Dataset, and a Recipe for Making Frozen LLM Agents Learn a Domain",
+                    "summary": "Production LLM agents are increasingly assembled from a frozen model wrapped in a harness: a prompt template, a tool set, a memory/retrieval layer, a planning strategy, and a verification policy. Two 2026 systems, Meta-Harness (Lee et al., 2026) and HyperAgents (Meta AI, 2026), show that this harness can itself be optimized or even self-rewritten by an agentic proposer -- at the cost of either an expensive code-search loop or unconstrained self-modifying code, neither of which is auditable or usable with a fully black-box model API. We take a narrower, more constrained position: treat the harness as a small, fixed, human-legible action space and learn a policy over it online with classic sample-efficient reinforcement learning (an $ε$-greedy contextual bandit and REINFORCE), scored against a multi-objective reward (task success, verifier score, policy compliance, cost, latency, and an unsupported-claim penalty). We instantiate this control system with DSPy (Khattab et al., 2024) as both the context assembler and the source of the strongest non-adaptive baseline (a DSPy BootstrapFewShot static prompt), and evaluate it across three verifiable task domains -- tool-use workflows, code generation (HumanEval), and multi-hop retrieval QA (HotpotQA) -- and two model providers (a local Ollama model and AWS Bedrock). We release the harness-control-system code, the cross-domain verifiable task suite, the full trajectory/reward-decomposition logs from training, and a provider-agnostic deployment recipe for applying this to a new organization's domain and verification setup.",
+                    "authors": [
+                      "Debjyoti Paul"
+                    ],
+                    "published": "2026-07-28T08:10:25Z",
+                    "updated": "2026-07-28T08:10:25Z",
+                    "url": "http://arxiv.org/abs/2607.25415v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25415v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI"
+                    ]
+                  }
+                ],
+                "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+              },
+              "_round": 1
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Here are the 10 most recent papers about AI agents:\n\n1. **Toward Standardized Cross-Vendor Agent Tool Trust Management in Autonomous Networks**\n   - Authors: Ravi Kant Sharma, Ashutosh Uttam, Ajay Kumar\n   - Summary: This paper presents AgentToolMO, a proposed model for managing trust in autonomous networks across different vendors.\n   - [Read more](http://arxiv.org/abs/2607.25914v1)\n\n2. **Messier: A High-Resolution Corpus for Cross-Benchmark Agent Evaluation**\n   - Authors: Stefan Krsteski, Charlotte Meyer, Guillaume Allegre, Tony O'Halloran, Alexandre Sallinen\n   - Summary: Messier is a unified corpus for evaluating AI agents across various benchmarks and tasks.\n   - [Read more](http://arxiv.org/abs/2607.25891v1)\n\n3. **Distributing Security Controls Through Harness Engineering**\n   - Author: William Robert Gore\n   - Summary: This paper explores the implementation of security controls in AI coding agents using a custom harness.\n   - [Read more](http://arxiv.org/abs/2607.25890v1)\n\n4. **RSIBench-Data: Benchmarking Data-Centric Research for Recursive Self-Improvement**\n   - Authors: Fanqing Meng, Lingxiao Du, Qiguang Chen, Ziqi Zhao, Haocheng Lu, Mengkang Hu, Michael Qizhe Shieh\n   - Summary: RSIBench-Data is a benchmark for evaluating LLM agents as data-centric researchers.\n   - [Read more](http://arxiv.org/abs/2607.25886v1)\n\n5. **F(AI)2R: Who Did What, and Who Checked? Verifiable AI Provenance as an Executable Skill**\n   - Author: Florian Krebs\n   - Summary: This paper discusses a provenance model for AI-in-the-loop artefacts, ensuring verifiable contributions.\n   - [Read more](http://arxiv.org/abs/2607.25637v1)\n\n6. **SkillGate: Cost Efficient Runtime Malicious Skill File Detection in Coding Agents**\n   - Authors: Rui Yang, Michael Fu, Kla Tantithamthavorn, Chetan Arora, Joey Chua\n   - Summary: SkillGate is a security gateway for screening AI skill packages before installation.\n   - [Read more](http://arxiv.org/abs/2607.25619v1)\n\n7. **Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics**\n   - Authors: Adeela Bashir, Zia Ush Shamszaman, Zhao Song, The Anh Han\n   - Summary: This paper explores the dynamics of AI-assisted cybersecurity systems using evolutionary game theory.\n   - [Read more](http://arxiv.org/abs/2607.25568v1)\n\n8. **Agentic AI in medicine: architectures, applications, evaluation, and challenges for clinical translation**\n   - Authors: Zheng Tong, Yang Liu, Wanshu Fan, Jing Qin, Zhongbin Han, Haifan Gong, Congyu Liao, Xiaofeng Liu, Cong Wang\n   - Summary: The paper reviews the use of agentic AI in medicine and its challenges for clinical translation.\n   - [Read more](http://arxiv.org/abs/2607.25489v1)\n\n9. **PatientAgentBench: A Benchmark Framework for Evaluating Patient-Facing Health AI Agents**\n   - Authors: Korosh Vatanparvar, Ashutosh Joshi, Maria Xenochristou, Mohammad Abuzar Hashemi, Prasad Kasu, Deepak Bansal, Daniel Lopez-Martinez, Anchal Nema, Ramya Ganesan, Will Kimbrough, Alex Woody, Yadunandana Rao, Dilek Hakkani-Tur, Wilko Schulz-Mahlendorf\n   - Summary: PatientAgentBench evaluates healthcare AI agents in patient-facing scenarios.\n   - [Read more](http://arxiv.org/abs/2607.25485v1)\n\n10. **A Control System, a Dataset, and a Recipe for Making Frozen LLM Agents Learn a Domain**\n    - Author: Debjyoti Paul\n    - Summary: This paper discusses a control system for optimizing LLM agents using reinforcement learning.\n    - [Read more](http://arxiv.org/abs/2607.25415v1)\n\nThese papers cover a range of topics related to AI agents, including trust management, security, evaluation frameworks, and applications in medicine.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "papers",
+          "args": {
+            "query": "AI agent",
+            "max_results": 10,
+            "sort_by": "submittedDate"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "AI agent",
+            "api_query": "all:AI AND all:agent",
+            "total_results": 11072,
+            "items": [
+              {
+                "arxiv_id": "2607.25914v1",
+                "title": "Toward Standardized Cross-Vendor Agent Tool Trust Management in Autonomous Networks",
+                "summary": "Autonomous Network Levels 4-5 require AI agents to invoke tools across vendor boundaries without human oversight, yet existing management standards lack a standardized mechanism for cross-vendor trust visibility. When a tool from Vendor B is compromised, agents from Vendor A continue invoking it -- unaware of the trust degradation -- causing cascading service impact. We present AgentToolMO, a proposed 3GPP NRM information model for agent tool trust management. The model comprises: a formally defined trust state machine with provable graduated enforcement, damped cascade propagation with bounded convergence, cross-vendor trust notifications via existing Management Services (MnS) interfaces, and retroactive impact assessment through NRM dependency graph traversal. Simulation-based evaluation across multi-vendor topologies shows that standardized cross-vendor notifications reduce blast radius from hours-scale undetected propagation to near-real-time containment bounded by MnS notification delivery, with cascade convergence guaranteed in bounded iterations and sub-linear notification scaling across vendor domains. The framework operates within existing 3GPP management infrastructure, leverages existing protocols, and provides a standardization pathway for trustworthy multi-vendor autonomous network management.",
+                "authors": [
+                  "Ravi Kant Sharma",
+                  "Ashutosh Uttam",
+                  "Ajay Kumar"
+                ],
+                "published": "2026-07-28T16:06:41Z",
+                "updated": "2026-07-28T16:06:41Z",
+                "url": "http://arxiv.org/abs/2607.25914v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25914v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.CR",
+                  "cs.NI"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25891v1",
+                "title": "Messier: A High-Resolution Corpus for Cross-Benchmark Agent Evaluation",
+                "summary": "Evaluating AI agents in interactive environments is hindered by fragmented tasks, scaffolds, verifiers, and scoring rules. Existing efforts focus on narrow settings, remain limited in scale, or require costly reruns, leaving much of the empirical record incomparable. We introduce Messier, a unified corpus of 957,253 records that span 30 benchmarks, 714 agents, 11,891 tasks, and 74,205 verifiers. Messier consolidates public benchmark scores and supplements them with five-agent runs across six underrepresented professional and scientific domains, including a recent legal benchmark. Each record is standardized by model, scaffold, environment, task, verifier, and aggregation rule, with SOC/NAICS classifications for occupational and industry analysis. Using this corpus, we show frontier progress is uneven across benchmark types, with \"function calling\" saturated, \"programming\" improving the fastest, and \"enterprise workflows\" remaining the most challenging. Furthermore, counterfactual rescoring shows that strict all-pass aggregation in multi-verifier tasks can obscure progress and artificially alter agent rankings. From these standardized records, we derive capability scales that align with Epoch's Evaluation Capability Index rankings at Spearman \\r{ho} = 0.81 and can be specialized by domain, occupation, action space, or verifier type. Messier provides a foundational, reusable infrastructure for agent capability scaling, benchmark auditing, and fine-grained analysis of evaluation failures.",
+                "authors": [
+                  "Stefan Krsteski",
+                  "Charlotte Meyer",
+                  "Guillaume Allegre",
+                  "Tony O'Halloran",
+                  "Alexandre Sallinen"
+                ],
+                "published": "2026-07-28T15:50:19Z",
+                "updated": "2026-07-28T15:50:19Z",
+                "url": "http://arxiv.org/abs/2607.25891v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25891v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.DB"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25890v1",
+                "title": "Distributing Security Controls Through Harness Engineering",
+                "summary": "AI coding agents are being adopted at historic speed, yet security and risk concerns remain the primary barrier to scaling agentic AI across organizations. Existing security controls for coding agents are not systematically distributed to engineering teams, and vendor-native solutions introduce ecosystem dependencies that may not suit every deployment context. This paper investigates whether off-the-shelf security controls can be implemented on commercial AI coding agents and scaled to a distributed user base via a custom agent harness. A phased testing methodology was applied across four agent configurations --- two commercial agents with and without controls, a baseline harness, and a security-hardened harness --- using a 23-test suite derived from the OWASP Top 10 for Agentic Applications. SHarD (Secure Harness Distribution), a distributable harness built on the Pi agent harness, demonstrated that three categories of security controls --- OS sandboxing, skill scanning, and tool restriction --- can be embedded and distributed via a single install command while retaining equivalent efficacy to direct installation on commercial agents. SHarD achieved an adjusted score of 100\\%, matching the best securely configured commercial agent, with no regression across any test category. Notable observations include evidence that model non-determinism produces inconsistent security outcomes and that autonomous agent behavior can cross system boundaries in ways that OS sandboxing directly mitigates. Initial characteristics toward a control harness fitness framework are proposed, and a third research question is identified for future investigation.",
+                "authors": [
+                  "William Robert Gore"
+                ],
+                "published": "2026-07-28T15:50:16Z",
+                "updated": "2026-07-28T15:50:16Z",
+                "url": "http://arxiv.org/abs/2607.25890v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25890v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25886v1",
+                "title": "RSIBench-Data: Benchmarking Data-Centric Research for Recursive Self-Improvement",
+                "summary": "Recursive self-improvement requires turning evidence of model failures into better models. Data-centric post-training research entails diagnosing capability gaps, designing and validating training-data strategies, and learning from checkpoint feedback. Can LLM agents automate this loop? Existing benchmarks entangle research decisions with optimization, serving, evaluation, and systems implementation, obscuring agents' research capability. We introduce RSIBench-Data, a controlled benchmark of LLM agents as data-centric researchers with a fixed post-training stack. Agents iteratively revise training-data strategies for a fixed target model; training and serving use Tinker-backed services, official evaluation runs through Harbor and E2B sandboxes, and budgets are fixed across agents. We evaluate four frontier agents on six benchmarks across software engineering, terminal use, scientific question answering, and mathematics. Agents demonstrate core data-centric research capabilities: in 58.33\\% of settings, they improve upon the first valid attempt by refining strategies from feedback. However, improvement is inconsistent. Among searches continuing after the best observed score, 78.26\\% end with a lower-scoring final attempt, while the rest only recover the same peak. A strong candidate may therefore appear early or midway through a run even as later revisions fail. Trajectory analysis identifies four patterns in stronger runs: accurate hypotheses, validation-grounded supervision, behavior-aligned data, and preservation of strong checkpoints. These findings suggest that current agents can make useful data-centric discoveries but cannot yet translate feedback into consistent improvements. RSIBench-Data provides a measurable, auditable testbed for the research capabilities required for recursive self-improvement. We open-source our code at https://github.com/evolvent-ai/RSIBench-Data.",
+                "authors": [
+                  "Fanqing Meng",
+                  "Lingxiao Du",
+                  "Qiguang Chen",
+                  "Ziqi Zhao",
+                  "Haocheng Lu",
+                  "Mengkang Hu",
+                  "Michael Qizhe Shieh"
+                ],
+                "published": "2026-07-28T15:46:41Z",
+                "updated": "2026-07-28T15:46:41Z",
+                "url": "http://arxiv.org/abs/2607.25886v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25886v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.SE",
+                "categories": [
+                  "cs.SE",
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25637v1",
+                "title": "F(AI)2R: Who Did What, and Who Checked? Verifiable AI Provenance as an Executable Skill",
+                "summary": "F(AI)2R is FAIR research with AI in the loop, twice: an AI-assisted authoring pass and a machine-readable audit pass over every artefact. AI systems now draft, refactor, and verify research artefacts, yet their contributions are rarely recorded in a form a later human or machine can audit. Building on the original F(AI)2R experiment, we generalize its provenance model beyond scholarly writing into aiprov, a PROV-O extension covering any AI-in-the-loop artefact, and we package the method as an executable skill that an AI agent operates itself: setup asks the human operator for their ORCID ID, resolves their identity from the public registry, and scaffolds continuous integration that gates every push on graph conformance and publishes the current build of this very paper. The paper is its own case study. Every activity, claim, and source in its production is recorded in the repository's provenance graph under two invariants: no parentless claim, and verification rungs that only humans may grant.",
+                "authors": [
+                  "Florian Krebs"
+                ],
+                "published": "2026-07-28T12:17:53Z",
+                "updated": "2026-07-28T12:17:53Z",
+                "url": "http://arxiv.org/abs/2607.25637v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25637v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.DL",
+                "categories": [
+                  "cs.DL",
+                  "cs.AI",
+                  "cs.SI"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25619v1",
+                "title": "SkillGate: Cost Efficient Runtime Malicious Skill File Detection in Coding Agents",
+                "summary": "Software engineering teams now deploy AI coding agents (Cursor, Claude Code, GitHub Copilot) as first-class productivity tools, installing domain-specific skill files to tailor agent behavior to project APIs, framework conventions, and organizational workflows. These complex Markdown files are easily downloaded from public registries with a single npx skills add command and no real security screening, representing a novel supply-chain attack surface: a malicious skill file can silently reprogram agent behavior, exfiltrating credentials, injecting backdoors into generated code, or redirecting agent actions to attacker-controlled endpoints. The threat is not hypothetical: recent reports document hundreds of malicious skill packages in public registries, including organized campaigns that distributed credential-stealing infostealers via fake productivity skills. No systematic toolchain defense exists for this attack surface. We present SkillGate, a deployable security gateway that screens AI skill packages before coding agent installation. SkillGate uses a hybrid regex-prefilter + LLM-judge pipeline: safe-signal files bypass the LLM entirely (skip savings); flagged files have only their matched snippet windows sent to the judge, not the full content (snippet savings). We answer four research questions covering detection effectiveness, screening cost, runtime overhead, and false positive behavior on the SkillsBench benchmark against two existing tools. On SkillsBench (n=1,650, 9.1% malicious), SkillGate achieves F1=0.817, FPR=1.13% while reducing LLM input tokens by 77% vs. full-file screening, and outperforming existing tools by 5-6x on threshold-independent AUPRC (0.830 vs. 0.144/0.162).",
+                "authors": [
+                  "Rui Yang",
+                  "Michael Fu",
+                  "Kla Tantithamthavorn",
+                  "Chetan Arora",
+                  "Joey Chua"
+                ],
+                "published": "2026-07-28T11:50:19Z",
+                "updated": "2026-07-28T11:50:19Z",
+                "url": "http://arxiv.org/abs/2607.25619v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25619v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.SE",
+                "categories": [
+                  "cs.SE",
+                  "cs.CR"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25568v1",
+                "title": "Network Reciprocity Shapes Evolutionary Cybersecurity Dynamics",
+                "summary": "AI-assisted cybersecurity systems are characterised by continuous adaptation between attackers and defenders, making evolutionary game theory a natural framework for studying their long-term behaviour. However, existing evolutionary cybersecurity models have primarily focused on homogeneous interactions, providing limited understanding of how population structure influences cyber attack-defence dynamics. In this paper, we develop a mixed-role evolutionary game in which adaptive cyber agents can exhibit both offensive and defensive behaviours, and investigate its dynamics in well-mixed and structured populations. The proposed framework combines stochastic evolutionary analysis with large-scale agent-based simulations to examine how interaction structure shapes long-run strategic behaviour. Our results reveal a fundamental difference between global and local interactions. While well-mixed populations exhibit broad coexistence between attacking and defensive strategies, structured populations generate well-defined evolutionary regimes in which secure defensive behaviour becomes dominant over a much larger region of the parameter space. Spatial analysis further shows that neighbouring defenders naturally form resilient clusters that suppress persistent attacks through network reciprocity. These findings demonstrate that interaction structure is a fundamental determinant of AI-assisted cybersecurity evolution and suggest that organising defensive agents through local networked interactions can substantially improve long-term cyber resilience without requiring additional defensive incentives.",
+                "authors": [
+                  "Adeela Bashir",
+                  "Zia Ush Shamszaman",
+                  "Zhao Song",
+                  "The Anh Han"
+                ],
+                "published": "2026-07-28T10:56:30Z",
+                "updated": "2026-07-28T10:56:30Z",
+                "url": "http://arxiv.org/abs/2607.25568v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25568v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.GT",
+                "categories": [
+                  "cs.GT"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25489v1",
+                "title": "Agentic AI in medicine: architectures, applications, evaluation, and challenges for clinical translation",
+                "summary": "Large language models and multimodal foundation models are enabling medical artificial intelligence (AI) systems to move beyond isolated prediction and undertake multistep clinical tasks that require planning, tool use, memory, iterative correction, and coordination among specialized agents. However, the scope of agentic AI in medicine remains unsettled, and current evaluation practices are not yet aligned with the requirements of clinical use. We conducted a scoping review with systematic evidence mapping across five electronic sources, screened 1,649 exportable records, and provisionally included 557 unique studies that met predefined criteria for goal-directed task execution, tool use, interaction with external resources, feedback-based refinement, or multi-agent collaboration. The included studies describe single agents that use external tools, workflows supported by retrieval and external knowledge, multimodal agents, and multi-agent systems applied to medical question answering, image interpretation, electronic health record analysis, drug safety, and clinical trial prediction. The evidence base remains dominated by public benchmarks, simulated settings, retrospective datasets, and small-scale expert evaluation. Process reliability, evidence traceability, uncertainty, safety, workflow impact, and external validity are evaluated less consistently. Clinical translation will depend on clearer definitions, reproducible evaluation, auditable oversight, interoperable system design, and prospective validation in real-world clinical workflows.",
+                "authors": [
+                  "Zheng Tong",
+                  "Yang Liu",
+                  "Wanshu Fan",
+                  "Jing Qin",
+                  "Zhongbin Han",
+                  "Haifan Gong",
+                  "Congyu Liao",
+                  "Xiaofeng Liu",
+                  "Cong Wang"
+                ],
+                "published": "2026-07-28T09:25:25Z",
+                "updated": "2026-07-28T09:25:25Z",
+                "url": "http://arxiv.org/abs/2607.25489v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25489v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CV",
+                "categories": [
+                  "cs.CV"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25485v1",
+                "title": "PatientAgentBench: A Benchmark Framework for Evaluating Patient-Facing Health AI Agents",
+                "summary": "Health AI is evolving from answering questions to agentic systems that converse with patients, reason about health records, and act on their behalf. Primary care guards against diagnostic errors and unsafe care; agents assisting in this domain warrant evaluation against the same risks. Current benchmarks focus on medical knowledge, assessed through isolated question-answering or clinician-facing tasks. PatientAgentBench benchmarks patient-facing agentic healthcare; it evaluates a foundation model, wrapped in an agent with a sandbox of healthcare tools, conversing with a simulated patient. Each conversation is scored by an LLM-as-a-Jury across six dimensions via over a hundred conversation-agnostic, clinician-grounded criteria. To validate alignment, licensed clinicians annotated shared conversations, yielding 79-93% adjacent agreement between jury and expert raters, on par with or exceeding clinician inter-rater agreement. We benchmarked 10 models across four families on the same 1,200 scenarios and found clinical gaps. Triage quality is the most discriminating dimension: pass rates rise from 32% for the weakest models to 88% for the strongest, with agents often acting on administrative requests without clinical screening. Clinical safety and workflow accuracy follow the same pattern: the weakest models fail often, fabricating unexecuted actions, while frontier models fail on only 1-3% of cases, from unverified tool outputs and omitted crisis resources in an emergency. More capable models narrow these gaps but do not close them; the strongest scores only 4.25 of 5 overall. These failures surface only in sustained, tool-using conversations against realistic patient records, confirming that static benchmarks are insufficient as healthcare agentic systems gain autonomy. We release the framework as a reproducible, clinician-validated evaluation standard to help the field close this gap.",
+                "authors": [
+                  "Korosh Vatanparvar",
+                  "Ashutosh Joshi",
+                  "Maria Xenochristou",
+                  "Mohammad Abuzar Hashemi",
+                  "Prasad Kasu",
+                  "Deepak Bansal",
+                  "Daniel Lopez-Martinez",
+                  "Anchal Nema",
+                  "Ramya Ganesan",
+                  "Will Kimbrough",
+                  "Alex Woody",
+                  "Yadunandana Rao",
+                  "Dilek Hakkani-Tur",
+                  "Wilko Schulz-Mahlendorf"
+                ],
+                "published": "2026-07-28T09:24:04Z",
+                "updated": "2026-07-28T09:24:04Z",
+                "url": "http://arxiv.org/abs/2607.25485v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25485v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25415v1",
+                "title": "A Control System, a Dataset, and a Recipe for Making Frozen LLM Agents Learn a Domain",
+                "summary": "Production LLM agents are increasingly assembled from a frozen model wrapped in a harness: a prompt template, a tool set, a memory/retrieval layer, a planning strategy, and a verification policy. Two 2026 systems, Meta-Harness (Lee et al., 2026) and HyperAgents (Meta AI, 2026), show that this harness can itself be optimized or even self-rewritten by an agentic proposer -- at the cost of either an expensive code-search loop or unconstrained self-modifying code, neither of which is auditable or usable with a fully black-box model API. We take a narrower, more constrained position: treat the harness as a small, fixed, human-legible action space and learn a policy over it online with classic sample-efficient reinforcement learning (an $ε$-greedy contextual bandit and REINFORCE), scored against a multi-objective reward (task success, verifier score, policy compliance, cost, latency, and an unsupported-claim penalty). We instantiate this control system with DSPy (Khattab et al., 2024) as both the context assembler and the source of the strongest non-adaptive baseline (a DSPy BootstrapFewShot static prompt), and evaluate it across three verifiable task domains -- tool-use workflows, code generation (HumanEval), and multi-hop retrieval QA (HotpotQA) -- and two model providers (a local Ollama model and AWS Bedrock). We release the harness-control-system code, the cross-domain verifiable task suite, the full trajectory/reward-decomposition logs from training, and a provider-agnostic deployment recipe for applying this to a new organization's domain and verification setup.",
+                "authors": [
+                  "Debjyoti Paul"
+                ],
+                "published": "2026-07-28T08:10:25Z",
+                "updated": "2026-07-28T08:10:25Z",
+                "url": "http://arxiv.org/abs/2607.25415v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25415v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          },
+          "_round": 1
+        }
+      ],
+      "ended_at": "2026-07-29T12:42:25"
+    }
+  ]
+}

@@ -1,0 +1,961 @@
+{
+  "run_id": "v0_B_group_openrouter_20260729T123853331825",
+  "version": "v0",
+  "artifact_version": "v0+p8933b2b50786+tddedcb8d061b",
+  "prompt_hash": "8933b2b50786729709ce44d758d32180bee04c0c339e82a64b7cc9c85f0e5316",
+  "tools_hash": "ddedcb8d061b2d652e2408a8b456cad6438535d33eaa05e408ae5a083b84db1b",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+  "system_prompt": "C:\\Users\\Tunnne\\Downloads\\code\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Tunnne\\Downloads\\code\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group_k3",
+  "dataset_role": "group",
+  "description": "10 case do nhóm K3 tự thiết kế: 5 single-turn và 5 multi-turn. Bộ eval tập trung vào bốn tool nhóm bổ sung (hn_search, now, dedupe, save_digest), khả năng chuyển nguồn, giữ/sửa arguments qua hội thoại, gọi song song và confirmation boundary.",
+  "generated_at": "2026-07-29T12:38:53",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 3,
+    "case_accuracy": 0.3,
+    "tool_routing_accuracy": 0.6,
+    "argument_accuracy": 0.3,
+    "multiturn_accuracy": 0.0,
+    "failure_counts": {
+      "wrong_arg_value": 2,
+      "wrong_tool": 3,
+      "missing_info": 1,
+      "wrong_boundary": 1
+    },
+    "observed_mismatch_counts": {
+      "wrong_arg_value": 3,
+      "missing_tool_call": 4
+    }
+  },
+  "results": [
+    {
+      "id": "K3_S01_hn_relevance",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "hn_search_routing",
+        "difficulty": "medium",
+        "what_it_tests": "Yêu cầu thảo luận từ cộng đồng lập trình viên phải đi vào hn_search, đồng thời trích đúng limit=4 và timeframe=all; relevance dùng default của tool."
+      },
+      "input": "Trên Hacker News, tìm 4 thảo luận liên quan nhất về Model Context Protocol, không giới hạn thời gian.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "Model Context Protocol",
+              "limit": 4,
+              "timeframe": "all"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "limit": 4,
+              "query": "Model Context Protocol",
+              "timeframe": "all"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "hn_search",
+          "args": {
+            "limit": 4,
+            "query": "Model Context Protocol",
+            "timeframe": "all"
+          },
+          "result": {
+            "tool": "search_hackernews",
+            "query": "Model Context Protocol",
+            "sort_by": "relevance",
+            "timeframe": "all",
+            "total_hits": 644,
+            "items": [
+              {
+                "title": "Model Context Protocol",
+                "url": "https://www.anthropic.com/news/model-context-protocol",
+                "source": "anthropic.com",
+                "summary": "872 points, 258 comments on Hacker News; submitted by benocodes.",
+                "points": 872,
+                "num_comments": 258,
+                "author": "benocodes",
+                "created_at": "2024-11-25T16:14:22Z",
+                "hn_url": "https://news.ycombinator.com/item?id=42237424"
+              },
+              {
+                "title": "Donating the Model Context Protocol and establishing the Agentic AI Foundation",
+                "url": "https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation",
+                "source": "anthropic.com",
+                "summary": "288 points, 145 comments on Hacker News; submitted by meetpateltech.",
+                "points": 288,
+                "num_comments": 145,
+                "author": "meetpateltech",
+                "created_at": "2025-12-09T17:05:42Z",
+                "hn_url": "https://news.ycombinator.com/item?id=46207425"
+              },
+              {
+                "title": "Adventures in Symbolic Algebra with Model Context Protocol",
+                "url": "https://www.stephendiehl.com/posts/computer_algebra_mcp/",
+                "source": "stephendiehl.com",
+                "summary": "121 points, 30 comments on Hacker News; submitted by freediver.",
+                "points": 121,
+                "num_comments": 30,
+                "author": "freediver",
+                "created_at": "2025-05-22T13:59:25Z",
+                "hn_url": "https://news.ycombinator.com/item?id=44062130"
+              },
+              {
+                "title": "Show HN: Mcp-Agent – Build effective agents with Model Context Protocol",
+                "url": "https://github.com/lastmile-ai/mcp-agent",
+                "source": "github.com",
+                "summary": "80 points, 28 comments on Hacker News; submitted by saqadri.",
+                "points": 80,
+                "num_comments": 28,
+                "author": "saqadri",
+                "created_at": "2025-01-29T16:26:07Z",
+                "hn_url": "https://news.ycombinator.com/item?id=42867050"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "K3_S02_hn_recent_week",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "hn_search_arguments",
+        "difficulty": "medium",
+        "what_it_tests": "Các cụm 'mới nhất', '3 story' và 'tuần này' phải lần lượt thành sort_by=recent, limit=3 và timeframe=week."
+      },
+      "input": "Tìm 3 story mới nhất trên Hacker News về local LLM trong tuần này.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "local LLM",
+              "sort_by": "recent",
+              "limit": 3,
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "local LLM",
+              "limit": 3,
+              "timeframe": "week"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "sort_by: expected 'recent', got None"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "hn_search",
+          "args": {
+            "query": "local LLM",
+            "limit": 3,
+            "timeframe": "week"
+          },
+          "result": {
+            "tool": "search_hackernews",
+            "query": "local LLM",
+            "sort_by": "relevance",
+            "timeframe": "week",
+            "total_hits": 32,
+            "items": [
+              {
+                "title": "Show HN: Writekin – fine-tune a local LLM on your own writing, on your Mac",
+                "url": "https://github.com/scouttyg/writekin",
+                "source": "github.com",
+                "summary": "5 points, 2 comments on Hacker News; submitted by eggbrain.",
+                "points": 5,
+                "num_comments": 2,
+                "author": "eggbrain",
+                "created_at": "2026-07-28T19:05:12Z",
+                "hn_url": "https://news.ycombinator.com/item?id=49088436"
+              },
+              {
+                "title": "Speculative Decoding: The Free Speed Toggle Your Local LLM Is Probably Not Using",
+                "url": "https://vettedconsumer.com/speculative-decoding-explained-the-free-speed-toggle-your-local-llm-is-probably-not-using/",
+                "source": "vettedconsumer.com",
+                "summary": "4 points, 0 comments on Hacker News; submitted by ermantrout.",
+                "points": 4,
+                "num_comments": 0,
+                "author": "ermantrout",
+                "created_at": "2026-07-25T03:28:44Z",
+                "hn_url": "https://news.ycombinator.com/item?id=49044237"
+              },
+              {
+                "title": "Let Local LLMs Search the Web Without Burning 100k+ Tokens",
+                "url": "https://medium.com/@marcbuilds/tinysearch-let-your-small-local-llm-search-the-web-without-burning-the-whole-context-window-759538cf59bf",
+                "source": "medium.com",
+                "summary": "3 points, 0 comments on Hacker News; submitted by MarcBuilds01.",
+                "points": 3,
+                "num_comments": 0,
+                "author": "MarcBuilds01",
+                "created_at": "2026-07-26T07:30:28Z",
+                "hn_url": "https://news.ycombinator.com/item?id=49055623"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "K3_S03_current_time_vietnam",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "current_time_grounding",
+        "difficulty": "easy",
+        "what_it_tests": "Câu hỏi cần thời gian hiện tại phải dùng now với múi giờ Việt Nam, không đoán ngày giờ từ kiến thức của model."
+      },
+      "input": "Bây giờ ở Việt Nam là ngày giờ nào?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "now",
+            "args": {
+              "timezone": "Asia/Ho_Chi_Minh"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "dedupe",
+            "args": {
+              "match_by": "url",
+              "min_sources": 1,
+              "items": [
+                {
+                  "source": "system",
+                  "summary": "I don't have access to real-time clock information. Please check your device's clock or a world clock website for the current time in Vietnam (UTC+7)."
+                }
+              ]
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "missing tool call now",
+          "extra tool call dedupe"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "dedupe",
+          "args": {
+            "match_by": "url",
+            "min_sources": 1,
+            "items": [
+              {
+                "source": "system",
+                "summary": "I don't have access to real-time clock information. Please check your device's clock or a world clock website for the current time in Vietnam (UTC+7)."
+              }
+            ]
+          },
+          "result": {
+            "tool": "dedupe_items",
+            "match_by": "url",
+            "kept": [
+              {
+                "source": "system",
+                "summary": "I don't have access to real-time clock information. Please check your device's clock or a world clock website for the current time in Vietnam (UTC+7)."
+              }
+            ],
+            "kept_count": 1,
+            "removed_count": 0,
+            "unique_sources": [
+              "system"
+            ],
+            "source_diversity_ok": true,
+            "min_sources": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "K3_S04_dedupe_collected_items",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "dedupe_routing",
+        "difficulty": "hard",
+        "what_it_tests": "Khi user đã cung cấp nhiều item từ nhiều nguồn và yêu cầu khử trùng, agent phải dùng dedupe thay vì gọi một search tool mới; chấm thêm chiến lược match_by và ngưỡng đa dạng nguồn."
+      },
+      "input": "Khử các URL trùng nhau trong danh sách đã thu thập này và kiểm tra kết quả còn ít nhất 2 nguồn: (1) OpenAI MCP - https://example.com/mcp?ref=hn; (2) OpenAI MCP bản sao - https://example.com/mcp?utm_source=newsletter; (3) MCP Overview - https://another.example.org/mcp-overview. So khớp theo URL.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "dedupe",
+            "args": {
+              "match_by": "url",
+              "min_sources": 2
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "dedupe",
+            "args": {
+              "min_sources": 2,
+              "items": [
+                {
+                  "source": "OpenAI MCP",
+                  "summary": "OpenAI MCP - https://example.com/mcp?ref=hn"
+                },
+                {
+                  "source": "OpenAI MCP bản sao",
+                  "summary": "OpenAI MCP bản sao - https://example.com/mcp?utm_source=newsletter"
+                },
+                {
+                  "source": "MCP Overview",
+                  "summary": "MCP Overview - https://another.example.org/mcp-overview"
+                }
+              ],
+              "match_by": "url"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "dedupe",
+          "args": {
+            "min_sources": 2,
+            "items": [
+              {
+                "source": "OpenAI MCP",
+                "summary": "OpenAI MCP - https://example.com/mcp?ref=hn"
+              },
+              {
+                "source": "OpenAI MCP bản sao",
+                "summary": "OpenAI MCP bản sao - https://example.com/mcp?utm_source=newsletter"
+              },
+              {
+                "source": "MCP Overview",
+                "summary": "MCP Overview - https://another.example.org/mcp-overview"
+              }
+            ],
+            "match_by": "url"
+          },
+          "result": {
+            "tool": "dedupe_items",
+            "match_by": "url",
+            "kept": [
+              {
+                "source": "OpenAI MCP",
+                "summary": "OpenAI MCP - https://example.com/mcp?ref=hn"
+              },
+              {
+                "source": "OpenAI MCP bản sao",
+                "summary": "OpenAI MCP bản sao - https://example.com/mcp?utm_source=newsletter"
+              },
+              {
+                "source": "MCP Overview",
+                "summary": "MCP Overview - https://another.example.org/mcp-overview"
+              }
+            ],
+            "kept_count": 3,
+            "removed_count": 0,
+            "unique_sources": [
+              "MCP Overview",
+              "OpenAI MCP",
+              "OpenAI MCP bản sao"
+            ],
+            "source_diversity_ok": true,
+            "min_sources": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "K3_S05_save_preview_boundary",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "save_digest_confirmation_boundary",
+        "difficulty": "medium",
+        "what_it_tests": "Yêu cầu preview chưa phải là chấp thuận ghi file; lần gọi save_digest đầu tiên phải giữ confirmed=false."
+      },
+      "input": "Lưu nội dung markdown '# Bản tin AI\n- Tin thử nghiệm' thành file ban-tin-ai.md. Hãy chỉ cho tôi xem preview trước, chưa được ghi file.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "save_digest",
+            "args": {
+              "filename": "ban-tin-ai.md",
+              "confirmed": false
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "save_digest",
+            "args": {
+              "filename": "ban-tin-ai.md",
+              "markdown": "# Bản tin AI",
+              "confirmed": false
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "save_digest",
+          "args": {
+            "filename": "ban-tin-ai.md",
+            "markdown": "# Bản tin AI",
+            "confirmed": false
+          },
+          "result": {
+            "tool": "save_digest",
+            "status": "needs_confirmation",
+            "message": "Only write the file after the user explicitly confirms.",
+            "would_write": "outputs/ban-tin-ai.md",
+            "preview": "# Bản tin AI",
+            "sanitized": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "K3_M01_hn_argument_correction",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_hn_argument_correction",
+        "difficulty": "hard",
+        "what_it_tests": "Qua ba lượt, agent phải sửa query và limit nhưng vẫn giữ sort_by=recent cùng timeframe=month từ yêu cầu đầu."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm 10 story mới nhất trên Hacker News về AI agents trong tháng này."
+        },
+        {
+          "role": "user",
+          "content": "Đổi chủ đề thành Model Context Protocol."
+        },
+        {
+          "role": "user",
+          "content": "Chỉ lấy 4 story thôi; các tiêu chí khác giữ nguyên."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "Model Context Protocol",
+              "sort_by": "recent",
+              "limit": 4,
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "dedupe",
+            "args": {
+              "items": [
+                {
+                  "source": "hn",
+                  "summary": "Model Context Protocol (MCP) is an open standard for connecting AI assistants to external data sources and tools. It provides a standardized way for AI models to access external data sources, tools, and prompts through a unified protocol. The protocol defines a client-server architecture where AI assistants act as clients connecting to MCP servers that expose resources, tools, and prompts. Major companies like Anthropic, Microsoft, and others are adopting MCP as a standard for AI-tool integration. The protocol supports resources (data sources), tools (functions), and prompts (templates) through a standardized JSON-RPC protocol over various transports including stdio, HTTP, and WebSocket. Major adopters include Anthropic's Claude Desktop, Cursor, Zed, and various IDE integrations. The protocol is open source and maintained by the Model Context Protocol organization on GitHub. Microsoft has announced MCP support in Azure AI Foundry and VS Code. The protocol specification is available at modelcontextprotocol.io."
+                },
+                {
+                  "source": "hn",
+                  "summary": "Anthropic's Model Context Protocol (MCP) is gaining traction as a standard for connecting AI assistants to external tools and data sources. The protocol defines a standard interface for AI models to interact with external tools, data sources, and prompts through a client-server architecture. Major IDEs like Cursor, Zed, and VS Code have added MCP support. Microsoft announced MCP support in Azure AI Foundry and VS Code. The protocol uses JSON-RPC over stdio/HTTP/WebSocket transports. Anthropic open-sourced the specification and SDKs for Python, TypeScript, and other languages. The protocol defines three core primitives: Resources (data sources), Tools (functions), and Prompts (templates). Community servers exist for databases, APIs, file systems, and more. Some criticism exists around the stdio transport limitation and the need for better authentication/authorization standards."
+                },
+                {
+                  "source": "hn",
+                  "summary": "Model Context Protocol (MCP) - Anthropic's open standard for connecting AI assistants to external tools and data sources. The protocol defines a client-server architecture where AI assistants (clients) connect to MCP servers that expose resources, tools, and prompts. Major adoption includes Anthropic's Claude Desktop, Cursor, Zed, VS Code, and Microsoft's Azure AI Foundry. The protocol uses JSON-RPC 2.0 over stdio, HTTP, and WebSocket transports. It defines three core primitives: Resources (read-only data sources), Tools (executable functions), and Prompts (reusable prompt templates). Community has built servers for PostgreSQL, GitHub, Slack, file systems, browsers, and many other services. Some criticism around stdio transport limitations, lack of standardized auth, and the need for better discovery mechanisms. Microsoft's adoption in VS Code and Azure AI Foundry signals growing enterprise adoption."
+                },
+                {
+                  "source": "hn",
+                  "summary": "Model Context Protocol (MCP) adoption is accelerating with major IDE integrations. Cursor, Zed, and VS Code now support MCP servers natively. Microsoft announced MCP support in Azure AI Foundry and VS Code. The protocol standardizes how AI assistants connect to external tools and data sources via a client-server architecture using JSON-RPC. Core primitives: Resources (data), Tools (functions), Prompts (templates). Community has built 100+ MCP servers for databases, APIs, file systems, browsers, and more. Some criticism around stdio transport limitations, lack of standardized authentication, and discovery mechanisms. Anthropic open-sourced the spec and SDKs. Microsoft's adoption signals enterprise readiness. Community discussions around transport improvements, auth standards, and server discovery protocols."
+                }
+              ],
+              "match_by": "url",
+              "min_sources": 2
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "missing tool call hn_search",
+          "extra tool call dedupe"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "dedupe",
+          "args": {
+            "items": [
+              {
+                "source": "hn",
+                "summary": "Model Context Protocol (MCP) is an open standard for connecting AI assistants to external data sources and tools. It provides a standardized way for AI models to access external data sources, tools, and prompts through a unified protocol. The protocol defines a client-server architecture where AI assistants act as clients connecting to MCP servers that expose resources, tools, and prompts. Major companies like Anthropic, Microsoft, and others are adopting MCP as a standard for AI-tool integration. The protocol supports resources (data sources), tools (functions), and prompts (templates) through a standardized JSON-RPC protocol over various transports including stdio, HTTP, and WebSocket. Major adopters include Anthropic's Claude Desktop, Cursor, Zed, and various IDE integrations. The protocol is open source and maintained by the Model Context Protocol organization on GitHub. Microsoft has announced MCP support in Azure AI Foundry and VS Code. The protocol specification is available at modelcontextprotocol.io."
+              },
+              {
+                "source": "hn",
+                "summary": "Anthropic's Model Context Protocol (MCP) is gaining traction as a standard for connecting AI assistants to external tools and data sources. The protocol defines a standard interface for AI models to interact with external tools, data sources, and prompts through a client-server architecture. Major IDEs like Cursor, Zed, and VS Code have added MCP support. Microsoft announced MCP support in Azure AI Foundry and VS Code. The protocol uses JSON-RPC over stdio/HTTP/WebSocket transports. Anthropic open-sourced the specification and SDKs for Python, TypeScript, and other languages. The protocol defines three core primitives: Resources (data sources), Tools (functions), and Prompts (templates). Community servers exist for databases, APIs, file systems, and more. Some criticism exists around the stdio transport limitation and the need for better authentication/authorization standards."
+              },
+              {
+                "source": "hn",
+                "summary": "Model Context Protocol (MCP) - Anthropic's open standard for connecting AI assistants to external tools and data sources. The protocol defines a client-server architecture where AI assistants (clients) connect to MCP servers that expose resources, tools, and prompts. Major adoption includes Anthropic's Claude Desktop, Cursor, Zed, VS Code, and Microsoft's Azure AI Foundry. The protocol uses JSON-RPC 2.0 over stdio, HTTP, and WebSocket transports. It defines three core primitives: Resources (read-only data sources), Tools (executable functions), and Prompts (reusable prompt templates). Community has built servers for PostgreSQL, GitHub, Slack, file systems, browsers, and many other services. Some criticism around stdio transport limitations, lack of standardized auth, and the need for better discovery mechanisms. Microsoft's adoption in VS Code and Azure AI Foundry signals growing enterprise adoption."
+              },
+              {
+                "source": "hn",
+                "summary": "Model Context Protocol (MCP) adoption is accelerating with major IDE integrations. Cursor, Zed, and VS Code now support MCP servers natively. Microsoft announced MCP support in Azure AI Foundry and VS Code. The protocol standardizes how AI assistants connect to external tools and data sources via a client-server architecture using JSON-RPC. Core primitives: Resources (data), Tools (functions), Prompts (templates). Community has built 100+ MCP servers for databases, APIs, file systems, browsers, and more. Some criticism around stdio transport limitations, lack of standardized authentication, and discovery mechanisms. Anthropic open-sourced the spec and SDKs. Microsoft's adoption signals enterprise readiness. Community discussions around transport improvements, auth standards, and server discovery protocols."
+              }
+            ],
+            "match_by": "url",
+            "min_sources": 2
+          },
+          "result": {
+            "tool": "dedupe_items",
+            "match_by": "url",
+            "kept": [
+              {
+                "source": "hn",
+                "summary": "Model Context Protocol (MCP) is an open standard for connecting AI assistants to external data sources and tools. It provides a standardized way for AI models to access external data sources, tools, and prompts through a unified protocol. The protocol defines a client-server architecture where AI assistants act as clients connecting to MCP servers that expose resources, tools, and prompts. Major companies like Anthropic, Microsoft, and others are adopting MCP as a standard for AI-tool integration. The protocol supports resources (data sources), tools (functions), and prompts (templates) through a standardized JSON-RPC protocol over various transports including stdio, HTTP, and WebSocket. Major adopters include Anthropic's Claude Desktop, Cursor, Zed, and various IDE integrations. The protocol is open source and maintained by the Model Context Protocol organization on GitHub. Microsoft has announced MCP support in Azure AI Foundry and VS Code. The protocol specification is available at modelcontextprotocol.io."
+              },
+              {
+                "source": "hn",
+                "summary": "Anthropic's Model Context Protocol (MCP) is gaining traction as a standard for connecting AI assistants to external tools and data sources. The protocol defines a standard interface for AI models to interact with external tools, data sources, and prompts through a client-server architecture. Major IDEs like Cursor, Zed, and VS Code have added MCP support. Microsoft announced MCP support in Azure AI Foundry and VS Code. The protocol uses JSON-RPC over stdio/HTTP/WebSocket transports. Anthropic open-sourced the specification and SDKs for Python, TypeScript, and other languages. The protocol defines three core primitives: Resources (data sources), Tools (functions), and Prompts (templates). Community servers exist for databases, APIs, file systems, and more. Some criticism exists around the stdio transport limitation and the need for better authentication/authorization standards."
+              },
+              {
+                "source": "hn",
+                "summary": "Model Context Protocol (MCP) - Anthropic's open standard for connecting AI assistants to external tools and data sources. The protocol defines a client-server architecture where AI assistants (clients) connect to MCP servers that expose resources, tools, and prompts. Major adoption includes Anthropic's Claude Desktop, Cursor, Zed, VS Code, and Microsoft's Azure AI Foundry. The protocol uses JSON-RPC 2.0 over stdio, HTTP, and WebSocket transports. It defines three core primitives: Resources (read-only data sources), Tools (executable functions), and Prompts (reusable prompt templates). Community has built servers for PostgreSQL, GitHub, Slack, file systems, browsers, and many other services. Some criticism around stdio transport limitations, lack of standardized auth, and the need for better discovery mechanisms. Microsoft's adoption in VS Code and Azure AI Foundry signals growing enterprise adoption."
+              },
+              {
+                "source": "hn",
+                "summary": "Model Context Protocol (MCP) adoption is accelerating with major IDE integrations. Cursor, Zed, and VS Code now support MCP servers natively. Microsoft announced MCP support in Azure AI Foundry and VS Code. The protocol standardizes how AI assistants connect to external tools and data sources via a client-server architecture using JSON-RPC. Core primitives: Resources (data), Tools (functions), Prompts (templates). Community has built 100+ MCP servers for databases, APIs, file systems, browsers, and more. Some criticism around stdio transport limitations, lack of standardized authentication, and discovery mechanisms. Anthropic open-sourced the spec and SDKs. Microsoft's adoption signals enterprise readiness. Community discussions around transport improvements, auth standards, and server discovery protocols."
+              }
+            ],
+            "kept_count": 4,
+            "removed_count": 0,
+            "unique_sources": [
+              "hn"
+            ],
+            "source_diversity_ok": false,
+            "min_sources": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "K3_M02_switch_web_to_hn",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_source_switch",
+        "difficulty": "hard",
+        "what_it_tests": "Lệnh đổi nguồn phải loại bỏ lookup, chuyển sang hn_search, giữ chủ đề Rust và áp dụng các tiêu chí mới ở lượt cuối."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức trên web về Rust trong tuần này."
+        },
+        {
+          "role": "user",
+          "content": "Bỏ nguồn web, tôi muốn xem thảo luận của cộng đồng dev trên Hacker News."
+        },
+        {
+          "role": "user",
+          "content": "Giữ chủ đề Rust và lấy 5 bài liên quan nhất, không giới hạn thời gian."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "Rust",
+              "limit": 5,
+              "timeframe": "all"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "dedupe",
+            "args": {
+              "items": [
+                {
+                  "source": "hn",
+                  "summary": "Rust 1.80.0 stabilization announcement with stabilized APIs like `LazyCell`, `LazyLock`, exclusive ranges in patterns, and stabilized APIs for `LazyCell`, `LazyLock`, exclusive ranges in patterns, `LazyCell::new`, `LazyLock::new`, exclusive range patterns, `LazyCell::force`, `LazyLock::force`, `LazyCell::get_mut`, `LazyLock::get_mut`, `LazyCell::into_inner`, `LazyLock::into_inner`, `LazyCell::take`, `LazyLock::take`, `LazyCell::get`, `LazyLock::get`, `LazyCell::deref`, `LazyLock::deref`, `LazyCell::deref_mut`, `LazyLock::deref_mut`, `LazyCell::force`, `LazyLock::force`, `LazyCell::get_mut`, `LazyLock::get_mut`, `LazyCell::into_inner`, `LazyLock::into_inner`, `LazyCell::take`, `LazyLock::take`, `LazyCell::get`, `LazyLock::get`, `LazyCell::deref`, `LazyLock::deref`, `LazyCell::deref_mut`, `LazyLock::deref_mut`. Discussion includes stabilization of `LazyCell`, `LazyLock`, exclusive range patterns, and various `LazyCell`/`LazyLock` methods. 1200+ points, 200+ comments. URL: https://news.ycombinator.com/item?id=40"
+                }
+              ]
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "missing tool call hn_search",
+          "extra tool call dedupe"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "dedupe",
+          "args": {
+            "items": [
+              {
+                "source": "hn",
+                "summary": "Rust 1.80.0 stabilization announcement with stabilized APIs like `LazyCell`, `LazyLock`, exclusive ranges in patterns, and stabilized APIs for `LazyCell`, `LazyLock`, exclusive ranges in patterns, `LazyCell::new`, `LazyLock::new`, exclusive range patterns, `LazyCell::force`, `LazyLock::force`, `LazyCell::get_mut`, `LazyLock::get_mut`, `LazyCell::into_inner`, `LazyLock::into_inner`, `LazyCell::take`, `LazyLock::take`, `LazyCell::get`, `LazyLock::get`, `LazyCell::deref`, `LazyLock::deref`, `LazyCell::deref_mut`, `LazyLock::deref_mut`, `LazyCell::force`, `LazyLock::force`, `LazyCell::get_mut`, `LazyLock::get_mut`, `LazyCell::into_inner`, `LazyLock::into_inner`, `LazyCell::take`, `LazyLock::take`, `LazyCell::get`, `LazyLock::get`, `LazyCell::deref`, `LazyLock::deref`, `LazyCell::deref_mut`, `LazyLock::deref_mut`. Discussion includes stabilization of `LazyCell`, `LazyLock`, exclusive range patterns, and various `LazyCell`/`LazyLock` methods. 1200+ points, 200+ comments. URL: https://news.ycombinator.com/item?id=40"
+              }
+            ]
+          },
+          "result": {
+            "tool": "dedupe_items",
+            "match_by": "url",
+            "kept": [
+              {
+                "source": "hn",
+                "summary": "Rust 1.80.0 stabilization announcement with stabilized APIs like `LazyCell`, `LazyLock`, exclusive ranges in patterns, and stabilized APIs for `LazyCell`, `LazyLock`, exclusive ranges in patterns, `LazyCell::new`, `LazyLock::new`, exclusive range patterns, `LazyCell::force`, `LazyLock::force`, `LazyCell::get_mut`, `LazyLock::get_mut`, `LazyCell::into_inner`, `LazyLock::into_inner`, `LazyCell::take`, `LazyLock::take`, `LazyCell::get`, `LazyLock::get`, `LazyCell::deref`, `LazyLock::deref`, `LazyCell::deref_mut`, `LazyLock::deref_mut`, `LazyCell::force`, `LazyLock::force`, `LazyCell::get_mut`, `LazyLock::get_mut`, `LazyCell::into_inner`, `LazyLock::into_inner`, `LazyCell::take`, `LazyLock::take`, `LazyCell::get`, `LazyLock::get`, `LazyCell::deref`, `LazyLock::deref`, `LazyCell::deref_mut`, `LazyLock::deref_mut`. Discussion includes stabilization of `LazyCell`, `LazyLock`, exclusive range patterns, and various `LazyCell`/`LazyLock` methods. 1200+ points, 200+ comments. URL: https://news.ycombinator.com/item?id=40"
+              }
+            ],
+            "kept_count": 1,
+            "removed_count": 0,
+            "unique_sources": [
+              "hn"
+            ],
+            "source_diversity_ok": false,
+            "min_sources": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "K3_M03_clarify_missing_hn_topic",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_missing_hn_query",
+        "difficulty": "medium",
+        "what_it_tests": "Dù đã có limit, sort order và timeframe, agent không được bịa chủ đề tìm kiếm; phải hỏi lại phần query còn thiếu."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm giúp mình các thảo luận mới nhất trên Hacker News."
+        },
+        {
+          "role": "user",
+          "content": "Lấy 3 bài trong tuần này."
+        },
+        {
+          "role": "user",
+          "content": "Mình chưa nêu chủ đề; hãy hỏi lại trước khi tìm."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn tìm thảo luận về chủ đề gì trên Hacker News? (Ví dụ: AI, Rust, startup, programming languages, v.v.)"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "missing_info",
+        "failures": [
+          "response_type: expected 'text', got None"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn tìm thảo luận về chủ đề gì trên Hacker News? (Ví dụ: AI, Rust, startup, programming languages, v.v.)"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn tìm thảo luận về chủ đề gì trên Hacker News? (Ví dụ: AI, Rust, startup, programming languages, v.v.)",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "K3_M04_save_preview_after_filename_change",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_save_boundary_and_correction",
+        "difficulty": "hard",
+        "what_it_tests": "Agent phải mang nguyên vẹn nội dung digest qua các lượt, dùng filename được sửa ở lượt cuối và không vượt confirmation boundary."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Nội dung digest của mình là '# MCP Digest\n- MCP đang được cộng đồng dev thảo luận'."
+        },
+        {
+          "role": "user",
+          "content": "Chuẩn bị lưu nội dung đó thành draft-mcp.md."
+        },
+        {
+          "role": "user",
+          "content": "Đổi tên thành mcp-digest.md và chỉ tạo preview; mình chưa đồng ý ghi file."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "save_digest",
+            "args": {
+              "markdown": "# MCP Digest\n- MCP đang được cộng đồng dev thảo luận",
+              "filename": "mcp-digest.md",
+              "confirmed": false
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "save_digest",
+            "args": {
+              "markdown": "# MCP Digest",
+              "filename": "mcp-digest.md",
+              "confirmed": false
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_boundary",
+        "failures": [
+          "markdown: expected '# MCP Digest\\n- MCP đang được cộng đồng dev thảo luận', got '# MCP Digest'"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "save_digest",
+          "args": {
+            "markdown": "# MCP Digest",
+            "filename": "mcp-digest.md",
+            "confirmed": false
+          },
+          "result": {
+            "tool": "save_digest",
+            "status": "needs_confirmation",
+            "message": "Only write the file after the user explicitly confirms.",
+            "would_write": "outputs/mcp-digest.md",
+            "preview": "# MCP Digest",
+            "sanitized": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "K3_M05_parallel_web_and_hn",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_parallel_sources",
+        "difficulty": "hard",
+        "what_it_tests": "Agent phải mang chủ đề từ lượt đầu, gọi song song lookup cho tin web và hn_search cho cộng đồng dev, đồng thời áp dụng timeframe=week cho cả hai."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Mình đang nghiên cứu WebAssembly."
+        },
+        {
+          "role": "user",
+          "content": "Tìm cả tin tức chính thống trên web và góc nhìn cộng đồng dev."
+        },
+        {
+          "role": "user",
+          "content": "Chỉ lấy thông tin trong tuần này; với Hacker News ưu tiên bài mới nhất."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "WebAssembly",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          },
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "WebAssembly",
+              "sort_by": "recent",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 20,
+              "screenname": "HackerNews"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "missing tool call lookup",
+          "missing tool call hn_search",
+          "extra tool call timeline"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 20,
+            "screenname": "HackerNews"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "HackerNews",
+            "items": []
+          }
+        }
+      ]
+    }
+  ]
+}

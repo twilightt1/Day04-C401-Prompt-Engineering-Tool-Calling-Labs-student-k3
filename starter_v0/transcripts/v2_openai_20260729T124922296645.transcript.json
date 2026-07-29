@@ -1,0 +1,155 @@
+{
+  "transcript_id": "v2_openai_20260729T124922296645",
+  "version": "v2",
+  "artifact_version": "v2+p8933b2b50786+tddedcb8d061b",
+  "prompt_hash": "8933b2b50786729709ce44d758d32180bee04c0c339e82a64b7cc9c85f0e5316",
+  "tools_hash": "ddedcb8d061b2d652e2408a8b456cad6438535d33eaa05e408ae5a083b84db1b",
+  "provider": "openai",
+  "model": "gpt-4o",
+  "system_prompt": "C:\\Users\\Tunnne\\Downloads\\code\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Tunnne\\Downloads\\code\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\tools.yaml",
+  "history_window": 6,
+  "max_tool_rounds": 3,
+  "created_at": "2026-07-29T12:49:22",
+  "updated_at": "2026-07-29T12:49:29",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T12:49:22",
+      "user": "thời tiết hiện tại owrr hà nội",
+      "status": "answered",
+      "assistant_text": "Hiện tại, thời tiết ở Hà Nội có nhiều mây, sáng có mưa phùn và sương mù, trưa chiều giảm mây và có nắng. Nhiệt độ thấp nhất từ 23-25°C và cao nhất từ 27-29°C. Gió đông nam đến nam cấp 2-3. Trong những ngày tới, nhiệt độ có thể tăng lên cao nhất 33°C vào ngày 3/4 và có khả năng mưa rào và dông vào ngày 4/4. Trong mưa dông có nguy cơ xảy ra lốc, sét, mưa đá và gió giật mạnh. [Nguồn](https://baolangson.vn/du-bao-thoi-tiet-10-ngay-ha-noi-buoc-vao-dot-nang-nong-keo-dai-cao-nhat-36-c-5085313.html).",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "query": "thời tiết Hà Nội",
+                "topic": "news",
+                "timeframe": "day"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "thời tiết Hà Nội",
+                "topic": "news",
+                "timeframe": "day"
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "thời tiết Hà Nội",
+                "topic": "news",
+                "timeframe": "day",
+                "items": [
+                  {
+                    "title": "Dự báo thời tiết 10 ngày: Hà Nội bước vào đợt nắng nóng kéo dài, cao nhất 36°C - Báo và Phát thanh, Truyền hình Lạng Sơn - Báo và Phát thanh, Truyền hình Lạng Sơn",
+                    "url": "https://baolangson.vn/du-bao-thoi-tiet-10-ngay-ha-noi-buoc-vao-dot-nang-nong-keo-dai-cao-nhat-36-c-5085313.html",
+                    "source": "baolangson.vn",
+                    "summary": "Hôm nay 2/4, Hà Nội nhiều my, sáng mưa phùn và sương mù, trưa chiều giảm my hửng nắng. Gió đông nam đến nam cấp 2-3. Nhiệt độ thấp nhất 23-25°C, cao nhất 27-29°C.\n\nDự báo thời tiết Hà Nội 10 ngày tới. (Nguồn: NCHMF) \n\nDự báo thời tiết Hà Nội 10 ngày tới. (Nguồn: NCHMF)\n\n \n\nNgoài ra, theo bảng tin cập nhật thời tiết và nhiệt độ 10 ngày tới, sang ngày 3/4, nhiệt độ khu vực này tăng nhanh lên cao nhất 33°C, thấp nhất duy trì mức 25°C, trời có my, không mưa. [...] Ngày 4/4, Hà Nội giảm nhiệt vào ban ngày, cao nhất 31°C, thấp nhất không có nhiều biến động, phổ biến 24°C, trời chuyển mưa rào và dông. Trong mưa dông nguy cơ xảy ra lốc, sét, mưa đá và gió giật mạnh.\n\nNgày 5-6/4, nhiệt độ khu vực này tăng trở lại, cao nhất 33-34°C, thấp nhất 24-26°C, trời có my, không mưa. [...] Miền Đông Nam Bộ chiều tối và đêm mưa rào và dông vài nơi, ngày nắng nóng. Miền Ty Nam Bộ chiều tối và đêm mưa rào và dông vài nơi, ngày nắng, có nơi nắng nóng, từ khoảng 6-7/4, nắng nóng lan rộng sang khu vực này.\n\nCác khu vực khác trên cả nước tiếp diễn chuỗi ngày mưa rào và dông vài nơi lúc chiều tối, đêm, ngày nắng, có nơi nắng nóng.\n\nTrong mưa dông khả năng xảy ra các hiện tượng thời tiết cực đoan như lốc, sét, mưa đá và gió giật mạnh.\n\nDự báo thời tiết Hà Nội 10 ngày tới",
+                    "score": 0.8016413
+                  },
+                  {
+                    "title": "Dự báo thời tiết Hà Nội hôm nay 29/7: Mưa từ đêm đến sáng, cảnh báo dông lốc",
+                    "url": "https://vtcnews.vn/du-bao-thoi-tiet-ha-noi-hom-nay-29-7-mua-tu-dem-den-sang-canh-bao-dong-loc-ar1031471.html",
+                    "source": "vtcnews.vn",
+                    "summary": "Nhiệt độ tại Hà Nội dao động 24-26°C vào ban đêm và sáng sớm, tạo cảm giác khá mát mẻ sau những cơn mưa. Đến ban ngày, nhiệt độ cao nhất ở mức 31-33°C. Tuy không xuất hiện nắng nóng gay gắt nhưng độ ẩm trong không khí vẫn ở mức cao, khiến thời tiết có thể trở nên oi bức vào những khoảng thời gian không có mưa.\n\nDự báo thời tiết Hà Nội hôm nay 29/7: Mưa từ đêm đến sáng, cảnh báo dông lốc.\n\nDự báo thời tiết Hà Nội hôm nay 29/7: Mưa từ đêm đến sáng, cảnh báo dông lốc. [...] Nhìn chung, dự báo thời tiết Hà Nội hôm nay 29/7 có nền nhiệt khá dễ chịu với mức cao nhất 31-33°C, nhưng mưa dông xuất hiện trên diện rộng, đặc biệt từ đêm đến sáng sớm. Người dn cần theo dõi sát diễn biến thời tiết, chủ động các biện pháp phòng tránh thiên tai để đảm bảo an toàn trong sinh hoạt và di chuyển.\n\nNhận tin VTC News trên Google\n\nThêm VTC News làm nguồn ưu tiên để thấy tin tức mới thường xuyên hơn trên Google.\n\n Theo dõi\n\nBảo Lộc ngập su sau mưa lớn kéo dài [...] (VTC News) - \n\n## Dự báo thời tiết Hà Nội hôm nay 29/7 nhiều my, mưa vừa đến mưa to từ đêm đến sáng sớm, cục bộ có nơi mưa rất to, đề phòng dông lốc, sét, mưa đá và gió giật mạnh.\n\n## Dự báo thời tiết Hà Nội hôm nay 29/7\n\nTheo Trung tm Dự báo khí tượng thủy văn quốc gia, thời tiết Hà Nội hôm nay 29/7 duy trì trạng thái nhiều my, đêm và sáng sớm mưa vừa, mưa to và rải rác có dông. Một số khu vực có thể xuất hiện mưa rất to trong thời gian ngắn.",
+                    "score": 0.784336
+                  },
+                  {
+                    "title": "Dự báo thời tiết sáng | 29/07/2026",
+                    "url": "https://hanoionline.vn/amp/du-bao-thoi-tiet-sang-29072026-410264.htm",
+                    "source": "hanoionline.vn",
+                    "summary": "Thời tiết thủ đô Hà Nội hôm nay được dự báo tiếp tục duy trì trạng thái dịu mát. Sáng sớm trời nhiều my, có mưa vài nơi, nhiệt độ lúc này dao động khoảng 28-30 độ. Độ ẩm cao trên 90%.\n\n### Dự báo thời tiết tối | 26/07/2026\n\n### Dự báo thời tiết tối | 26/07/2026\n\nThời tiết Hà Nội chiều tối và đêm nay ghi nhận trạng thái quang my, nhiệt độ giảm còn 26–28°C, độ ẩm 77–90%. Nền nhiệt dịu mát rất thích hợp cho người dn Thủ đô lên kế hoạch ra ngoài thư giãn tối cuối tuần. [...] Chiều nay, phía Ty Bắc và khu vực nội đô Hà Nội đang có mưa rào và dông. Sau đó, vùng mưa có thể mở rộng sang các phường thuộc trung tm Thành phố. Nhiệt độ lúc này không quá 29 độ. Độ ẩm 81-89%.\n\n### Dự báo thời tiết sáng | 28/07/2026\n\n### Dự báo thời tiết sáng | 28/07/2026\n\nThời tiết Hà Nội sáng nay có nhiều thay đổi khi mưa dông đã bao trùm miền Bắc và phổ biến trên diện rộng. Những cơn mưa trong đêm và sáng sớm nay đã khiến Hà Nội mát hơn, nhiệt độ từ 25-28 độ, độ ẩm khoảng 93%. [...] Tối và đêm nay, Hà Nội tiếp tục có mưa rào và dông, cục bộ có mưa to trong thời gian ngắn. Nhiệt độ duy trì ở mức 26-28 độ, độ ẩm từ 71–82%. Trong cơn dông, người dn cần đề phòng lốc, sét và gió giật mạnh.\n\n### Dự báo thời tiết sáng | 25/07/2026\n\n### Dự báo thời tiết sáng | 25/07/2026\n\nThời tiết cuối tuần tại Thủ đô Hà Nội được dự báo tiếp tục duy trì trạng thái khá dễ chịu. Trời nhiều my, sáng sớm có mưa rào vài nơi, nhiệt độ dao động từ 26-28 độ C.\n\n### Dự báo thời tiết tối | 24/07/2026",
+                    "score": 0.7734393
+                  },
+                  {
+                    "title": "Dự báo thời tiết 29/7: Nhiều nơi trên cả nước có mưa, miền ...",
+                    "url": "https://vietnamnet.vn/du-bao-thoi-tiet-29-7-nhieu-noi-tren-ca-nuoc-co-mua-mien-bac-con-mua-lon-2538938.html",
+                    "source": "vietnamnet.vn",
+                    "summary": "Riêng thời tiết Hà Nội ngày 29/7, sáng có mưa vừa, mưa to và giông, trời khá dịu mát với nhiệt độ cao nhất 31-33 độ. Từ chiều 29-30/7, Hà Nội giảm mưa, chỉ còn mưa rào và giông vài nơi.\n\nNgoài ra, từ 29-30/7, khu vực cao nguyên Trung Bộ và Nam Bộ tiếp tục có mưa vừa, mưa to đến rất to kèm giông, lượng mưa phổ biến 40-80mm, cục bộ có nơi trên 150mm. Cảnh báo nguy cơ xuất hiện mưa cường suất lớn, trên 100mm/3 giờ. Từ đêm 30/7, mưa lớn ở hai khu vực này giảm dần.",
+                    "score": 0.769098
+                  },
+                  {
+                    "title": "Thời tiết hôm nay 29.7: Hà Nội mưa to, có nơi mưa rất to",
+                    "url": "https://baovanhoa.vn/doi-song/thoi-tiet-hom-nay-297-ha-noi-mua-to-co-noi-mua-rat-to-251620.html",
+                    "source": "baovanhoa.vn",
+                    "summary": "Nhiệt độ thấp nhất: 24-27°C\n\nNhiệt độ cao nhất: 31-34°C\n\nDự báo: Ngày nắng, chiều và đêm có mưa rào và dông rải rác, cục bộ có nơi mưa to. Đề phòng lốc, sét, mưa đá và gió giật mạnh trong mưa dông.\n\nDuyên hải Nam Trung Bộ: Ngày nắng gián đoạn\n\nNhiệt độ thấp nhất: 25-28°C\n\nNhiệt độ cao nhất: 32-35°C\n\nDự báo: Ngày mưa nắng đan xen, chiều và đêm có mưa rào và dông rải rác, cục bộ có nơi mưa to. Trong mưa dông có khả năng xảy ra lốc, sét, mưa đá và gió giật mạnh. [...] Nhiệt độ thấp nhất: 24-26°C\n\nNhiệt độ cao nhất: 31-33°C\n\nDự báo: Sáng sớm và đêm có mưa to, cục bộ có nơi mưa rất to. Đề phòng ngập úng cục bộ cùng các hiện tượng lốc, sét và gió giật mạnh trong cơn dông.\n\nTP. Hồ Chí Minh: Mưa dông diện rộng\n\nNhiệt độ thấp nhất: 24-26°C\n\nNhiệt độ cao nhất: 29-31°C\n\nDự báo: Ngày mưa vừa, mưa to và rải rác có dông, cục bộ có nơi mưa rất to. Đề phòng ngập úng cục bộ cùng các hiện tượng lốc, sét và gió giật mạnh trong cơn dông.\n\nTy Bắc Bộ: Cục bộ có nơi mưa rất to [...] + Gia đình 360 độ\n  + Tm sự - Chuyện nhà\n Nghệ thuật  \n  + Văn học\n  + Điện ảnh\n  + m nhạc\n  + Sn khấu - Múa\n  + Mỹ thuật - Nhiếp ảnh\n Giải trí  \n  + Truyền hình\n  + Thời trang\n  + Showbiz\n  + Cùng thư giãn\n Đời sống  \n  + Giáo dục - Khoa học\n  + Y tế - Sức khoẻ\n  + Bạn trẻ\n  + Lối sống\n  + Môi trường khí hậu\n  + Xã hội\n Kinh tế  \n  + Doanh nghiệp\n  + Chứng khoán\n  + Địa phương\n  + Thị trường\n  + Nông thôn mới\n  + Khởi nghiệp\n  + Hàng Việt\n  + Bất động sản\n  + Bảo vệ người tiêu dùng",
+                    "score": 0.7507177
+                  }
+                ]
+              },
+              "_round": 1
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Hiện tại, thời tiết ở Hà Nội có nhiều mây, sáng có mưa phùn và sương mù, trưa chiều giảm mây và có nắng. Nhiệt độ thấp nhất từ 23-25°C và cao nhất từ 27-29°C. Gió đông nam đến nam cấp 2-3. Trong những ngày tới, nhiệt độ có thể tăng lên cao nhất 33°C vào ngày 3/4 và có khả năng mưa rào và dông vào ngày 4/4. Trong mưa dông có nguy cơ xảy ra lốc, sét, mưa đá và gió giật mạnh. [Nguồn](https://baolangson.vn/du-bao-thoi-tiet-10-ngay-ha-noi-buoc-vao-dot-nang-nong-keo-dai-cao-nhat-36-c-5085313.html).",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "thời tiết Hà Nội",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "thời tiết Hà Nội",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Dự báo thời tiết 10 ngày: Hà Nội bước vào đợt nắng nóng kéo dài, cao nhất 36°C - Báo và Phát thanh, Truyền hình Lạng Sơn - Báo và Phát thanh, Truyền hình Lạng Sơn",
+                "url": "https://baolangson.vn/du-bao-thoi-tiet-10-ngay-ha-noi-buoc-vao-dot-nang-nong-keo-dai-cao-nhat-36-c-5085313.html",
+                "source": "baolangson.vn",
+                "summary": "Hôm nay 2/4, Hà Nội nhiều my, sáng mưa phùn và sương mù, trưa chiều giảm my hửng nắng. Gió đông nam đến nam cấp 2-3. Nhiệt độ thấp nhất 23-25°C, cao nhất 27-29°C.\n\nDự báo thời tiết Hà Nội 10 ngày tới. (Nguồn: NCHMF) \n\nDự báo thời tiết Hà Nội 10 ngày tới. (Nguồn: NCHMF)\n\n \n\nNgoài ra, theo bảng tin cập nhật thời tiết và nhiệt độ 10 ngày tới, sang ngày 3/4, nhiệt độ khu vực này tăng nhanh lên cao nhất 33°C, thấp nhất duy trì mức 25°C, trời có my, không mưa. [...] Ngày 4/4, Hà Nội giảm nhiệt vào ban ngày, cao nhất 31°C, thấp nhất không có nhiều biến động, phổ biến 24°C, trời chuyển mưa rào và dông. Trong mưa dông nguy cơ xảy ra lốc, sét, mưa đá và gió giật mạnh.\n\nNgày 5-6/4, nhiệt độ khu vực này tăng trở lại, cao nhất 33-34°C, thấp nhất 24-26°C, trời có my, không mưa. [...] Miền Đông Nam Bộ chiều tối và đêm mưa rào và dông vài nơi, ngày nắng nóng. Miền Ty Nam Bộ chiều tối và đêm mưa rào và dông vài nơi, ngày nắng, có nơi nắng nóng, từ khoảng 6-7/4, nắng nóng lan rộng sang khu vực này.\n\nCác khu vực khác trên cả nước tiếp diễn chuỗi ngày mưa rào và dông vài nơi lúc chiều tối, đêm, ngày nắng, có nơi nắng nóng.\n\nTrong mưa dông khả năng xảy ra các hiện tượng thời tiết cực đoan như lốc, sét, mưa đá và gió giật mạnh.\n\nDự báo thời tiết Hà Nội 10 ngày tới",
+                "score": 0.8016413
+              },
+              {
+                "title": "Dự báo thời tiết Hà Nội hôm nay 29/7: Mưa từ đêm đến sáng, cảnh báo dông lốc",
+                "url": "https://vtcnews.vn/du-bao-thoi-tiet-ha-noi-hom-nay-29-7-mua-tu-dem-den-sang-canh-bao-dong-loc-ar1031471.html",
+                "source": "vtcnews.vn",
+                "summary": "Nhiệt độ tại Hà Nội dao động 24-26°C vào ban đêm và sáng sớm, tạo cảm giác khá mát mẻ sau những cơn mưa. Đến ban ngày, nhiệt độ cao nhất ở mức 31-33°C. Tuy không xuất hiện nắng nóng gay gắt nhưng độ ẩm trong không khí vẫn ở mức cao, khiến thời tiết có thể trở nên oi bức vào những khoảng thời gian không có mưa.\n\nDự báo thời tiết Hà Nội hôm nay 29/7: Mưa từ đêm đến sáng, cảnh báo dông lốc.\n\nDự báo thời tiết Hà Nội hôm nay 29/7: Mưa từ đêm đến sáng, cảnh báo dông lốc. [...] Nhìn chung, dự báo thời tiết Hà Nội hôm nay 29/7 có nền nhiệt khá dễ chịu với mức cao nhất 31-33°C, nhưng mưa dông xuất hiện trên diện rộng, đặc biệt từ đêm đến sáng sớm. Người dn cần theo dõi sát diễn biến thời tiết, chủ động các biện pháp phòng tránh thiên tai để đảm bảo an toàn trong sinh hoạt và di chuyển.\n\nNhận tin VTC News trên Google\n\nThêm VTC News làm nguồn ưu tiên để thấy tin tức mới thường xuyên hơn trên Google.\n\n Theo dõi\n\nBảo Lộc ngập su sau mưa lớn kéo dài [...] (VTC News) - \n\n## Dự báo thời tiết Hà Nội hôm nay 29/7 nhiều my, mưa vừa đến mưa to từ đêm đến sáng sớm, cục bộ có nơi mưa rất to, đề phòng dông lốc, sét, mưa đá và gió giật mạnh.\n\n## Dự báo thời tiết Hà Nội hôm nay 29/7\n\nTheo Trung tm Dự báo khí tượng thủy văn quốc gia, thời tiết Hà Nội hôm nay 29/7 duy trì trạng thái nhiều my, đêm và sáng sớm mưa vừa, mưa to và rải rác có dông. Một số khu vực có thể xuất hiện mưa rất to trong thời gian ngắn.",
+                "score": 0.784336
+              },
+              {
+                "title": "Dự báo thời tiết sáng | 29/07/2026",
+                "url": "https://hanoionline.vn/amp/du-bao-thoi-tiet-sang-29072026-410264.htm",
+                "source": "hanoionline.vn",
+                "summary": "Thời tiết thủ đô Hà Nội hôm nay được dự báo tiếp tục duy trì trạng thái dịu mát. Sáng sớm trời nhiều my, có mưa vài nơi, nhiệt độ lúc này dao động khoảng 28-30 độ. Độ ẩm cao trên 90%.\n\n### Dự báo thời tiết tối | 26/07/2026\n\n### Dự báo thời tiết tối | 26/07/2026\n\nThời tiết Hà Nội chiều tối và đêm nay ghi nhận trạng thái quang my, nhiệt độ giảm còn 26–28°C, độ ẩm 77–90%. Nền nhiệt dịu mát rất thích hợp cho người dn Thủ đô lên kế hoạch ra ngoài thư giãn tối cuối tuần. [...] Chiều nay, phía Ty Bắc và khu vực nội đô Hà Nội đang có mưa rào và dông. Sau đó, vùng mưa có thể mở rộng sang các phường thuộc trung tm Thành phố. Nhiệt độ lúc này không quá 29 độ. Độ ẩm 81-89%.\n\n### Dự báo thời tiết sáng | 28/07/2026\n\n### Dự báo thời tiết sáng | 28/07/2026\n\nThời tiết Hà Nội sáng nay có nhiều thay đổi khi mưa dông đã bao trùm miền Bắc và phổ biến trên diện rộng. Những cơn mưa trong đêm và sáng sớm nay đã khiến Hà Nội mát hơn, nhiệt độ từ 25-28 độ, độ ẩm khoảng 93%. [...] Tối và đêm nay, Hà Nội tiếp tục có mưa rào và dông, cục bộ có mưa to trong thời gian ngắn. Nhiệt độ duy trì ở mức 26-28 độ, độ ẩm từ 71–82%. Trong cơn dông, người dn cần đề phòng lốc, sét và gió giật mạnh.\n\n### Dự báo thời tiết sáng | 25/07/2026\n\n### Dự báo thời tiết sáng | 25/07/2026\n\nThời tiết cuối tuần tại Thủ đô Hà Nội được dự báo tiếp tục duy trì trạng thái khá dễ chịu. Trời nhiều my, sáng sớm có mưa rào vài nơi, nhiệt độ dao động từ 26-28 độ C.\n\n### Dự báo thời tiết tối | 24/07/2026",
+                "score": 0.7734393
+              },
+              {
+                "title": "Dự báo thời tiết 29/7: Nhiều nơi trên cả nước có mưa, miền ...",
+                "url": "https://vietnamnet.vn/du-bao-thoi-tiet-29-7-nhieu-noi-tren-ca-nuoc-co-mua-mien-bac-con-mua-lon-2538938.html",
+                "source": "vietnamnet.vn",
+                "summary": "Riêng thời tiết Hà Nội ngày 29/7, sáng có mưa vừa, mưa to và giông, trời khá dịu mát với nhiệt độ cao nhất 31-33 độ. Từ chiều 29-30/7, Hà Nội giảm mưa, chỉ còn mưa rào và giông vài nơi.\n\nNgoài ra, từ 29-30/7, khu vực cao nguyên Trung Bộ và Nam Bộ tiếp tục có mưa vừa, mưa to đến rất to kèm giông, lượng mưa phổ biến 40-80mm, cục bộ có nơi trên 150mm. Cảnh báo nguy cơ xuất hiện mưa cường suất lớn, trên 100mm/3 giờ. Từ đêm 30/7, mưa lớn ở hai khu vực này giảm dần.",
+                "score": 0.769098
+              },
+              {
+                "title": "Thời tiết hôm nay 29.7: Hà Nội mưa to, có nơi mưa rất to",
+                "url": "https://baovanhoa.vn/doi-song/thoi-tiet-hom-nay-297-ha-noi-mua-to-co-noi-mua-rat-to-251620.html",
+                "source": "baovanhoa.vn",
+                "summary": "Nhiệt độ thấp nhất: 24-27°C\n\nNhiệt độ cao nhất: 31-34°C\n\nDự báo: Ngày nắng, chiều và đêm có mưa rào và dông rải rác, cục bộ có nơi mưa to. Đề phòng lốc, sét, mưa đá và gió giật mạnh trong mưa dông.\n\nDuyên hải Nam Trung Bộ: Ngày nắng gián đoạn\n\nNhiệt độ thấp nhất: 25-28°C\n\nNhiệt độ cao nhất: 32-35°C\n\nDự báo: Ngày mưa nắng đan xen, chiều và đêm có mưa rào và dông rải rác, cục bộ có nơi mưa to. Trong mưa dông có khả năng xảy ra lốc, sét, mưa đá và gió giật mạnh. [...] Nhiệt độ thấp nhất: 24-26°C\n\nNhiệt độ cao nhất: 31-33°C\n\nDự báo: Sáng sớm và đêm có mưa to, cục bộ có nơi mưa rất to. Đề phòng ngập úng cục bộ cùng các hiện tượng lốc, sét và gió giật mạnh trong cơn dông.\n\nTP. Hồ Chí Minh: Mưa dông diện rộng\n\nNhiệt độ thấp nhất: 24-26°C\n\nNhiệt độ cao nhất: 29-31°C\n\nDự báo: Ngày mưa vừa, mưa to và rải rác có dông, cục bộ có nơi mưa rất to. Đề phòng ngập úng cục bộ cùng các hiện tượng lốc, sét và gió giật mạnh trong cơn dông.\n\nTy Bắc Bộ: Cục bộ có nơi mưa rất to [...] + Gia đình 360 độ\n  + Tm sự - Chuyện nhà\n Nghệ thuật  \n  + Văn học\n  + Điện ảnh\n  + m nhạc\n  + Sn khấu - Múa\n  + Mỹ thuật - Nhiếp ảnh\n Giải trí  \n  + Truyền hình\n  + Thời trang\n  + Showbiz\n  + Cùng thư giãn\n Đời sống  \n  + Giáo dục - Khoa học\n  + Y tế - Sức khoẻ\n  + Bạn trẻ\n  + Lối sống\n  + Môi trường khí hậu\n  + Xã hội\n Kinh tế  \n  + Doanh nghiệp\n  + Chứng khoán\n  + Địa phương\n  + Thị trường\n  + Nông thôn mới\n  + Khởi nghiệp\n  + Hàng Việt\n  + Bất động sản\n  + Bảo vệ người tiêu dùng",
+                "score": 0.7507177
+              }
+            ]
+          },
+          "_round": 1
+        }
+      ],
+      "ended_at": "2026-07-29T12:49:29"
+    }
+  ]
+}

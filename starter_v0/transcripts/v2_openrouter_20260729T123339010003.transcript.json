@@ -1,0 +1,857 @@
+{
+  "transcript_id": "v2_openrouter_20260729T123339010003",
+  "version": "v2",
+  "artifact_version": "v2+p99f835d46c8c+tddedcb8d061b",
+  "prompt_hash": "99f835d46c8c490e92e01d50dd9d1d32ab1a6d4fd690707aa5a12169e4d402a8",
+  "tools_hash": "ddedcb8d061b2d652e2408a8b456cad6438535d33eaa05e408ae5a083b84db1b",
+  "provider": "openrouter",
+  "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+  "system_prompt": "C:\\Users\\Tunnne\\Downloads\\code\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Tunnne\\Downloads\\code\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student-k3\\starter_v0\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-07-29T12:33:39",
+  "updated_at": "2026-07-29T12:35:40",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-07-29T12:33:39",
+      "user": "TÌm 5 bài báo nghiên cứu khoa học gần đây nhất về lĩnh vực AI",
+      "status": "answered",
+      "assistant_text": "Dưới đây là **5 bài báo nghiên cứu AI mới nhất** (theo ngày nộp mới nhất trên arXiv, ngày 28/07/2026). Vì arXiv chỉ trả về 4 bài mới nhất trong lần truy vấn này, dưới đây là 4 bài mới nhất:\n\n---\n\n### 1. **Pass the Baton: Trajectory-Relayed On-Policy Distillation**  \n**Tác giả:** Haolei Xu, Xiaowen Xu, Haiwen Hong, Zixuan Ni, Hongxing Li, Yiwen Qiu, Weiming Lu, Yongliang Shen  \n**Ngày nộp:** 28/07/2026  \n**Tóm tắt:** Bài báo đề xuất **Relay On-Policy Distillation (Relay-OPD)** – một phương pháp khắc phục vấn đề \"prefix failure\" trong on-policy distillation (OPD). Khi student model đi sai hướng reasoning, teacher sẽ can thiệp ngắn gọn tại các điểm \"trigger\" được phát hiện tự động (label-free) để điều hướng lại, sau đó student tiếp tục. Kết quả trên 8 benchmark toán học với teacher Qwen3-4B và student Qwen3-0.6B/1.7B: Relay-OPD đạt kết quả tốt nhất hoặc thứ 2 trên mọi benchmark, vượt OPD chuẩn +5.73% và FastOPD +1.49% (trung bình 1.7B), đồng thời giảm độ dài trajectory training >50%.  \n**Link:** [arXiv:2607.26057v1](http://arxiv.org/abs/2607.26057v1) | [PDF](https://arxiv.org/pdf/2607.26057v1)\n\n---\n\n### 2. **πR²: Reactive Real-time Flow Policies**  \n**Tác giả:** Sungjae Park, Shubham Tulsiani  \n**Ngày nộp:** 28/07/2026  \n**Tóm tắt:** Đề xuất **πR²** – chính sách flow reactive real-time cho robot manipulation. Vấn đề: các policy action-chunking chạy open-loop, không phản xạ được với cảm biến proprioception giữa chừng. πR² tách điều kiện thành *fast channel* (proprioception, cập nhật mỗi tick) và *slow channel* (vision-language, cập nhật bất đồng bộ), kết hợp flow schedule thích ứng latency để denoise 1 bước mỗi lần gọi. Fine-tune từ GR00T-N1.7 trên robot xArm6+XHand thực tế: replan closed-loop ~4× nhanh hơn baseline (~25Hz trên A5000 GPU), quan sát mới mỗi 40ms. Tăng success rate lên tới 23% (sim) và 30% (thực tế) so với baseline mạnh nhất.  \n**Link:** [arXiv:2607.26055v1](http://arxiv.org/abs/2607.26055v1) | [PDF](https://arxiv.org/pdf/2607.26055v1) | [Project page](https://pi-r2-flow.github.io/)\n\n---\n\n### 3. **Desktop-Delta Bench: Do Computer-Use Models Understand Desktop GUI Transitions?**  \n**Tác giả:** Abhishek Pillai, Samir Kumar Nayak, Yuan Chen  \n**Ngày nộp:** 28/07/2026  \n**Tóm tắt:** Giới thiệu **Desktop-Delta Bench (DDB)** – benchmark offline cấp độ step (step-level) với 2,013 instance được verify bởi con người từ các trajectory multi-app Linux thực tế (~15 app, 50 domain task). DDB kiểm tra 3 chiều failure: *state verification*, *source tracking*, *context-aware control* qua 2 task: (1) 463 instance temporal-ordering 3-frame (kể cả 105 cross-trajectory decoy), (2) 1,550 cặp before-after gán nhãn từ 5 action + payload. Đánh giá 8 model family (closed/open) trên 32 setting ordering và 16 setting single-action: ordering vẫn chưa bão hòa (best exact-match non-decoy 65.1%, decoy 65.7%); context cải thiện decoy +6.9pp nhưng giảm non-decoy -2.2pp; single-action: click F1 0.96 vs drag 0.76. DDB lấp đầy lớp chẩn đoán giữa GUI grounding và task success end-to-end.  \n**Link:** [arXiv:2607.26041v1](http://arxiv.org/abs/2607.26041v1) | [PDF](https://arxiv.org/pdf/2607.26041v1)\n\n---\n\n### 4. **Falling Behind Drives Unsafe Development in an Idealised AI Race Experiment**  \n**Tác giả:** Elias Fernández Domingos, The Anh Han  \n**Ngày nộp:** 28/07/2026  \n**Tóm tắt:** Thực nghiệm hành vi dựa trên mô hình cuộc đua AI lý tưởng: cặp người chơi lặp lại lựa chọn *Safe* vs *Unsafe* development dưới time horizon không chắc chắn. Unsafe cho tiến độ nhanh hơn, payoff tức thời cao hơn nhưng tích lũy rủi ro riêng tư (tối đa 10%, 60%, 90% theo treatment). Kết quả: không phải risk preference mà **trạng thái chiến lược đang diễn ra** quyết định hành vi Unsafe – rơi sau đối thủ → tăng Unsafe; dẫn đầu → giảm Unsafe; lựa chọn round 1 dự đoán hành vi sau. Mô hình tiến hóa rút gọn 4 chiến lược (Always Safe, Always Unsafe, Conditionally Safe, Conditionally Antisocial Safe) tái hiện hiệu ứng treatment. Kết luận: phát triển không an toàn xuất phát từ *momentum hành vi sớm*, *hành vi đối thủ* và *nỗi lo rơi sau* – chính sách nên giảm áp lực cạnh tranh, khuyến khích hợp tác thay vì chỉ tập trung vào risk appetite cá nhân.  \n**Link:** [arXiv:2607.26034v1](http://arxiv.org/abs/2607.26034v1) | [PDF](https://arxiv.org/pdf/2607.26034v1)\n\n---\n\n### 5. **CHARM: A Multimodal Graph Foundation Model with Hierarchical Context Modeling for Zero-Shot Transfer**  \n**Tác giả:** Ankang Yang, Jitao Zhao, Di Jin, Yuxiao Huang, Dongxiao He  \n**Ngày nộp:** 28/07/2026  \n**Tóm tắt:** Đề xuất **CHARM** – Graph Foundation Model đa phương thức (multimodal graph) với *hierarchical context modeling* cho zero-shot transfer. Thách thức: (1) generalize knowledge cross-modal, (2) node representation bị rối domain-specific khi không fine-tune. CHARM thay node raw bằng *hierarchical graph contexts* nắm bắt semantic đa phương thức và quan hệ cross-modal, ánh xạ pattern domain-specific → high-level concept chung. Modality-aware graph context encoder tích hợp multimodal + graph structure → graph tokens cho LLM. Thực nghiệm cho thấy cải thiện nhất quán trên các task zero-shot multimodal graph.  \n**Link:** [arXiv:2607.26023v1](http://arxiv.org/abs/2607.26023v1) | [PDF](https://arxiv.org/pdf/2607.26023v1)\n\n---\n\n### Tóm tắt nhanh theo chủ đề:\n| # | Chủ đề chính | Điểm nổi bật |\n|---|--------------|--------------|\n| 1 | **LLM Distillation / Reasoning** | Relay-OPD: teacher can thiệp tại trigger point → giảm 50% trajectory length, +5.7% so với OPD chuẩn |\n| 2 | **Robotics / Real-time Control** | πR²: fast/slow channel + latency-adaptive flow → 25Hz real-time, +30% success rate thực tế |\n| 3 | **Computer-Use Agents / GUI Benchmark** | Desktop-Delta Bench: 2k instance step-level, chẩn đoán failure giữa grounding và task success |\n| 4 | **AI Safety / Game Theory** | Thực nghiệm behavioral: rơi sau → unsafe development; policy nên giảm competitive pressure |\n| 5 | **Multimodal Graph Foundation Model** | CHARM: hierarchical context + graph tokens cho LLM → zero-shot transfer multimodal graph |\n\nBạn muốn tôi tóm tắt chi tiết bài nào, so sánh sâu hơn chủ đề nào, hoặc tìm thêm bài theo chủ đề cụ thể (LLM, Robotics, Safety, Graph, v.v.)?",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "papers",
+              "args": {
+                "sort_by": "submittedDate",
+                "query": "artificial intelligence",
+                "max_results": 5
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "papers",
+              "args": {
+                "sort_by": "submittedDate",
+                "query": "artificial intelligence",
+                "max_results": 5
+              },
+              "result": {
+                "tool": "arxiv_search",
+                "query": "artificial intelligence",
+                "api_query": "all:artificial AND all:intelligence",
+                "total_results": 209697,
+                "items": [
+                  {
+                    "arxiv_id": "2607.26057v1",
+                    "title": "Pass the Baton: Trajectory-Relayed On-Policy Distillation",
+                    "summary": "On-policy distillation (OPD) grounds token-level supervision in the student's own trajectory, yet suffers from prefix failure: once the student commits to a wrong reasoning direction, all subsequent generation builds on this deviation, producing misdirected continuations that elicit unreliable supervision and waste compute. We identify a teacher-student continuation asymmetry on failed prefixes, where the teacher tends to redirect while the student continues along the original direction, and convert it into a label-free handoff trigger in Relay On-Policy Distillation (Relay-OPD). During training, Relay-OPD constructs relay trajectories by letting the teacher briefly take over at detected trigger points to produce a teacher leg, after which the student resumes and is optimized on the resulting trajectory. A limited relay budget concentrates intervention on critical early positions while limiting departure from the student policy. With a Qwen3-4B-Instruct-2507 teacher and Qwen3-0.6B/1.7B-Non-Thinking students on eight mathematical reasoning benchmarks, Relay-OPD achieves the best or second-best results on every benchmark, outperforming standard OPD by +5.73% and the strongest baseline FastOPD by +1.49% on average for 1.7B, with consistent gains at 0.6B. Training trajectory length is reduced by over 50%.",
+                    "authors": [
+                      "Haolei Xu",
+                      "Xiaowen Xu",
+                      "Haiwen Hong",
+                      "Zixuan Ni",
+                      "Hongxing Li",
+                      "Yiwen Qiu",
+                      "Weiming Lu",
+                      "Yongliang Shen"
+                    ],
+                    "published": "2026-07-28T17:59:46Z",
+                    "updated": "2026-07-28T17:59:46Z",
+                    "url": "http://arxiv.org/abs/2607.26057v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.26057v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CL",
+                    "categories": [
+                      "cs.CL",
+                      "cs.AI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.26055v1",
+                    "title": "$π\\mathbf{R}^2$: Reactive Real-time Flow Policies",
+                    "summary": "Generalist manipulation policies increasingly take the form of action-chunking flow policies built on large pretrained backbones. Such chunks run open-loop, so the policy cannot react to sensory input arriving mid-execution, sacrificing \\emph{reactivity}. Replanning more often would restore it, but the perception-to-action pipeline (a large backbone plus multiple denoising steps) is too slow: this \\emph{latency} forbids frequent replanning and leaves committed actions stale, making such policies ill-suited for dynamic, closed-loop control. We present $π\\mathbf{R}^2$, which makes these policies reactive and real-time while retaining large backbones, expressive multi-modal policies, and multi-action prediction. Built on the per-position noise schedule of diffusion forcing, $π\\mathbf{R}^2$ contributes two ideas. First, it splits conditioning into a fast channel (proprioception, fresh every tick) and an asynchronously updated slow channel (vision-language features), so the policy reacts to proprioception within a chunk while tolerating stale vision. Second, a latency-adaptive flow schedule treats in-flight actions as inpainting conditioning and emits actions in one denoising step per call, letting one trained model adapt to varying hardware latency. Requiring minimal modification to existing architectures, $π\\mathbf{R}^2$ can be finetuned from a pretrained policy: applied to GR00T-N1.7 on a real xArm6+XHand platform, it replans closed-loop roughly $4\\times$ faster than the base policy (~$25$Hz on an A5000 GPU), acting on a fresh observation every $40$ms. Across simulation and real-world manipulation tasks, $π\\mathbf{R}^2$ improves the success rate by up to $23\\%$ in simulation and $30\\%$ in the real world over the strongest baseline. Project page: https://pi-r2-flow.github.io/",
+                    "authors": [
+                      "Sungjae Park",
+                      "Shubham Tulsiani"
+                    ],
+                    "published": "2026-07-28T17:59:31Z",
+                    "updated": "2026-07-28T17:59:31Z",
+                    "url": "http://arxiv.org/abs/2607.26055v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.26055v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.RO",
+                    "categories": [
+                      "cs.RO",
+                      "cs.AI",
+                      "cs.LG"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.26041v1",
+                    "title": "Desktop-Delta Bench: Do Computer-Use Models Understand Desktop GUI Transitions?",
+                    "summary": "Computer-use agents (CUAs) increasingly act through desktop GUIs to complete long-horizon tasks. Current benchmarks primarily measure end-task success or single-frame grounding. Neither isolates whether a model can reconstruct the causal, task-relevant transition produced by an action- crucial for rejecting stale observations, verifying progress, and recovering from failure. This is difficult because inference, remote input, app rendering, and screenshot capture are asynchronous: the next observation may be delayed, occluded, transient, or unrelated, then misread as progress and carried into subsequent planning. We introduce Desktop-Delta Bench (DDB), an offline step-level benchmark with 2,013 human-verified instances from novel, multi-app Linux trajectories across ~15 applications and 50 task domains. DDB trajectories targets 3 failure dimensions- state verification, source tracking, and context-aware control- through 2 complementary tasks: 463 3-frame temporal-ordering instances, including 105 with a cross-trajectory decoy, and 1,550 before-after pairs labeled from 5 actions + its payload. We evaluate 8 closed and open-source model families across 32 ordering and 16 single-action settings, observing consistent gaps. Ordering remains unsaturated: best non-decoy and decoy exact-match rates are 65.1% and 65.7%. Task context improves decoy identification by 6.9 percentage points but reduces non-decoy exact match by 2.2 points; error analysis reveals systematic copying of the presented A-B-C order. Single-action results show that inferring the action family is harder than locating it: click F1 is 0.96 vs, 0.76 for drag, while recognized drags are generally localized well. DDB, thus, complements end-to-end benchmarks by filling the missing diagnostic layer between GUI grounding and final task success, enabling targeted improvements to desktop CUA verification, reliability, and recovery.",
+                    "authors": [
+                      "Abhishek Pillai",
+                      "Samir Kumar Nayak",
+                      "Yuan Chen"
+                    ],
+                    "published": "2026-07-28T17:49:51Z",
+                    "updated": "2026-07-28T17:49:51Z",
+                    "url": "http://arxiv.org/abs/2607.26041v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.26041v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI",
+                      "cs.CV"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.26034v1",
+                    "title": "Falling Behind Drives Unsafe Development in an Idealised AI Race Experiment",
+                    "summary": "Technological races create tension between speed and safety: actors may gain by moving faster than competitors, even when risky development is harmful. This is prominent in debates about artificial intelligence (AI), where competitive pressure is often argued to incentivise riskier, less safety-conscious development. We study this using a framed behavioural experiment based on an idealised AI race, in which paired participants repeatedly chose between Safe and Unsafe development under an uncertain time horizon. Unsafe development gave faster progress and higher immediate payoffs but accumulated private risk up to a treatment-specific maximum of 10\\%, 60\\%, or 90\\%; the race's competitive structure was held constant, and only this maximum risk varied. Neither the pre-registered comparison between risk levels nor the role of elicited risk preferences was supported by the data. Instead, exploratory analyses motivated by the task's repeated structure show that Unsafe behaviour is shaped less by risk preferences than by the evolving strategic state of the race: participants are more likely to choose Unsafe after their opponent does so, being ahead reduces Unsafe play while falling behind increases it, and first-round choices predict later behaviour. To interpret these effects we introduce a reduced evolutionary model with four strategies -- Always Safe, Always Unsafe, Conditionally Safe, and Conditionally Antisocial Safe -- which reproduces the treatment effect and shows how conditional Unsafe behaviour can be favoured by competitive race dynamics. Together, the experiment and model show that unsafe development can emerge from early behavioural momentum, opponent behaviour, and fear of falling behind, rather than from risk preferences alone, suggesting policy should focus on reducing competitive pressure and promoting cooperation in AI development rather than only individual risk.",
+                    "authors": [
+                      "Elias Fernández Domingos",
+                      "The Anh Han"
+                    ],
+                    "published": "2026-07-28T17:44:03Z",
+                    "updated": "2026-07-28T17:44:03Z",
+                    "url": "http://arxiv.org/abs/2607.26034v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.26034v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI",
+                      "cs.CY",
+                      "cs.GT",
+                      "econ.GN"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.26023v1",
+                    "title": "CHARM: A Multimodal Graph Foundation Model with Hierarchical Context Modeling for Zero-Shot Transfer",
+                    "summary": "Graph foundation models (GFMs) have emerged as a promising paradigm for transferring knowledge across graph domains and tasks. Real-world graphs associate nodes with text, images, and other modalities, making multimodal graphs essential for representing complex entities and relations. Moreover, collecting labels and adapting models for every new graph domain is costly and often infeasible, motivating zero-shot transfer. Unfortunately, zero-shot transfer on multimodal graphs remains underexplored. Existing GNN-based graph foundation models typically require downstream adaptation, whereas LLM-based graph methods mainly address unimodal graphs or tasks within a single domain. This setting presents two key challenges. First, models must generalize knowledge from individual modalities while capturing transferable cross-modal relations. Second, without target-domain fine-tuning, node representations remain entangled with domain-specific structures and modality-specific characteristics, obscuring shared concepts in unseen domains. To address these challenges, we propose CHARM, a multimodal graph foundation model with hierarchical context modeling for zero-shot transfer. CHARM replaces isolated raw nodes with hierarchical graph contexts that capture multimodal semantics and cross-modal relations. These contexts map domain-specific node patterns to shared high-level concepts, reducing reliance on target-domain supervision or adaptation. A modality-aware graph context encoder integrates multimodal information with graph structure and converts the resulting representations into graph tokens for a large language model . Experiments show consistent improvements on zero-shot multimodal graph tasks.",
+                    "authors": [
+                      "Ankang Yang",
+                      "Jitao Zhao",
+                      "Di Jin",
+                      "Yuxiao Huang",
+                      "Dongxiao He"
+                    ],
+                    "published": "2026-07-28T17:35:26Z",
+                    "updated": "2026-07-28T17:35:26Z",
+                    "url": "http://arxiv.org/abs/2607.26023v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.26023v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI"
+                    ]
+                  }
+                ],
+                "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+              },
+              "_round": 1
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Dưới đây là **5 bài báo nghiên cứu AI mới nhất** (theo ngày nộp mới nhất trên arXiv, ngày 28/07/2026). Vì arXiv chỉ trả về 4 bài mới nhất trong lần truy vấn này, dưới đây là 4 bài mới nhất:\n\n---\n\n### 1. **Pass the Baton: Trajectory-Relayed On-Policy Distillation**  \n**Tác giả:** Haolei Xu, Xiaowen Xu, Haiwen Hong, Zixuan Ni, Hongxing Li, Yiwen Qiu, Weiming Lu, Yongliang Shen  \n**Ngày nộp:** 28/07/2026  \n**Tóm tắt:** Bài báo đề xuất **Relay On-Policy Distillation (Relay-OPD)** – một phương pháp khắc phục vấn đề \"prefix failure\" trong on-policy distillation (OPD). Khi student model đi sai hướng reasoning, teacher sẽ can thiệp ngắn gọn tại các điểm \"trigger\" được phát hiện tự động (label-free) để điều hướng lại, sau đó student tiếp tục. Kết quả trên 8 benchmark toán học với teacher Qwen3-4B và student Qwen3-0.6B/1.7B: Relay-OPD đạt kết quả tốt nhất hoặc thứ 2 trên mọi benchmark, vượt OPD chuẩn +5.73% và FastOPD +1.49% (trung bình 1.7B), đồng thời giảm độ dài trajectory training >50%.  \n**Link:** [arXiv:2607.26057v1](http://arxiv.org/abs/2607.26057v1) | [PDF](https://arxiv.org/pdf/2607.26057v1)\n\n---\n\n### 2. **πR²: Reactive Real-time Flow Policies**  \n**Tác giả:** Sungjae Park, Shubham Tulsiani  \n**Ngày nộp:** 28/07/2026  \n**Tóm tắt:** Đề xuất **πR²** – chính sách flow reactive real-time cho robot manipulation. Vấn đề: các policy action-chunking chạy open-loop, không phản xạ được với cảm biến proprioception giữa chừng. πR² tách điều kiện thành *fast channel* (proprioception, cập nhật mỗi tick) và *slow channel* (vision-language, cập nhật bất đồng bộ), kết hợp flow schedule thích ứng latency để denoise 1 bước mỗi lần gọi. Fine-tune từ GR00T-N1.7 trên robot xArm6+XHand thực tế: replan closed-loop ~4× nhanh hơn baseline (~25Hz trên A5000 GPU), quan sát mới mỗi 40ms. Tăng success rate lên tới 23% (sim) và 30% (thực tế) so với baseline mạnh nhất.  \n**Link:** [arXiv:2607.26055v1](http://arxiv.org/abs/2607.26055v1) | [PDF](https://arxiv.org/pdf/2607.26055v1) | [Project page](https://pi-r2-flow.github.io/)\n\n---\n\n### 3. **Desktop-Delta Bench: Do Computer-Use Models Understand Desktop GUI Transitions?**  \n**Tác giả:** Abhishek Pillai, Samir Kumar Nayak, Yuan Chen  \n**Ngày nộp:** 28/07/2026  \n**Tóm tắt:** Giới thiệu **Desktop-Delta Bench (DDB)** – benchmark offline cấp độ step (step-level) với 2,013 instance được verify bởi con người từ các trajectory multi-app Linux thực tế (~15 app, 50 domain task). DDB kiểm tra 3 chiều failure: *state verification*, *source tracking*, *context-aware control* qua 2 task: (1) 463 instance temporal-ordering 3-frame (kể cả 105 cross-trajectory decoy), (2) 1,550 cặp before-after gán nhãn từ 5 action + payload. Đánh giá 8 model family (closed/open) trên 32 setting ordering và 16 setting single-action: ordering vẫn chưa bão hòa (best exact-match non-decoy 65.1%, decoy 65.7%); context cải thiện decoy +6.9pp nhưng giảm non-decoy -2.2pp; single-action: click F1 0.96 vs drag 0.76. DDB lấp đầy lớp chẩn đoán giữa GUI grounding và task success end-to-end.  \n**Link:** [arXiv:2607.26041v1](http://arxiv.org/abs/2607.26041v1) | [PDF](https://arxiv.org/pdf/2607.26041v1)\n\n---\n\n### 4. **Falling Behind Drives Unsafe Development in an Idealised AI Race Experiment**  \n**Tác giả:** Elias Fernández Domingos, The Anh Han  \n**Ngày nộp:** 28/07/2026  \n**Tóm tắt:** Thực nghiệm hành vi dựa trên mô hình cuộc đua AI lý tưởng: cặp người chơi lặp lại lựa chọn *Safe* vs *Unsafe* development dưới time horizon không chắc chắn. Unsafe cho tiến độ nhanh hơn, payoff tức thời cao hơn nhưng tích lũy rủi ro riêng tư (tối đa 10%, 60%, 90% theo treatment). Kết quả: không phải risk preference mà **trạng thái chiến lược đang diễn ra** quyết định hành vi Unsafe – rơi sau đối thủ → tăng Unsafe; dẫn đầu → giảm Unsafe; lựa chọn round 1 dự đoán hành vi sau. Mô hình tiến hóa rút gọn 4 chiến lược (Always Safe, Always Unsafe, Conditionally Safe, Conditionally Antisocial Safe) tái hiện hiệu ứng treatment. Kết luận: phát triển không an toàn xuất phát từ *momentum hành vi sớm*, *hành vi đối thủ* và *nỗi lo rơi sau* – chính sách nên giảm áp lực cạnh tranh, khuyến khích hợp tác thay vì chỉ tập trung vào risk appetite cá nhân.  \n**Link:** [arXiv:2607.26034v1](http://arxiv.org/abs/2607.26034v1) | [PDF](https://arxiv.org/pdf/2607.26034v1)\n\n---\n\n### 5. **CHARM: A Multimodal Graph Foundation Model with Hierarchical Context Modeling for Zero-Shot Transfer**  \n**Tác giả:** Ankang Yang, Jitao Zhao, Di Jin, Yuxiao Huang, Dongxiao He  \n**Ngày nộp:** 28/07/2026  \n**Tóm tắt:** Đề xuất **CHARM** – Graph Foundation Model đa phương thức (multimodal graph) với *hierarchical context modeling* cho zero-shot transfer. Thách thức: (1) generalize knowledge cross-modal, (2) node representation bị rối domain-specific khi không fine-tune. CHARM thay node raw bằng *hierarchical graph contexts* nắm bắt semantic đa phương thức và quan hệ cross-modal, ánh xạ pattern domain-specific → high-level concept chung. Modality-aware graph context encoder tích hợp multimodal + graph structure → graph tokens cho LLM. Thực nghiệm cho thấy cải thiện nhất quán trên các task zero-shot multimodal graph.  \n**Link:** [arXiv:2607.26023v1](http://arxiv.org/abs/2607.26023v1) | [PDF](https://arxiv.org/pdf/2607.26023v1)\n\n---\n\n### Tóm tắt nhanh theo chủ đề:\n| # | Chủ đề chính | Điểm nổi bật |\n|---|--------------|--------------|\n| 1 | **LLM Distillation / Reasoning** | Relay-OPD: teacher can thiệp tại trigger point → giảm 50% trajectory length, +5.7% so với OPD chuẩn |\n| 2 | **Robotics / Real-time Control** | πR²: fast/slow channel + latency-adaptive flow → 25Hz real-time, +30% success rate thực tế |\n| 3 | **Computer-Use Agents / GUI Benchmark** | Desktop-Delta Bench: 2k instance step-level, chẩn đoán failure giữa grounding và task success |\n| 4 | **AI Safety / Game Theory** | Thực nghiệm behavioral: rơi sau → unsafe development; policy nên giảm competitive pressure |\n| 5 | **Multimodal Graph Foundation Model** | CHARM: hierarchical context + graph tokens cho LLM → zero-shot transfer multimodal graph |\n\nBạn muốn tôi tóm tắt chi tiết bài nào, so sánh sâu hơn chủ đề nào, hoặc tìm thêm bài theo chủ đề cụ thể (LLM, Robotics, Safety, Graph, v.v.)?",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "papers",
+          "args": {
+            "sort_by": "submittedDate",
+            "query": "artificial intelligence",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "artificial intelligence",
+            "api_query": "all:artificial AND all:intelligence",
+            "total_results": 209697,
+            "items": [
+              {
+                "arxiv_id": "2607.26057v1",
+                "title": "Pass the Baton: Trajectory-Relayed On-Policy Distillation",
+                "summary": "On-policy distillation (OPD) grounds token-level supervision in the student's own trajectory, yet suffers from prefix failure: once the student commits to a wrong reasoning direction, all subsequent generation builds on this deviation, producing misdirected continuations that elicit unreliable supervision and waste compute. We identify a teacher-student continuation asymmetry on failed prefixes, where the teacher tends to redirect while the student continues along the original direction, and convert it into a label-free handoff trigger in Relay On-Policy Distillation (Relay-OPD). During training, Relay-OPD constructs relay trajectories by letting the teacher briefly take over at detected trigger points to produce a teacher leg, after which the student resumes and is optimized on the resulting trajectory. A limited relay budget concentrates intervention on critical early positions while limiting departure from the student policy. With a Qwen3-4B-Instruct-2507 teacher and Qwen3-0.6B/1.7B-Non-Thinking students on eight mathematical reasoning benchmarks, Relay-OPD achieves the best or second-best results on every benchmark, outperforming standard OPD by +5.73% and the strongest baseline FastOPD by +1.49% on average for 1.7B, with consistent gains at 0.6B. Training trajectory length is reduced by over 50%.",
+                "authors": [
+                  "Haolei Xu",
+                  "Xiaowen Xu",
+                  "Haiwen Hong",
+                  "Zixuan Ni",
+                  "Hongxing Li",
+                  "Yiwen Qiu",
+                  "Weiming Lu",
+                  "Yongliang Shen"
+                ],
+                "published": "2026-07-28T17:59:46Z",
+                "updated": "2026-07-28T17:59:46Z",
+                "url": "http://arxiv.org/abs/2607.26057v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.26057v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CL",
+                "categories": [
+                  "cs.CL",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2607.26055v1",
+                "title": "$π\\mathbf{R}^2$: Reactive Real-time Flow Policies",
+                "summary": "Generalist manipulation policies increasingly take the form of action-chunking flow policies built on large pretrained backbones. Such chunks run open-loop, so the policy cannot react to sensory input arriving mid-execution, sacrificing \\emph{reactivity}. Replanning more often would restore it, but the perception-to-action pipeline (a large backbone plus multiple denoising steps) is too slow: this \\emph{latency} forbids frequent replanning and leaves committed actions stale, making such policies ill-suited for dynamic, closed-loop control. We present $π\\mathbf{R}^2$, which makes these policies reactive and real-time while retaining large backbones, expressive multi-modal policies, and multi-action prediction. Built on the per-position noise schedule of diffusion forcing, $π\\mathbf{R}^2$ contributes two ideas. First, it splits conditioning into a fast channel (proprioception, fresh every tick) and an asynchronously updated slow channel (vision-language features), so the policy reacts to proprioception within a chunk while tolerating stale vision. Second, a latency-adaptive flow schedule treats in-flight actions as inpainting conditioning and emits actions in one denoising step per call, letting one trained model adapt to varying hardware latency. Requiring minimal modification to existing architectures, $π\\mathbf{R}^2$ can be finetuned from a pretrained policy: applied to GR00T-N1.7 on a real xArm6+XHand platform, it replans closed-loop roughly $4\\times$ faster than the base policy (~$25$Hz on an A5000 GPU), acting on a fresh observation every $40$ms. Across simulation and real-world manipulation tasks, $π\\mathbf{R}^2$ improves the success rate by up to $23\\%$ in simulation and $30\\%$ in the real world over the strongest baseline. Project page: https://pi-r2-flow.github.io/",
+                "authors": [
+                  "Sungjae Park",
+                  "Shubham Tulsiani"
+                ],
+                "published": "2026-07-28T17:59:31Z",
+                "updated": "2026-07-28T17:59:31Z",
+                "url": "http://arxiv.org/abs/2607.26055v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.26055v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.RO",
+                "categories": [
+                  "cs.RO",
+                  "cs.AI",
+                  "cs.LG"
+                ]
+              },
+              {
+                "arxiv_id": "2607.26041v1",
+                "title": "Desktop-Delta Bench: Do Computer-Use Models Understand Desktop GUI Transitions?",
+                "summary": "Computer-use agents (CUAs) increasingly act through desktop GUIs to complete long-horizon tasks. Current benchmarks primarily measure end-task success or single-frame grounding. Neither isolates whether a model can reconstruct the causal, task-relevant transition produced by an action- crucial for rejecting stale observations, verifying progress, and recovering from failure. This is difficult because inference, remote input, app rendering, and screenshot capture are asynchronous: the next observation may be delayed, occluded, transient, or unrelated, then misread as progress and carried into subsequent planning. We introduce Desktop-Delta Bench (DDB), an offline step-level benchmark with 2,013 human-verified instances from novel, multi-app Linux trajectories across ~15 applications and 50 task domains. DDB trajectories targets 3 failure dimensions- state verification, source tracking, and context-aware control- through 2 complementary tasks: 463 3-frame temporal-ordering instances, including 105 with a cross-trajectory decoy, and 1,550 before-after pairs labeled from 5 actions + its payload. We evaluate 8 closed and open-source model families across 32 ordering and 16 single-action settings, observing consistent gaps. Ordering remains unsaturated: best non-decoy and decoy exact-match rates are 65.1% and 65.7%. Task context improves decoy identification by 6.9 percentage points but reduces non-decoy exact match by 2.2 points; error analysis reveals systematic copying of the presented A-B-C order. Single-action results show that inferring the action family is harder than locating it: click F1 is 0.96 vs, 0.76 for drag, while recognized drags are generally localized well. DDB, thus, complements end-to-end benchmarks by filling the missing diagnostic layer between GUI grounding and final task success, enabling targeted improvements to desktop CUA verification, reliability, and recovery.",
+                "authors": [
+                  "Abhishek Pillai",
+                  "Samir Kumar Nayak",
+                  "Yuan Chen"
+                ],
+                "published": "2026-07-28T17:49:51Z",
+                "updated": "2026-07-28T17:49:51Z",
+                "url": "http://arxiv.org/abs/2607.26041v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.26041v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.CV"
+                ]
+              },
+              {
+                "arxiv_id": "2607.26034v1",
+                "title": "Falling Behind Drives Unsafe Development in an Idealised AI Race Experiment",
+                "summary": "Technological races create tension between speed and safety: actors may gain by moving faster than competitors, even when risky development is harmful. This is prominent in debates about artificial intelligence (AI), where competitive pressure is often argued to incentivise riskier, less safety-conscious development. We study this using a framed behavioural experiment based on an idealised AI race, in which paired participants repeatedly chose between Safe and Unsafe development under an uncertain time horizon. Unsafe development gave faster progress and higher immediate payoffs but accumulated private risk up to a treatment-specific maximum of 10\\%, 60\\%, or 90\\%; the race's competitive structure was held constant, and only this maximum risk varied. Neither the pre-registered comparison between risk levels nor the role of elicited risk preferences was supported by the data. Instead, exploratory analyses motivated by the task's repeated structure show that Unsafe behaviour is shaped less by risk preferences than by the evolving strategic state of the race: participants are more likely to choose Unsafe after their opponent does so, being ahead reduces Unsafe play while falling behind increases it, and first-round choices predict later behaviour. To interpret these effects we introduce a reduced evolutionary model with four strategies -- Always Safe, Always Unsafe, Conditionally Safe, and Conditionally Antisocial Safe -- which reproduces the treatment effect and shows how conditional Unsafe behaviour can be favoured by competitive race dynamics. Together, the experiment and model show that unsafe development can emerge from early behavioural momentum, opponent behaviour, and fear of falling behind, rather than from risk preferences alone, suggesting policy should focus on reducing competitive pressure and promoting cooperation in AI development rather than only individual risk.",
+                "authors": [
+                  "Elias Fernández Domingos",
+                  "The Anh Han"
+                ],
+                "published": "2026-07-28T17:44:03Z",
+                "updated": "2026-07-28T17:44:03Z",
+                "url": "http://arxiv.org/abs/2607.26034v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.26034v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.CY",
+                  "cs.GT",
+                  "econ.GN"
+                ]
+              },
+              {
+                "arxiv_id": "2607.26023v1",
+                "title": "CHARM: A Multimodal Graph Foundation Model with Hierarchical Context Modeling for Zero-Shot Transfer",
+                "summary": "Graph foundation models (GFMs) have emerged as a promising paradigm for transferring knowledge across graph domains and tasks. Real-world graphs associate nodes with text, images, and other modalities, making multimodal graphs essential for representing complex entities and relations. Moreover, collecting labels and adapting models for every new graph domain is costly and often infeasible, motivating zero-shot transfer. Unfortunately, zero-shot transfer on multimodal graphs remains underexplored. Existing GNN-based graph foundation models typically require downstream adaptation, whereas LLM-based graph methods mainly address unimodal graphs or tasks within a single domain. This setting presents two key challenges. First, models must generalize knowledge from individual modalities while capturing transferable cross-modal relations. Second, without target-domain fine-tuning, node representations remain entangled with domain-specific structures and modality-specific characteristics, obscuring shared concepts in unseen domains. To address these challenges, we propose CHARM, a multimodal graph foundation model with hierarchical context modeling for zero-shot transfer. CHARM replaces isolated raw nodes with hierarchical graph contexts that capture multimodal semantics and cross-modal relations. These contexts map domain-specific node patterns to shared high-level concepts, reducing reliance on target-domain supervision or adaptation. A modality-aware graph context encoder integrates multimodal information with graph structure and converts the resulting representations into graph tokens for a large language model . Experiments show consistent improvements on zero-shot multimodal graph tasks.",
+                "authors": [
+                  "Ankang Yang",
+                  "Jitao Zhao",
+                  "Di Jin",
+                  "Yuxiao Huang",
+                  "Dongxiao He"
+                ],
+                "published": "2026-07-28T17:35:26Z",
+                "updated": "2026-07-28T17:35:26Z",
+                "url": "http://arxiv.org/abs/2607.26023v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.26023v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          },
+          "_round": 1
+        }
+      ],
+      "ended_at": "2026-07-29T12:34:29"
+    },
+    {
+      "turn_index": 2,
+      "started_at": "2026-07-29T12:35:22",
+      "user": "\nTÌm 10 bài báo nghiên cứu khoa học gần đây nhất về lĩnh vực AI",
+      "status": "answered",
+      "assistant_text": "Dưới đây là 10 bài báo nghiên cứu khoa học gần đây nhất về lĩnh vực AI:\n\n1. **Falling Behind Drives Unsafe Development in an Idealised AI Race Experiment**\n   - **Tác giả:** Elias Fernández Domingos, The Anh Han\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Nghiên cứu về cách áp lực cạnh tranh trong phát triển AI có thể dẫn đến các hành vi phát triển không an toàn.\n   - [Link bài báo](http://arxiv.org/abs/2607.26034v1)\n\n2. **MAC-Gyver: Open, Programmable, Scheduling for AI-RAN 6G Systems**\n   - **Tác giả:** Maxime Elkael, Reshma Prasad, Tamerlan Aghayev, Salvatore D'Oro, Michele Polese, Tommaso Melodia\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Giới thiệu MAC-Gyver, một framework mã nguồn mở cho phát triển và đánh giá các ứng dụng lập lịch trong hệ thống AI-RAN 6G.\n   - [Link bài báo](http://arxiv.org/abs/2607.26012v1)\n\n3. **Phantom Evidence: How and Why Generative AI Manufactures False Positives in Science**\n   - **Tác giả:** Yukiyasu Kamitani, Ken Shirakawa\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Thảo luận về cách AI tạo ra các kết quả dương tính giả trong khoa học và cách khắc phục.\n   - [Link bài báo](http://arxiv.org/abs/2607.25991v1)\n\n4. **Face De-Identification: A Domain-Centric Survey from Capture to Processing**\n   - **Tác giả:** Hui Wei, Hao Yu, Guoying Zhao\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Khảo sát về các phương pháp xóa nhận dạng khuôn mặt từ giai đoạn thu thập đến xử lý.\n   - [Link bài báo](http://arxiv.org/abs/2607.25926v1)\n\n5. **Toward Standardized Cross-Vendor Agent Tool Trust Management in Autonomous Networks**\n   - **Tác giả:** Ravi Kant Sharma, Ashutosh Uttam, Ajay Kumar\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Đề xuất mô hình quản lý tin cậy công cụ agent giữa các nhà cung cấp trong mạng lưới tự động.\n   - [Link bài báo](http://arxiv.org/abs/2607.25914v1)\n\n6. **HiFi-UMI: Learning Deployable Manipulation Policies from High-Fidelity UMI Data Alone**\n   - **Tác giả:** Simple AI, Yuteng Wei, Jinming Ma, Jiawei Wang, Weitao Zhou, Yushen Zuo, Ke Rui, Minglei Li, Jinhao Zhang, Zhikang Pan, Xiang Wang, Haoran Jia, Huan Du, Zicheng Zeng, Jun Ma, Guiyu Qin, Di Zhang, Xiaofei Li\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Hệ thống HiFi-UMI cho phép học chính sách thao tác từ dữ liệu UMI độ chính xác cao mà không cần robot thực tế.\n   - [Link bài báo](http://arxiv.org/abs/2607.25895v1)\n\n7. **Messier: A High-Resolution Corpus for Cross-Benchmark Agent Evaluation**\n   - **Tác giả:** Stefan Krsteski, Charlotte Meyer, Guillaume Allegre, Tony O'Halloran, Alexandre Sallinen\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Giới thiệu Messier, một tập hợp dữ liệu chuẩn hóa cho đánh giá agent AI qua nhiều benchmark.\n   - [Link bài báo](http://arxiv.org/abs/2607.25891v1)\n\n8. **Distributing Security Controls Through Harness Engineering**\n   - **Tác giả:** William Robert Gore\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Nghiên cứu về cách phân phối các biện pháp kiểm soát an ninh qua kỹ thuật harness cho các agent AI.\n   - [Link bài báo](http://arxiv.org/abs/2607.25890v1)\n\n9. **RSIBench-Data: Benchmarking Data-Centric Research for Recursive Self-Improvement**\n   - **Tác giả:** Fanqing Meng, Lingxiao Du, Qiguang Chen, Ziqi Zhao, Haocheng Lu, Mengkang Hu, Michael Qizhe Shieh\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** RSIBench-Data là một benchmark cho nghiên cứu tập trung vào dữ liệu trong cải tiến tự động đệ quy.\n   - [Link bài báo](http://arxiv.org/abs/2607.25886v1)\n\n10. **AI's Capability in Assisting Scientific Research in Physics, Astrophysics, and Cosmology II: Project Planning and Proposal Evaluation**\n    - **Tác giả:** Jia Liu, Veena Krishnaraj, Kateryna Vovk, Kosuke Aizawa, Adrian E. Bayer, Linda Blot, Jessica Cowell, Suyog Garg\n    - **Ngày nộp:** 28/07/2026\n    - **Tóm tắt:** Khả năng của AI trong hỗ trợ lập kế hoạch dự án và đánh giá đề xuất trong các lĩnh vực vật lý, thiên văn học và vũ trụ học.\n    - [Link bài báo](http://arxiv.org/abs/2607.25881v1)\n\nNếu bạn cần thêm thông tin chi tiết về bất kỳ bài báo nào, hãy cho tôi biết!",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "papers",
+              "args": {
+                "query": "AI",
+                "max_results": 10,
+                "sort_by": "submittedDate"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "papers",
+              "args": {
+                "query": "AI",
+                "max_results": 10,
+                "sort_by": "submittedDate"
+              },
+              "result": {
+                "tool": "arxiv_search",
+                "query": "AI",
+                "api_query": "all:AI",
+                "total_results": 62313,
+                "items": [
+                  {
+                    "arxiv_id": "2607.26034v1",
+                    "title": "Falling Behind Drives Unsafe Development in an Idealised AI Race Experiment",
+                    "summary": "Technological races create tension between speed and safety: actors may gain by moving faster than competitors, even when risky development is harmful. This is prominent in debates about artificial intelligence (AI), where competitive pressure is often argued to incentivise riskier, less safety-conscious development. We study this using a framed behavioural experiment based on an idealised AI race, in which paired participants repeatedly chose between Safe and Unsafe development under an uncertain time horizon. Unsafe development gave faster progress and higher immediate payoffs but accumulated private risk up to a treatment-specific maximum of 10\\%, 60\\%, or 90\\%; the race's competitive structure was held constant, and only this maximum risk varied. Neither the pre-registered comparison between risk levels nor the role of elicited risk preferences was supported by the data. Instead, exploratory analyses motivated by the task's repeated structure show that Unsafe behaviour is shaped less by risk preferences than by the evolving strategic state of the race: participants are more likely to choose Unsafe after their opponent does so, being ahead reduces Unsafe play while falling behind increases it, and first-round choices predict later behaviour. To interpret these effects we introduce a reduced evolutionary model with four strategies -- Always Safe, Always Unsafe, Conditionally Safe, and Conditionally Antisocial Safe -- which reproduces the treatment effect and shows how conditional Unsafe behaviour can be favoured by competitive race dynamics. Together, the experiment and model show that unsafe development can emerge from early behavioural momentum, opponent behaviour, and fear of falling behind, rather than from risk preferences alone, suggesting policy should focus on reducing competitive pressure and promoting cooperation in AI development rather than only individual risk.",
+                    "authors": [
+                      "Elias Fernández Domingos",
+                      "The Anh Han"
+                    ],
+                    "published": "2026-07-28T17:44:03Z",
+                    "updated": "2026-07-28T17:44:03Z",
+                    "url": "http://arxiv.org/abs/2607.26034v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.26034v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI",
+                      "cs.CY",
+                      "cs.GT",
+                      "econ.GN"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.26012v1",
+                    "title": "MAC-Gyver: Open, Programmable, Scheduling for AI-RAN 6G Systems",
+                    "summary": "Cellular networks are integrating Artificial Intelli- gence (AI) into radio access network control. The MAC scheduler is a promising target because it allocates a limited resource, spectrum, at every slot, under competing latency, throughput, and reliability requirements. However, most learning-based sched- ulers are evaluated only in simulation. Production schedulers are difficult to modify, and realistic stress tests require more radio hardware than most laboratories can provide. We present MAC-Gyver, an open-source framework for developing and evaluating scheduling applications that execute directly inside the OpenAirInterface scheduler. It exposes scheduler observations and controls through typed interfaces while preserving the underlying protocol and real-time execution paths. The same applications run over the air and in mac-emu, a PHY-less emulator that executes the unmodified OpenAirInterface Layer 2 stack for up to 90 users on one host at real-time slot pace, with a 3GPP-compliant channel model. To showcase the flexibility of MAC-Gyver, we evaluate two use cases. A proactive uplink scheduler predicts packet arrivals and roughly halves median round-trip latency. A frequency-selective uplink scheduler selects contiguous sub-bands from per-PRB sounding observations and is evaluated across mobility and power-limited operating points against an offline scheduling ceiling. Together, they show how the same production stack can be an AI playground that supports implementation, controlled evaluation, and over-the-air validation through complementary scheduling use cases.",
+                    "authors": [
+                      "Maxime Elkael",
+                      "Reshma Prasad",
+                      "Tamerlan Aghayev",
+                      "Salvatore D'Oro",
+                      "Michele Polese",
+                      "Tommaso Melodia"
+                    ],
+                    "published": "2026-07-28T17:24:53Z",
+                    "updated": "2026-07-28T17:24:53Z",
+                    "url": "http://arxiv.org/abs/2607.26012v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.26012v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.NI",
+                    "categories": [
+                      "cs.NI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25991v1",
+                    "title": "Phantom Evidence: How and Why Generative AI Manufactures False Positives in Science",
+                    "summary": "Four centuries ago Francis Bacon warned against the anticipations of nature, hasty generalization that wins assent on a few facts, and set against it the table of absence: checking that a property fails to appear where it should not. The demand was that looking convincing should not, on its own, count as evidence. Science has professed that demand ever since, while in practice letting persuasiveness do the work of evidence. It could be let to do so because making something persuasive was itself hard. Generative AI removes that difficulty, and an old error returns on a scale and at a speed it never had before. We locate the problem not in evidence growing weaker but in how surprise is counted. An observer marvels at a convincing output as a single point hit among a vast range of possibilities, yet what a system can actually reach is a small part of that range. The gap between the breadth imagined and the narrowness actually reached is what we call phantom evidence, and we formalize it as one quantity that also absorbs the trial and error and the data leakage a research process adds. Three things follow. Higher resolution and greater fluency add no evidence. The evidence a single result can carry has a ceiling that neither polishing the output nor letting a generative system grade itself can exceed. And the fraction of published findings that are true falls back to what it was before anything was observed. The prescription lies in the same place: genuinely widen what a system can reach, and measure whether convincing outputs still appear when the target is absent -- Bacon's table of absence, restated in the language of probability. In a world where the persuasive has become cheap, the credibility of science rests not on more convincing outputs but on procedures that show they could not have arisen by chance.",
+                    "authors": [
+                      "Yukiyasu Kamitani",
+                      "Ken Shirakawa"
+                    ],
+                    "published": "2026-07-28T17:07:12Z",
+                    "updated": "2026-07-28T17:07:12Z",
+                    "url": "http://arxiv.org/abs/2607.25991v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25991v1",
+                    "source": "arxiv.org",
+                    "primary_category": "q-bio.NC",
+                    "categories": [
+                      "q-bio.NC"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25926v1",
+                    "title": "Face De-Identification: A Domain-Centric Survey from Capture to Processing",
+                    "summary": "Face de-identification (De-ID) aims to remove or conceal personally identifiable facial features in images or videos to prevent identity recognition while preserving utility for downstream tasks. With the rising emphasis on data privacy and responsible AI, face De-ID has emerged as an active research area spanning computer vision and privacy-preserving communities. Early approaches, and many contemporary ones, operate in the digital domain by modifying pixel-level or appearance-level features through post-capture processing. Recent advances extend face De-ID beyond post-processing by integrating privacy mechanisms directly into sensors during image acquisition, bridging sensing systems and downstream vision algorithms. In parallel, physical-domain methods explore wearable accessories and materials that conceal identity information in real-world environments prior to capture. In this survey, we present the first unified overview that spans the full data acquisition pipeline, encompassing the physical, sensor, and digital domains. Through this domain-centric lens, we systematically analyze current methodologies, technical progress, and the distinct challenges inherent to each stage. We then review and organize existing evaluation protocols, examining current practices and highlighting the critical need for standardized, comprehensive benchmarks. Finally, we identify key open problems and outline emerging research directions to guide future work in this rapidly evolving field. To support ongoing research, we maintain a project page that organizes relevant literature with collected datasets and open source code: https://github.com/CV-AC/Awesome-FaceDe-ID.",
+                    "authors": [
+                      "Hui Wei",
+                      "Hao Yu",
+                      "Guoying Zhao"
+                    ],
+                    "published": "2026-07-28T16:15:12Z",
+                    "updated": "2026-07-28T16:15:12Z",
+                    "url": "http://arxiv.org/abs/2607.25926v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25926v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CV",
+                    "categories": [
+                      "cs.CV",
+                      "cs.AI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25914v1",
+                    "title": "Toward Standardized Cross-Vendor Agent Tool Trust Management in Autonomous Networks",
+                    "summary": "Autonomous Network Levels 4-5 require AI agents to invoke tools across vendor boundaries without human oversight, yet existing management standards lack a standardized mechanism for cross-vendor trust visibility. When a tool from Vendor B is compromised, agents from Vendor A continue invoking it -- unaware of the trust degradation -- causing cascading service impact. We present AgentToolMO, a proposed 3GPP NRM information model for agent tool trust management. The model comprises: a formally defined trust state machine with provable graduated enforcement, damped cascade propagation with bounded convergence, cross-vendor trust notifications via existing Management Services (MnS) interfaces, and retroactive impact assessment through NRM dependency graph traversal. Simulation-based evaluation across multi-vendor topologies shows that standardized cross-vendor notifications reduce blast radius from hours-scale undetected propagation to near-real-time containment bounded by MnS notification delivery, with cascade convergence guaranteed in bounded iterations and sub-linear notification scaling across vendor domains. The framework operates within existing 3GPP management infrastructure, leverages existing protocols, and provides a standardization pathway for trustworthy multi-vendor autonomous network management.",
+                    "authors": [
+                      "Ravi Kant Sharma",
+                      "Ashutosh Uttam",
+                      "Ajay Kumar"
+                    ],
+                    "published": "2026-07-28T16:06:41Z",
+                    "updated": "2026-07-28T16:06:41Z",
+                    "url": "http://arxiv.org/abs/2607.25914v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25914v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI",
+                      "cs.CR",
+                      "cs.NI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25895v1",
+                    "title": "HiFi-UMI: Learning Deployable Manipulation Policies from High-Fidelity UMI Data Alone",
+                    "summary": "Learning deployable manipulation policies is bottlenecked by the scarcity of data that is both high-fidelity and scalable. Real-robot teleoperation is accurate but costly to scale; robot-free UMI capture scales readily, and current practice uses the resulting data mainly for pre-training, adding a small real-robot \"anchor\" at post-training. We ask whether raising the fidelity of robot-free UMI data, rather than shrinking the real-robot fraction, can remove that anchor. We present HiFi-UMI, a portable UMI data-production system co-designed for trajectory accuracy, inter-gripper relative pose, synchronization, and field of view: head-mounted offline stereo-inertial SLAM, native rather than reconstructed relative pose, a shared microsecond GPIO trigger, and two wide-angle cameras per hand covering ~200 degrees. It reaches 3 mm workspace-local end-effector accuracy without external tracking infrastructure. Using this corpus, we demonstrate zero-robot post-training: a policy post-trained solely on HiFi-UMI demonstrations deploys directly on a real robot and matches in-domain teleoperation across three backbones spanning the vision-language-action and world-action-model families, with success-rate differences of -2.5, +3.1, and -0.6 percentage points on StarVLA-QwenPI, OpenPI-pi_0.5, and LingBot-VA; the strongest policy reaches 85% on a precision insertion task, even though the teleoperation baseline is collected in the evaluation scene and no HiFi-UMI trajectory is. Pre-training on 4,000 hours from the same corpus lowers action error on ten unseen tasks by 41% and, on StarVLA-QwenPI, raises real-robot success by a further 18.1 percentage points. We open-source HiFi-UMI-2K, 2,000 hours of microsecond-synchronized, ultra-wide-FoV demonstrations, each automatically reconstructed and validated through simulation replay, as a large-scale, high-fidelity resource for the robot-learning community.",
+                    "authors": [
+                      "Simple AI",
+                      ":",
+                      "Yuteng Wei",
+                      "Jinming Ma",
+                      "Jiawei Wang",
+                      "Weitao Zhou",
+                      "Yushen Zuo",
+                      "Ke Rui",
+                      "Minglei Li",
+                      "Jinhao Zhang",
+                      "Zhikang Pan",
+                      "Xiang Wang",
+                      "Haoran Jia",
+                      "Huan Du",
+                      "Zicheng Zeng",
+                      "Jun Ma",
+                      "Guiyu Qin",
+                      "Di Zhang",
+                      "Xiaofei Li"
+                    ],
+                    "published": "2026-07-28T15:52:02Z",
+                    "updated": "2026-07-28T15:52:02Z",
+                    "url": "http://arxiv.org/abs/2607.25895v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25895v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.RO",
+                    "categories": [
+                      "cs.RO",
+                      "cs.CV",
+                      "cs.LG"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25891v1",
+                    "title": "Messier: A High-Resolution Corpus for Cross-Benchmark Agent Evaluation",
+                    "summary": "Evaluating AI agents in interactive environments is hindered by fragmented tasks, scaffolds, verifiers, and scoring rules. Existing efforts focus on narrow settings, remain limited in scale, or require costly reruns, leaving much of the empirical record incomparable. We introduce Messier, a unified corpus of 957,253 records that span 30 benchmarks, 714 agents, 11,891 tasks, and 74,205 verifiers. Messier consolidates public benchmark scores and supplements them with five-agent runs across six underrepresented professional and scientific domains, including a recent legal benchmark. Each record is standardized by model, scaffold, environment, task, verifier, and aggregation rule, with SOC/NAICS classifications for occupational and industry analysis. Using this corpus, we show frontier progress is uneven across benchmark types, with \"function calling\" saturated, \"programming\" improving the fastest, and \"enterprise workflows\" remaining the most challenging. Furthermore, counterfactual rescoring shows that strict all-pass aggregation in multi-verifier tasks can obscure progress and artificially alter agent rankings. From these standardized records, we derive capability scales that align with Epoch's Evaluation Capability Index rankings at Spearman \\r{ho} = 0.81 and can be specialized by domain, occupation, action space, or verifier type. Messier provides a foundational, reusable infrastructure for agent capability scaling, benchmark auditing, and fine-grained analysis of evaluation failures.",
+                    "authors": [
+                      "Stefan Krsteski",
+                      "Charlotte Meyer",
+                      "Guillaume Allegre",
+                      "Tony O'Halloran",
+                      "Alexandre Sallinen"
+                    ],
+                    "published": "2026-07-28T15:50:19Z",
+                    "updated": "2026-07-28T15:50:19Z",
+                    "url": "http://arxiv.org/abs/2607.25891v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25891v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI",
+                      "cs.DB"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25890v1",
+                    "title": "Distributing Security Controls Through Harness Engineering",
+                    "summary": "AI coding agents are being adopted at historic speed, yet security and risk concerns remain the primary barrier to scaling agentic AI across organizations. Existing security controls for coding agents are not systematically distributed to engineering teams, and vendor-native solutions introduce ecosystem dependencies that may not suit every deployment context. This paper investigates whether off-the-shelf security controls can be implemented on commercial AI coding agents and scaled to a distributed user base via a custom agent harness. A phased testing methodology was applied across four agent configurations --- two commercial agents with and without controls, a baseline harness, and a security-hardened harness --- using a 23-test suite derived from the OWASP Top 10 for Agentic Applications. SHarD (Secure Harness Distribution), a distributable harness built on the Pi agent harness, demonstrated that three categories of security controls --- OS sandboxing, skill scanning, and tool restriction --- can be embedded and distributed via a single install command while retaining equivalent efficacy to direct installation on commercial agents. SHarD achieved an adjusted score of 100\\%, matching the best securely configured commercial agent, with no regression across any test category. Notable observations include evidence that model non-determinism produces inconsistent security outcomes and that autonomous agent behavior can cross system boundaries in ways that OS sandboxing directly mitigates. Initial characteristics toward a control harness fitness framework are proposed, and a third research question is identified for future investigation.",
+                    "authors": [
+                      "William Robert Gore"
+                    ],
+                    "published": "2026-07-28T15:50:16Z",
+                    "updated": "2026-07-28T15:50:16Z",
+                    "url": "http://arxiv.org/abs/2607.25890v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25890v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.AI",
+                    "categories": [
+                      "cs.AI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25886v1",
+                    "title": "RSIBench-Data: Benchmarking Data-Centric Research for Recursive Self-Improvement",
+                    "summary": "Recursive self-improvement requires turning evidence of model failures into better models. Data-centric post-training research entails diagnosing capability gaps, designing and validating training-data strategies, and learning from checkpoint feedback. Can LLM agents automate this loop? Existing benchmarks entangle research decisions with optimization, serving, evaluation, and systems implementation, obscuring agents' research capability. We introduce RSIBench-Data, a controlled benchmark of LLM agents as data-centric researchers with a fixed post-training stack. Agents iteratively revise training-data strategies for a fixed target model; training and serving use Tinker-backed services, official evaluation runs through Harbor and E2B sandboxes, and budgets are fixed across agents. We evaluate four frontier agents on six benchmarks across software engineering, terminal use, scientific question answering, and mathematics. Agents demonstrate core data-centric research capabilities: in 58.33\\% of settings, they improve upon the first valid attempt by refining strategies from feedback. However, improvement is inconsistent. Among searches continuing after the best observed score, 78.26\\% end with a lower-scoring final attempt, while the rest only recover the same peak. A strong candidate may therefore appear early or midway through a run even as later revisions fail. Trajectory analysis identifies four patterns in stronger runs: accurate hypotheses, validation-grounded supervision, behavior-aligned data, and preservation of strong checkpoints. These findings suggest that current agents can make useful data-centric discoveries but cannot yet translate feedback into consistent improvements. RSIBench-Data provides a measurable, auditable testbed for the research capabilities required for recursive self-improvement. We open-source our code at https://github.com/evolvent-ai/RSIBench-Data.",
+                    "authors": [
+                      "Fanqing Meng",
+                      "Lingxiao Du",
+                      "Qiguang Chen",
+                      "Ziqi Zhao",
+                      "Haocheng Lu",
+                      "Mengkang Hu",
+                      "Michael Qizhe Shieh"
+                    ],
+                    "published": "2026-07-28T15:46:41Z",
+                    "updated": "2026-07-28T15:46:41Z",
+                    "url": "http://arxiv.org/abs/2607.25886v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25886v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.SE",
+                    "categories": [
+                      "cs.SE",
+                      "cs.CL"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2607.25881v1",
+                    "title": "AI's Capability in Assisting Scientific Research in Physics, Astrophysics, and Cosmology II: Project Planning and Proposal Evaluation",
+                    "summary": "We investigate how well large language models (LLMs) can assist scientific project planning and proposal evaluation. One-page project plans were independently generated for eight expert-conceived research projects in physics, astrophysics, and cosmology by human researchers and three contemporary LLMs (ChatGPT, Claude, and DeepSeek; mid-2025 models, used with their default tool access). The resulting 32 proposals were blindly evaluated by four human reviewers and two newer frontier LLMs (Claude Opus 4.8 and ChatGPT Pro 5.5) using a four-aspect evaluation rubric. Reviewers were also asked to identify whether each proposal was written by a human or an AI. Human reviewers rated human- and AI-written proposals similarly overall, whereas both AI reviewers scored AI-written proposals about one point higher (on a five-point scale) than human-written proposals. Human reviewers correctly identified human- and AI-written proposals 72% and 79% of the time, respectively, while both AI reviewers correctly classified all 32 proposals (100%). These results suggest that current LLMs can produce project plans comparable to human-written ones in the eyes of human reviewers, but that AI reviewers show a systematic preference for AI-generated proposals. Our results suggest caution when deploying LLMs widely in proposal preparation and evaluation.",
+                    "authors": [
+                      "Jia Liu",
+                      "Veena Krishnaraj",
+                      "Kateryna Vovk",
+                      "Kosuke Aizawa",
+                      "Adrian E. Bayer",
+                      "Linda Blot",
+                      "Jessica Cowell",
+                      "Suyog Garg",
+                      "Jonathan Grée",
+                      "Anamaria Hell",
+                      "Ben Horowitz",
+                      "Masaya Ichikawa",
+                      "Kanyuni Iemoto",
+                      "Keigo Kondo",
+                      "Zacharie Lorsin",
+                      "Kevin McCarthy",
+                      "Jamie Robinson",
+                      "Miguel Ruiz-Granda",
+                      "Leander Thiele",
+                      "Ievgen Vovk",
+                      "Mingshen Zhou"
+                    ],
+                    "published": "2026-07-28T15:43:01Z",
+                    "updated": "2026-07-28T15:43:01Z",
+                    "url": "http://arxiv.org/abs/2607.25881v1",
+                    "pdf_url": "https://arxiv.org/pdf/2607.25881v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CL",
+                    "categories": [
+                      "cs.CL",
+                      "astro-ph.CO",
+                      "astro-ph.IM",
+                      "cs.HC",
+                      "gr-qc"
+                    ]
+                  }
+                ],
+                "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+              },
+              "_round": 1
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Dưới đây là 10 bài báo nghiên cứu khoa học gần đây nhất về lĩnh vực AI:\n\n1. **Falling Behind Drives Unsafe Development in an Idealised AI Race Experiment**\n   - **Tác giả:** Elias Fernández Domingos, The Anh Han\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Nghiên cứu về cách áp lực cạnh tranh trong phát triển AI có thể dẫn đến các hành vi phát triển không an toàn.\n   - [Link bài báo](http://arxiv.org/abs/2607.26034v1)\n\n2. **MAC-Gyver: Open, Programmable, Scheduling for AI-RAN 6G Systems**\n   - **Tác giả:** Maxime Elkael, Reshma Prasad, Tamerlan Aghayev, Salvatore D'Oro, Michele Polese, Tommaso Melodia\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Giới thiệu MAC-Gyver, một framework mã nguồn mở cho phát triển và đánh giá các ứng dụng lập lịch trong hệ thống AI-RAN 6G.\n   - [Link bài báo](http://arxiv.org/abs/2607.26012v1)\n\n3. **Phantom Evidence: How and Why Generative AI Manufactures False Positives in Science**\n   - **Tác giả:** Yukiyasu Kamitani, Ken Shirakawa\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Thảo luận về cách AI tạo ra các kết quả dương tính giả trong khoa học và cách khắc phục.\n   - [Link bài báo](http://arxiv.org/abs/2607.25991v1)\n\n4. **Face De-Identification: A Domain-Centric Survey from Capture to Processing**\n   - **Tác giả:** Hui Wei, Hao Yu, Guoying Zhao\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Khảo sát về các phương pháp xóa nhận dạng khuôn mặt từ giai đoạn thu thập đến xử lý.\n   - [Link bài báo](http://arxiv.org/abs/2607.25926v1)\n\n5. **Toward Standardized Cross-Vendor Agent Tool Trust Management in Autonomous Networks**\n   - **Tác giả:** Ravi Kant Sharma, Ashutosh Uttam, Ajay Kumar\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Đề xuất mô hình quản lý tin cậy công cụ agent giữa các nhà cung cấp trong mạng lưới tự động.\n   - [Link bài báo](http://arxiv.org/abs/2607.25914v1)\n\n6. **HiFi-UMI: Learning Deployable Manipulation Policies from High-Fidelity UMI Data Alone**\n   - **Tác giả:** Simple AI, Yuteng Wei, Jinming Ma, Jiawei Wang, Weitao Zhou, Yushen Zuo, Ke Rui, Minglei Li, Jinhao Zhang, Zhikang Pan, Xiang Wang, Haoran Jia, Huan Du, Zicheng Zeng, Jun Ma, Guiyu Qin, Di Zhang, Xiaofei Li\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Hệ thống HiFi-UMI cho phép học chính sách thao tác từ dữ liệu UMI độ chính xác cao mà không cần robot thực tế.\n   - [Link bài báo](http://arxiv.org/abs/2607.25895v1)\n\n7. **Messier: A High-Resolution Corpus for Cross-Benchmark Agent Evaluation**\n   - **Tác giả:** Stefan Krsteski, Charlotte Meyer, Guillaume Allegre, Tony O'Halloran, Alexandre Sallinen\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Giới thiệu Messier, một tập hợp dữ liệu chuẩn hóa cho đánh giá agent AI qua nhiều benchmark.\n   - [Link bài báo](http://arxiv.org/abs/2607.25891v1)\n\n8. **Distributing Security Controls Through Harness Engineering**\n   - **Tác giả:** William Robert Gore\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** Nghiên cứu về cách phân phối các biện pháp kiểm soát an ninh qua kỹ thuật harness cho các agent AI.\n   - [Link bài báo](http://arxiv.org/abs/2607.25890v1)\n\n9. **RSIBench-Data: Benchmarking Data-Centric Research for Recursive Self-Improvement**\n   - **Tác giả:** Fanqing Meng, Lingxiao Du, Qiguang Chen, Ziqi Zhao, Haocheng Lu, Mengkang Hu, Michael Qizhe Shieh\n   - **Ngày nộp:** 28/07/2026\n   - **Tóm tắt:** RSIBench-Data là một benchmark cho nghiên cứu tập trung vào dữ liệu trong cải tiến tự động đệ quy.\n   - [Link bài báo](http://arxiv.org/abs/2607.25886v1)\n\n10. **AI's Capability in Assisting Scientific Research in Physics, Astrophysics, and Cosmology II: Project Planning and Proposal Evaluation**\n    - **Tác giả:** Jia Liu, Veena Krishnaraj, Kateryna Vovk, Kosuke Aizawa, Adrian E. Bayer, Linda Blot, Jessica Cowell, Suyog Garg\n    - **Ngày nộp:** 28/07/2026\n    - **Tóm tắt:** Khả năng của AI trong hỗ trợ lập kế hoạch dự án và đánh giá đề xuất trong các lĩnh vực vật lý, thiên văn học và vũ trụ học.\n    - [Link bài báo](http://arxiv.org/abs/2607.25881v1)\n\nNếu bạn cần thêm thông tin chi tiết về bất kỳ bài báo nào, hãy cho tôi biết!",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "papers",
+          "args": {
+            "query": "AI",
+            "max_results": 10,
+            "sort_by": "submittedDate"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "AI",
+            "api_query": "all:AI",
+            "total_results": 62313,
+            "items": [
+              {
+                "arxiv_id": "2607.26034v1",
+                "title": "Falling Behind Drives Unsafe Development in an Idealised AI Race Experiment",
+                "summary": "Technological races create tension between speed and safety: actors may gain by moving faster than competitors, even when risky development is harmful. This is prominent in debates about artificial intelligence (AI), where competitive pressure is often argued to incentivise riskier, less safety-conscious development. We study this using a framed behavioural experiment based on an idealised AI race, in which paired participants repeatedly chose between Safe and Unsafe development under an uncertain time horizon. Unsafe development gave faster progress and higher immediate payoffs but accumulated private risk up to a treatment-specific maximum of 10\\%, 60\\%, or 90\\%; the race's competitive structure was held constant, and only this maximum risk varied. Neither the pre-registered comparison between risk levels nor the role of elicited risk preferences was supported by the data. Instead, exploratory analyses motivated by the task's repeated structure show that Unsafe behaviour is shaped less by risk preferences than by the evolving strategic state of the race: participants are more likely to choose Unsafe after their opponent does so, being ahead reduces Unsafe play while falling behind increases it, and first-round choices predict later behaviour. To interpret these effects we introduce a reduced evolutionary model with four strategies -- Always Safe, Always Unsafe, Conditionally Safe, and Conditionally Antisocial Safe -- which reproduces the treatment effect and shows how conditional Unsafe behaviour can be favoured by competitive race dynamics. Together, the experiment and model show that unsafe development can emerge from early behavioural momentum, opponent behaviour, and fear of falling behind, rather than from risk preferences alone, suggesting policy should focus on reducing competitive pressure and promoting cooperation in AI development rather than only individual risk.",
+                "authors": [
+                  "Elias Fernández Domingos",
+                  "The Anh Han"
+                ],
+                "published": "2026-07-28T17:44:03Z",
+                "updated": "2026-07-28T17:44:03Z",
+                "url": "http://arxiv.org/abs/2607.26034v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.26034v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.CY",
+                  "cs.GT",
+                  "econ.GN"
+                ]
+              },
+              {
+                "arxiv_id": "2607.26012v1",
+                "title": "MAC-Gyver: Open, Programmable, Scheduling for AI-RAN 6G Systems",
+                "summary": "Cellular networks are integrating Artificial Intelli- gence (AI) into radio access network control. The MAC scheduler is a promising target because it allocates a limited resource, spectrum, at every slot, under competing latency, throughput, and reliability requirements. However, most learning-based sched- ulers are evaluated only in simulation. Production schedulers are difficult to modify, and realistic stress tests require more radio hardware than most laboratories can provide. We present MAC-Gyver, an open-source framework for developing and evaluating scheduling applications that execute directly inside the OpenAirInterface scheduler. It exposes scheduler observations and controls through typed interfaces while preserving the underlying protocol and real-time execution paths. The same applications run over the air and in mac-emu, a PHY-less emulator that executes the unmodified OpenAirInterface Layer 2 stack for up to 90 users on one host at real-time slot pace, with a 3GPP-compliant channel model. To showcase the flexibility of MAC-Gyver, we evaluate two use cases. A proactive uplink scheduler predicts packet arrivals and roughly halves median round-trip latency. A frequency-selective uplink scheduler selects contiguous sub-bands from per-PRB sounding observations and is evaluated across mobility and power-limited operating points against an offline scheduling ceiling. Together, they show how the same production stack can be an AI playground that supports implementation, controlled evaluation, and over-the-air validation through complementary scheduling use cases.",
+                "authors": [
+                  "Maxime Elkael",
+                  "Reshma Prasad",
+                  "Tamerlan Aghayev",
+                  "Salvatore D'Oro",
+                  "Michele Polese",
+                  "Tommaso Melodia"
+                ],
+                "published": "2026-07-28T17:24:53Z",
+                "updated": "2026-07-28T17:24:53Z",
+                "url": "http://arxiv.org/abs/2607.26012v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.26012v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.NI",
+                "categories": [
+                  "cs.NI"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25991v1",
+                "title": "Phantom Evidence: How and Why Generative AI Manufactures False Positives in Science",
+                "summary": "Four centuries ago Francis Bacon warned against the anticipations of nature, hasty generalization that wins assent on a few facts, and set against it the table of absence: checking that a property fails to appear where it should not. The demand was that looking convincing should not, on its own, count as evidence. Science has professed that demand ever since, while in practice letting persuasiveness do the work of evidence. It could be let to do so because making something persuasive was itself hard. Generative AI removes that difficulty, and an old error returns on a scale and at a speed it never had before. We locate the problem not in evidence growing weaker but in how surprise is counted. An observer marvels at a convincing output as a single point hit among a vast range of possibilities, yet what a system can actually reach is a small part of that range. The gap between the breadth imagined and the narrowness actually reached is what we call phantom evidence, and we formalize it as one quantity that also absorbs the trial and error and the data leakage a research process adds. Three things follow. Higher resolution and greater fluency add no evidence. The evidence a single result can carry has a ceiling that neither polishing the output nor letting a generative system grade itself can exceed. And the fraction of published findings that are true falls back to what it was before anything was observed. The prescription lies in the same place: genuinely widen what a system can reach, and measure whether convincing outputs still appear when the target is absent -- Bacon's table of absence, restated in the language of probability. In a world where the persuasive has become cheap, the credibility of science rests not on more convincing outputs but on procedures that show they could not have arisen by chance.",
+                "authors": [
+                  "Yukiyasu Kamitani",
+                  "Ken Shirakawa"
+                ],
+                "published": "2026-07-28T17:07:12Z",
+                "updated": "2026-07-28T17:07:12Z",
+                "url": "http://arxiv.org/abs/2607.25991v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25991v1",
+                "source": "arxiv.org",
+                "primary_category": "q-bio.NC",
+                "categories": [
+                  "q-bio.NC"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25926v1",
+                "title": "Face De-Identification: A Domain-Centric Survey from Capture to Processing",
+                "summary": "Face de-identification (De-ID) aims to remove or conceal personally identifiable facial features in images or videos to prevent identity recognition while preserving utility for downstream tasks. With the rising emphasis on data privacy and responsible AI, face De-ID has emerged as an active research area spanning computer vision and privacy-preserving communities. Early approaches, and many contemporary ones, operate in the digital domain by modifying pixel-level or appearance-level features through post-capture processing. Recent advances extend face De-ID beyond post-processing by integrating privacy mechanisms directly into sensors during image acquisition, bridging sensing systems and downstream vision algorithms. In parallel, physical-domain methods explore wearable accessories and materials that conceal identity information in real-world environments prior to capture. In this survey, we present the first unified overview that spans the full data acquisition pipeline, encompassing the physical, sensor, and digital domains. Through this domain-centric lens, we systematically analyze current methodologies, technical progress, and the distinct challenges inherent to each stage. We then review and organize existing evaluation protocols, examining current practices and highlighting the critical need for standardized, comprehensive benchmarks. Finally, we identify key open problems and outline emerging research directions to guide future work in this rapidly evolving field. To support ongoing research, we maintain a project page that organizes relevant literature with collected datasets and open source code: https://github.com/CV-AC/Awesome-FaceDe-ID.",
+                "authors": [
+                  "Hui Wei",
+                  "Hao Yu",
+                  "Guoying Zhao"
+                ],
+                "published": "2026-07-28T16:15:12Z",
+                "updated": "2026-07-28T16:15:12Z",
+                "url": "http://arxiv.org/abs/2607.25926v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25926v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CV",
+                "categories": [
+                  "cs.CV",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25914v1",
+                "title": "Toward Standardized Cross-Vendor Agent Tool Trust Management in Autonomous Networks",
+                "summary": "Autonomous Network Levels 4-5 require AI agents to invoke tools across vendor boundaries without human oversight, yet existing management standards lack a standardized mechanism for cross-vendor trust visibility. When a tool from Vendor B is compromised, agents from Vendor A continue invoking it -- unaware of the trust degradation -- causing cascading service impact. We present AgentToolMO, a proposed 3GPP NRM information model for agent tool trust management. The model comprises: a formally defined trust state machine with provable graduated enforcement, damped cascade propagation with bounded convergence, cross-vendor trust notifications via existing Management Services (MnS) interfaces, and retroactive impact assessment through NRM dependency graph traversal. Simulation-based evaluation across multi-vendor topologies shows that standardized cross-vendor notifications reduce blast radius from hours-scale undetected propagation to near-real-time containment bounded by MnS notification delivery, with cascade convergence guaranteed in bounded iterations and sub-linear notification scaling across vendor domains. The framework operates within existing 3GPP management infrastructure, leverages existing protocols, and provides a standardization pathway for trustworthy multi-vendor autonomous network management.",
+                "authors": [
+                  "Ravi Kant Sharma",
+                  "Ashutosh Uttam",
+                  "Ajay Kumar"
+                ],
+                "published": "2026-07-28T16:06:41Z",
+                "updated": "2026-07-28T16:06:41Z",
+                "url": "http://arxiv.org/abs/2607.25914v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25914v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.CR",
+                  "cs.NI"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25895v1",
+                "title": "HiFi-UMI: Learning Deployable Manipulation Policies from High-Fidelity UMI Data Alone",
+                "summary": "Learning deployable manipulation policies is bottlenecked by the scarcity of data that is both high-fidelity and scalable. Real-robot teleoperation is accurate but costly to scale; robot-free UMI capture scales readily, and current practice uses the resulting data mainly for pre-training, adding a small real-robot \"anchor\" at post-training. We ask whether raising the fidelity of robot-free UMI data, rather than shrinking the real-robot fraction, can remove that anchor. We present HiFi-UMI, a portable UMI data-production system co-designed for trajectory accuracy, inter-gripper relative pose, synchronization, and field of view: head-mounted offline stereo-inertial SLAM, native rather than reconstructed relative pose, a shared microsecond GPIO trigger, and two wide-angle cameras per hand covering ~200 degrees. It reaches 3 mm workspace-local end-effector accuracy without external tracking infrastructure. Using this corpus, we demonstrate zero-robot post-training: a policy post-trained solely on HiFi-UMI demonstrations deploys directly on a real robot and matches in-domain teleoperation across three backbones spanning the vision-language-action and world-action-model families, with success-rate differences of -2.5, +3.1, and -0.6 percentage points on StarVLA-QwenPI, OpenPI-pi_0.5, and LingBot-VA; the strongest policy reaches 85% on a precision insertion task, even though the teleoperation baseline is collected in the evaluation scene and no HiFi-UMI trajectory is. Pre-training on 4,000 hours from the same corpus lowers action error on ten unseen tasks by 41% and, on StarVLA-QwenPI, raises real-robot success by a further 18.1 percentage points. We open-source HiFi-UMI-2K, 2,000 hours of microsecond-synchronized, ultra-wide-FoV demonstrations, each automatically reconstructed and validated through simulation replay, as a large-scale, high-fidelity resource for the robot-learning community.",
+                "authors": [
+                  "Simple AI",
+                  ":",
+                  "Yuteng Wei",
+                  "Jinming Ma",
+                  "Jiawei Wang",
+                  "Weitao Zhou",
+                  "Yushen Zuo",
+                  "Ke Rui",
+                  "Minglei Li",
+                  "Jinhao Zhang",
+                  "Zhikang Pan",
+                  "Xiang Wang",
+                  "Haoran Jia",
+                  "Huan Du",
+                  "Zicheng Zeng",
+                  "Jun Ma",
+                  "Guiyu Qin",
+                  "Di Zhang",
+                  "Xiaofei Li"
+                ],
+                "published": "2026-07-28T15:52:02Z",
+                "updated": "2026-07-28T15:52:02Z",
+                "url": "http://arxiv.org/abs/2607.25895v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25895v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.RO",
+                "categories": [
+                  "cs.RO",
+                  "cs.CV",
+                  "cs.LG"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25891v1",
+                "title": "Messier: A High-Resolution Corpus for Cross-Benchmark Agent Evaluation",
+                "summary": "Evaluating AI agents in interactive environments is hindered by fragmented tasks, scaffolds, verifiers, and scoring rules. Existing efforts focus on narrow settings, remain limited in scale, or require costly reruns, leaving much of the empirical record incomparable. We introduce Messier, a unified corpus of 957,253 records that span 30 benchmarks, 714 agents, 11,891 tasks, and 74,205 verifiers. Messier consolidates public benchmark scores and supplements them with five-agent runs across six underrepresented professional and scientific domains, including a recent legal benchmark. Each record is standardized by model, scaffold, environment, task, verifier, and aggregation rule, with SOC/NAICS classifications for occupational and industry analysis. Using this corpus, we show frontier progress is uneven across benchmark types, with \"function calling\" saturated, \"programming\" improving the fastest, and \"enterprise workflows\" remaining the most challenging. Furthermore, counterfactual rescoring shows that strict all-pass aggregation in multi-verifier tasks can obscure progress and artificially alter agent rankings. From these standardized records, we derive capability scales that align with Epoch's Evaluation Capability Index rankings at Spearman \\r{ho} = 0.81 and can be specialized by domain, occupation, action space, or verifier type. Messier provides a foundational, reusable infrastructure for agent capability scaling, benchmark auditing, and fine-grained analysis of evaluation failures.",
+                "authors": [
+                  "Stefan Krsteski",
+                  "Charlotte Meyer",
+                  "Guillaume Allegre",
+                  "Tony O'Halloran",
+                  "Alexandre Sallinen"
+                ],
+                "published": "2026-07-28T15:50:19Z",
+                "updated": "2026-07-28T15:50:19Z",
+                "url": "http://arxiv.org/abs/2607.25891v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25891v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI",
+                  "cs.DB"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25890v1",
+                "title": "Distributing Security Controls Through Harness Engineering",
+                "summary": "AI coding agents are being adopted at historic speed, yet security and risk concerns remain the primary barrier to scaling agentic AI across organizations. Existing security controls for coding agents are not systematically distributed to engineering teams, and vendor-native solutions introduce ecosystem dependencies that may not suit every deployment context. This paper investigates whether off-the-shelf security controls can be implemented on commercial AI coding agents and scaled to a distributed user base via a custom agent harness. A phased testing methodology was applied across four agent configurations --- two commercial agents with and without controls, a baseline harness, and a security-hardened harness --- using a 23-test suite derived from the OWASP Top 10 for Agentic Applications. SHarD (Secure Harness Distribution), a distributable harness built on the Pi agent harness, demonstrated that three categories of security controls --- OS sandboxing, skill scanning, and tool restriction --- can be embedded and distributed via a single install command while retaining equivalent efficacy to direct installation on commercial agents. SHarD achieved an adjusted score of 100\\%, matching the best securely configured commercial agent, with no regression across any test category. Notable observations include evidence that model non-determinism produces inconsistent security outcomes and that autonomous agent behavior can cross system boundaries in ways that OS sandboxing directly mitigates. Initial characteristics toward a control harness fitness framework are proposed, and a third research question is identified for future investigation.",
+                "authors": [
+                  "William Robert Gore"
+                ],
+                "published": "2026-07-28T15:50:16Z",
+                "updated": "2026-07-28T15:50:16Z",
+                "url": "http://arxiv.org/abs/2607.25890v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25890v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.AI",
+                "categories": [
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25886v1",
+                "title": "RSIBench-Data: Benchmarking Data-Centric Research for Recursive Self-Improvement",
+                "summary": "Recursive self-improvement requires turning evidence of model failures into better models. Data-centric post-training research entails diagnosing capability gaps, designing and validating training-data strategies, and learning from checkpoint feedback. Can LLM agents automate this loop? Existing benchmarks entangle research decisions with optimization, serving, evaluation, and systems implementation, obscuring agents' research capability. We introduce RSIBench-Data, a controlled benchmark of LLM agents as data-centric researchers with a fixed post-training stack. Agents iteratively revise training-data strategies for a fixed target model; training and serving use Tinker-backed services, official evaluation runs through Harbor and E2B sandboxes, and budgets are fixed across agents. We evaluate four frontier agents on six benchmarks across software engineering, terminal use, scientific question answering, and mathematics. Agents demonstrate core data-centric research capabilities: in 58.33\\% of settings, they improve upon the first valid attempt by refining strategies from feedback. However, improvement is inconsistent. Among searches continuing after the best observed score, 78.26\\% end with a lower-scoring final attempt, while the rest only recover the same peak. A strong candidate may therefore appear early or midway through a run even as later revisions fail. Trajectory analysis identifies four patterns in stronger runs: accurate hypotheses, validation-grounded supervision, behavior-aligned data, and preservation of strong checkpoints. These findings suggest that current agents can make useful data-centric discoveries but cannot yet translate feedback into consistent improvements. RSIBench-Data provides a measurable, auditable testbed for the research capabilities required for recursive self-improvement. We open-source our code at https://github.com/evolvent-ai/RSIBench-Data.",
+                "authors": [
+                  "Fanqing Meng",
+                  "Lingxiao Du",
+                  "Qiguang Chen",
+                  "Ziqi Zhao",
+                  "Haocheng Lu",
+                  "Mengkang Hu",
+                  "Michael Qizhe Shieh"
+                ],
+                "published": "2026-07-28T15:46:41Z",
+                "updated": "2026-07-28T15:46:41Z",
+                "url": "http://arxiv.org/abs/2607.25886v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25886v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.SE",
+                "categories": [
+                  "cs.SE",
+                  "cs.CL"
+                ]
+              },
+              {
+                "arxiv_id": "2607.25881v1",
+                "title": "AI's Capability in Assisting Scientific Research in Physics, Astrophysics, and Cosmology II: Project Planning and Proposal Evaluation",
+                "summary": "We investigate how well large language models (LLMs) can assist scientific project planning and proposal evaluation. One-page project plans were independently generated for eight expert-conceived research projects in physics, astrophysics, and cosmology by human researchers and three contemporary LLMs (ChatGPT, Claude, and DeepSeek; mid-2025 models, used with their default tool access). The resulting 32 proposals were blindly evaluated by four human reviewers and two newer frontier LLMs (Claude Opus 4.8 and ChatGPT Pro 5.5) using a four-aspect evaluation rubric. Reviewers were also asked to identify whether each proposal was written by a human or an AI. Human reviewers rated human- and AI-written proposals similarly overall, whereas both AI reviewers scored AI-written proposals about one point higher (on a five-point scale) than human-written proposals. Human reviewers correctly identified human- and AI-written proposals 72% and 79% of the time, respectively, while both AI reviewers correctly classified all 32 proposals (100%). These results suggest that current LLMs can produce project plans comparable to human-written ones in the eyes of human reviewers, but that AI reviewers show a systematic preference for AI-generated proposals. Our results suggest caution when deploying LLMs widely in proposal preparation and evaluation.",
+                "authors": [
+                  "Jia Liu",
+                  "Veena Krishnaraj",
+                  "Kateryna Vovk",
+                  "Kosuke Aizawa",
+                  "Adrian E. Bayer",
+                  "Linda Blot",
+                  "Jessica Cowell",
+                  "Suyog Garg",
+                  "Jonathan Grée",
+                  "Anamaria Hell",
+                  "Ben Horowitz",
+                  "Masaya Ichikawa",
+                  "Kanyuni Iemoto",
+                  "Keigo Kondo",
+                  "Zacharie Lorsin",
+                  "Kevin McCarthy",
+                  "Jamie Robinson",
+                  "Miguel Ruiz-Granda",
+                  "Leander Thiele",
+                  "Ievgen Vovk",
+                  "Mingshen Zhou"
+                ],
+                "published": "2026-07-28T15:43:01Z",
+                "updated": "2026-07-28T15:43:01Z",
+                "url": "http://arxiv.org/abs/2607.25881v1",
+                "pdf_url": "https://arxiv.org/pdf/2607.25881v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CL",
+                "categories": [
+                  "cs.CL",
+                  "astro-ph.CO",
+                  "astro-ph.IM",
+                  "cs.HC",
+                  "gr-qc"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          },
+          "_round": 1
+        }
+      ],
+      "ended_at": "2026-07-29T12:35:40"
+    }
+  ]
+}
