@@ -21,7 +21,6 @@ tools:
         response_type:
           type: string
           enum: [text, yes_no, choice]
-          default: "text"
           description: >-
             Chọn theo bản chất câu hỏi, không phải theo mặc định.
             "yes_no" khi cần người dùng xác nhận trước một hành động gửi/đăng/
