@@ -1,7 +1,324 @@
 {
-  "dataset_id": "day04_v2_research_group",
+  "dataset_id": "day04_v2_research_group_k3",
   "dataset_role": "group",
-  "description": "Template để NHÓM tự viết đúng 10 case: 5 single-turn dùng query và 5 multi-turn dùng turns. Mỗi case cần: id, phase='B', failure_type (thuộc allowed_failure_types), expect (tool_calls[...] hoặc no_tool=true), và metadata.what_it_tests. File để trống có chủ đích vì mỗi nhóm phải tự thiết kế các case này.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "description": "10 case do nhóm K3 tự thiết kế: 5 single-turn và 5 multi-turn. Bộ eval tập trung vào bốn tool nhóm bổ sung (hn_search, now, dedupe, save_digest), khả năng chuyển nguồn, giữ/sửa arguments qua hội thoại, gọi song song và confirmation boundary.",
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "K3_S01_hn_relevance",
+      "phase": "B",
+      "suite": "group",
+      "query": "Trên Hacker News, tìm 4 thảo luận liên quan nhất về Model Context Protocol, không giới hạn thời gian.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "Model Context Protocol",
+              "limit": 4,
+              "timeframe": "all"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "hn_search_routing",
+        "difficulty": "medium",
+        "what_it_tests": "Yêu cầu thảo luận từ cộng đồng lập trình viên phải đi vào hn_search, đồng thời trích đúng limit=4 và timeframe=all; relevance dùng default của tool."
+      }
+    },
+    {
+      "id": "K3_S02_hn_recent_week",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm 3 story mới nhất trên Hacker News về local LLM trong tuần này.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "local LLM",
+              "sort_by": "recent",
+              "limit": 3,
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "hn_search_arguments",
+        "difficulty": "medium",
+        "what_it_tests": "Các cụm 'mới nhất', '3 story' và 'tuần này' phải lần lượt thành sort_by=recent, limit=3 và timeframe=week."
+      }
+    },
+    {
+      "id": "K3_S03_current_time_vietnam",
+      "phase": "B",
+      "suite": "group",
+      "query": "Bây giờ ở Việt Nam là ngày giờ nào?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "now",
+            "args": {
+              "timezone": "Asia/Ho_Chi_Minh"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "current_time_grounding",
+        "difficulty": "easy",
+        "what_it_tests": "Câu hỏi cần thời gian hiện tại phải dùng now với múi giờ Việt Nam, không đoán ngày giờ từ kiến thức của model."
+      }
+    },
+    {
+      "id": "K3_S04_dedupe_collected_items",
+      "phase": "B",
+      "suite": "group",
+      "query": "Khử các URL trùng nhau trong danh sách đã thu thập này và kiểm tra kết quả còn ít nhất 2 nguồn: (1) OpenAI MCP - https://example.com/mcp?ref=hn; (2) OpenAI MCP bản sao - https://example.com/mcp?utm_source=newsletter; (3) MCP Overview - https://another.example.org/mcp-overview. So khớp theo URL.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "dedupe",
+            "args": {
+              "match_by": "url",
+              "min_sources": 2
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "dedupe_routing",
+        "difficulty": "hard",
+        "what_it_tests": "Khi user đã cung cấp nhiều item từ nhiều nguồn và yêu cầu khử trùng, agent phải dùng dedupe thay vì gọi một search tool mới; chấm thêm chiến lược match_by và ngưỡng đa dạng nguồn."
+      }
+    },
+    {
+      "id": "K3_S05_save_preview_boundary",
+      "phase": "B",
+      "suite": "group",
+      "query": "Lưu nội dung markdown '# Bản tin AI\n- Tin thử nghiệm' thành file ban-tin-ai.md. Hãy chỉ cho tôi xem preview trước, chưa được ghi file.",
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "save_digest",
+            "args": {
+              "filename": "ban-tin-ai.md",
+              "confirmed": false
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "save_digest_confirmation_boundary",
+        "difficulty": "medium",
+        "what_it_tests": "Yêu cầu preview chưa phải là chấp thuận ghi file; lần gọi save_digest đầu tiên phải giữ confirmed=false."
+      }
+    },
+    {
+      "id": "K3_M01_hn_argument_correction",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm 10 story mới nhất trên Hacker News về AI agents trong tháng này."
+        },
+        {
+          "role": "user",
+          "content": "Đổi chủ đề thành Model Context Protocol."
+        },
+        {
+          "role": "user",
+          "content": "Chỉ lấy 4 story thôi; các tiêu chí khác giữ nguyên."
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "Model Context Protocol",
+              "sort_by": "recent",
+              "limit": 4,
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_hn_argument_correction",
+        "difficulty": "hard",
+        "what_it_tests": "Qua ba lượt, agent phải sửa query và limit nhưng vẫn giữ sort_by=recent cùng timeframe=month từ yêu cầu đầu."
+      }
+    },
+    {
+      "id": "K3_M02_switch_web_to_hn",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức trên web về Rust trong tuần này."
+        },
+        {
+          "role": "user",
+          "content": "Bỏ nguồn web, tôi muốn xem thảo luận của cộng đồng dev trên Hacker News."
+        },
+        {
+          "role": "user",
+          "content": "Giữ chủ đề Rust và lấy 5 bài liên quan nhất, không giới hạn thời gian."
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "Rust",
+              "limit": 5,
+              "timeframe": "all"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_source_switch",
+        "difficulty": "hard",
+        "what_it_tests": "Lệnh đổi nguồn phải loại bỏ lookup, chuyển sang hn_search, giữ chủ đề Rust và áp dụng các tiêu chí mới ở lượt cuối."
+      }
+    },
+    {
+      "id": "K3_M03_clarify_missing_hn_topic",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm giúp mình các thảo luận mới nhất trên Hacker News."
+        },
+        {
+          "role": "user",
+          "content": "Lấy 3 bài trong tuần này."
+        },
+        {
+          "role": "user",
+          "content": "Mình chưa nêu chủ đề; hãy hỏi lại trước khi tìm."
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_missing_hn_query",
+        "difficulty": "medium",
+        "what_it_tests": "Dù đã có limit, sort order và timeframe, agent không được bịa chủ đề tìm kiếm; phải hỏi lại phần query còn thiếu."
+      }
+    },
+    {
+      "id": "K3_M04_save_preview_after_filename_change",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Nội dung digest của mình là '# MCP Digest\n- MCP đang được cộng đồng dev thảo luận'."
+        },
+        {
+          "role": "user",
+          "content": "Chuẩn bị lưu nội dung đó thành draft-mcp.md."
+        },
+        {
+          "role": "user",
+          "content": "Đổi tên thành mcp-digest.md và chỉ tạo preview; mình chưa đồng ý ghi file."
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "save_digest",
+            "args": {
+              "markdown": "# MCP Digest\n- MCP đang được cộng đồng dev thảo luận",
+              "filename": "mcp-digest.md",
+              "confirmed": false
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_save_boundary_and_correction",
+        "difficulty": "hard",
+        "what_it_tests": "Agent phải mang nguyên vẹn nội dung digest qua các lượt, dùng filename được sửa ở lượt cuối và không vượt confirmation boundary."
+      }
+    },
+    {
+      "id": "K3_M05_parallel_web_and_hn",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Mình đang nghiên cứu WebAssembly."
+        },
+        {
+          "role": "user",
+          "content": "Tìm cả tin tức chính thống trên web và góc nhìn cộng đồng dev."
+        },
+        {
+          "role": "user",
+          "content": "Chỉ lấy thông tin trong tuần này; với Hacker News ưu tiên bài mới nhất."
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "WebAssembly",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          },
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "WebAssembly",
+              "sort_by": "recent",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_parallel_sources",
+        "difficulty": "hard",
+        "what_it_tests": "Agent phải mang chủ đề từ lượt đầu, gọi song song lookup cho tin web và hn_search cho cộng đồng dev, đồng thời áp dụng timeframe=week cho cả hai."
+      }
+    }
+  ]
 }
