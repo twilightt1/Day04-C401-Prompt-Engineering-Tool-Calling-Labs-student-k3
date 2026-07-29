@@ -142,3 +142,76 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
+
+  # ---------------- Team tools ----------------
+  - name: hn_search
+    description: >-
+      Tìm story và thảo luận trên Hacker News, cộng đồng công nghệ/lập trình.
+      DÙNG khi người dùng muốn biết cộng đồng dev đang bàn gì về một chủ đề, hoặc
+      cần góc nhìn thảo luận thay vì bài báo chính thống. KHÔNG DÙNG cho tin tức
+      tổng quát (dùng lookup) hay bài đăng của một tài khoản cụ thể (dùng
+      timeline). Mặc định sort_by=relevance; chỉ đổi sang recent khi người dùng
+      nhấn mạnh "mới nhất". timeframe mặc định "all" là không giới hạn thời gian.
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Từ khóa tìm kiếm"}
+        sort_by: {type: string, enum: [relevance, recent], default: "relevance", description: "relevance = liên quan nhất; recent = mới đăng nhất"}
+        limit: {type: integer, default: 5, description: "Số story trả về, tối đa 10"}
+        timeframe: {type: string, enum: [day, week, month, year, all], default: "all", description: "Chỉ lấy story đăng trong khoảng này; all = không giới hạn"}
+      required: [query]
+
+  - name: now
+    description: >-
+      Lấy ngày giờ hiện tại và quy đổi mốc thời gian tương đối thành khoảng ngày
+      cụ thể. DÙNG khi cần ngày thật để điền argument cho tool khác, ví dụ người
+      dùng nói "tháng trước" mà bạn phải biết đó là ngày nào. KHÔNG DÙNG khi tool
+      đích đã có sẵn enum timeframe phù hợp - lúc đó gọi now chỉ tốn thêm một
+      vòng mà không thêm thông tin nào.
+    parameters:
+      type: object
+      properties:
+        timezone: {type: string, default: "Asia/Ho_Chi_Minh", description: "Múi giờ IANA"}
+        timeframe: {type: string, enum: [day, week, month, year], default: "", description: "Bỏ trống nếu chỉ cần biết hiện tại; điền để nhận thêm resolved_range"}
+      required: []
+
+  - name: save_digest
+    description: >-
+      Lưu một bản digest markdown đã hoàn chỉnh thành file trong outputs/.
+      Đây là hành động ghi file, có confirmation boundary bắt buộc. LUÔN gọi lần
+      đầu với confirmed=false để người dùng xem preview, rồi chỉ gọi lại với
+      confirmed=true sau khi người dùng đồng ý rõ ràng. TUYỆT ĐỐI không đặt
+      confirmed=true ngay lần gọi đầu tiên. Cần markdown đã render sẵn, thường là
+      output của format; tool này không tự tóm tắt hay tự viết nội dung.
+    parameters:
+      type: object
+      properties:
+        markdown: {type: string, default: "", description: "Nội dung markdown hoàn chỉnh cần lưu"}
+        filename: {type: string, default: "", description: "Tên file; bỏ trống để tự sinh theo timestamp"}
+        confirmed: {type: boolean, default: false, description: "Chỉ đặt true sau khi người dùng đã xác nhận preview"}
+      required: [markdown]
+
+  - name: dedupe
+    description: >-
+      Khử trùng lặp một danh sách item đã thu thập và kiểm tra độ đa dạng nguồn.
+      DÙNG khi đã có kết quả từ ít nhất hai tool tìm kiếm khác nhau và cần gộp
+      lại trước khi trình bày. KHÔNG DÙNG khi chỉ có một nguồn hoặc một item,
+      lúc đó không có gì để khử. Tool này không tìm kiếm gì cả, nó chỉ xử lý
+      danh sách bạn truyền vào.
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item đã thu thập"
+          items:
+            type: object
+            properties:
+              title: {type: string}
+              url: {type: string}
+              source: {type: string}
+              summary: {type: string}
+        match_by: {type: string, enum: [url, title], default: "url", description: "url so domain+path; title so độ tương đồng tiêu đề"}
+        min_sources: {type: integer, default: 2, description: "Số nguồn khác nhau tối thiểu để coi là đủ đa dạng"}
+      required: [items]
