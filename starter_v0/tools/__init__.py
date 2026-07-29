@@ -9,11 +9,15 @@ import yaml
 # The imported function names are the underlying implementations (unchanged).
 from .clarify.tool import ask_user
 from .papers.tool import arxiv_search
+from .dedupe.tool import dedupe_items
 from .paper_text.tool import get_arxiv_paper_text
+from .now.tool import get_current_time
 from .timeline.tool import get_user_tweets
 from .fetch.tool import read_url
 from .format.tool import render_digest
+from .save_digest.tool import save_digest
 from .policy.tool import search_company_policy
+from .hn_search.tool import search_hackernews
 from .social_search.tool import search_tweets
 from .send.tool import send_telegram
 from .lookup.tool import web_search
@@ -35,6 +39,16 @@ TOOL_FUNCTIONS = {
     "policy": search_company_policy,
     "papers": arxiv_search,
     "paper_text": get_arxiv_paper_text,
+
+    # Team tools. Registered here so they can be smoke-tested and called
+    # directly, but deliberately NOT yet declared in artifacts/tools.yaml - the
+    # model only sees tools.yaml, so leaving them out keeps the v0 baseline
+    # untouched. They get declared in v2; see
+    # docs/superpowers/specs/2026-07-29-new-tools-design.md.
+    "hn_search": search_hackernews,
+    "now": get_current_time,
+    "save_digest": save_digest,
+    "dedupe": dedupe_items,
 }
 
 

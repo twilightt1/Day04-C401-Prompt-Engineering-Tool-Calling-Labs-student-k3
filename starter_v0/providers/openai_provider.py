@@ -2,9 +2,23 @@ from __future__ import annotations
 
 import json
 import os
+import time
 from typing import Any
 
 from providers.base import ModelResponse, ToolCall
+
+
+MAX_ATTEMPTS = 3
+RETRY_BACKOFF_SECONDS = 2.0
+
+
+def _empty_response_detail(resp: Any) -> str:
+    payload = resp.model_dump() if hasattr(resp, "model_dump") else {}
+    error = payload.get("error") if isinstance(payload, dict) else None
+    if isinstance(error, dict) and error.get("message"):
+        code = error.get("code")
+        return f"{error['message']}" + (f" (code {code})" if code else "")
+    return "response contained no choices"
 
 
 class OpenAIProvider:
@@ -50,7 +64,20 @@ class OpenAIProvider:
         if tool_choice is not None:
             kwargs["tool_choice"] = tool_choice
 
-        resp = client.chat.completions.create(**kwargs)
+        # OpenRouter answers HTTP 200 with an error payload and no `choices` when
+        # the upstream model is rate-limited, so an empty choices list is a
+        # transient condition to retry rather than a malformed SDK response.
+        detail = ""
+        for attempt in range(1, MAX_ATTEMPTS + 1):
+            resp = client.chat.completions.create(**kwargs)
+            if resp.choices:
+                break
+            detail = _empty_response_detail(resp)
+            if attempt < MAX_ATTEMPTS:
+                time.sleep(RETRY_BACKOFF_SECONDS * attempt)
+        else:
+            raise RuntimeError(f"Provider returned no choices after {MAX_ATTEMPTS} attempts: {detail}")
+
         msg = resp.choices[0].message
         calls: list[ToolCall] = []
         for call in msg.tool_calls or []:

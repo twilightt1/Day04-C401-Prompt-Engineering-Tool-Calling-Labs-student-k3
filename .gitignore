@@ -16,6 +16,8 @@ starter/
 
 # Tool scratch output
 arxiv_papers/
+outputs/
+docs/*
 
 # OS / editor
 .DS_Store
