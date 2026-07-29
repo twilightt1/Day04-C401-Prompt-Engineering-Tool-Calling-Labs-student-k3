@@ -9,13 +9,27 @@
 tools:
   # ---------------- Core tools ----------------
   - name: clarify
-    description: "Gửi một câu hỏi cho người dùng."
+    description: >-
+      Hỏi lại người dùng khi thiếu thông tin bắt buộc, hoặc để xin xác nhận
+      trước một hành động có tác dụng ra bên ngoài (gửi, đăng, publish, ghi
+      file). Đây là tool duy nhất được phép hỏi ngược người dùng; đừng đoán bừa
+      giá trị còn thiếu rồi gọi thẳng tool khác.
     parameters:
       type: object
       properties:
-        question: {type: string, default: "", description: "Câu hỏi"}
-        response_type: {type: string, enum: [text, yes_no, choice], default: "text", description: "Kiểu trả lời"}
-        options: {type: array, default: [], items: {type: string}, description: "Các lựa chọn"}
+        question: {type: string, default: "", description: "Câu hỏi gửi cho người dùng"}
+        response_type:
+          type: string
+          enum: [text, yes_no, choice]
+          description: >-
+            Chọn theo bản chất câu hỏi, không phải theo mặc định.
+            "yes_no" khi cần người dùng xác nhận trước một hành động gửi/đăng/
+            publish/ghi file. "text" khi thiếu một giá trị tự do như tên tài
+            khoản hay URL. "choice" khi có sẵn danh sách lựa chọn hữu hạn.
+            QUY TẮC ƯU TIÊN: nếu request là hành động gửi/đăng và đồng thời còn
+            thiếu chi tiết, vẫn phải dùng "yes_no" trước - xác nhận ranh giới
+            hành động luôn đi trước việc hỏi chi tiết còn thiếu.
+        options: {type: array, default: [], items: {type: string}, description: "Danh sách lựa chọn, chỉ dùng khi response_type=choice"}
       required: [question]
 
   - name: timeline
